@@ -21,7 +21,7 @@ import {
 } from '@/app/components/base/icons/src/vender/workflow'
 import AppIcon from '@/app/components/base/app-icon'
 
-import { API_PREFIX, AUTH_WAY, PUBLIC_PATH } from '@/config'
+import { AUTH_WAY, PUBLIC_PATH } from '@/config'
 
 type BlockIconProps = {
   type: BlockEnum

@@ -45,7 +45,8 @@ const nextConfig = {
     ]
   },
   output: 'standalone',
-  assetPrefix: process.env.NEXT_PUBLIC_PUBLIC_PATH,
+  // assetPrefix: process.env.NEXT_PUBLIC_PUBLIC_PATH,
+  basePath: process.env.NEXT_PUBLIC_PUBLIC_PATH,
 }
 
 module.exports = withMDX(nextConfig)

@@ -36,7 +36,7 @@ else {
   publicApiPrefix = 'http://localhost:5001/api' // avoid browser private mode api cross origin
   // 默认非福诺
   authWay = 'SIGN'
-  publicPath = '/ai'
+  publicPath = '/aiw'
 }
 // 导出环境判断
 export const AUTH_WAY: string = authWay
