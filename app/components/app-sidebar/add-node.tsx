@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useStoreApi } from 'reactflow'
 import NavLink from './navLink2'
 import useBreakpoints, { MediaType } from '@/hooks/use-breakpoints'
+import s from './style.module.css'
 import {
   AlignLeft02,
   AlignRight02,
@@ -78,8 +79,8 @@ const AppDetailNav = ({ changeExpand }: IAppDetailNavProps) => {
     >
       <div
         className={`
-          shrink-0 text-[18px] border-b border-divider-burn
-          ${expand ? 'px-5 py-[10px]' : 'p-2 text-center'}
+          shrink-0 text-[18px] border-b border-divider-burn font-semibold
+          ${expand ? 'px-5 py-[10px]' : 'p-2 text-center'} ${s.sideTitle}
         `}
       >
         {expand ? t('workflow.common.addBlock') : t('workflow.common.block')}

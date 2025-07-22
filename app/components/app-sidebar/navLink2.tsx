@@ -15,6 +15,7 @@ import { XCircle } from '@/app/components/base/icons/src/vender/solid/general'
 import {
   SearchIcon,
 } from '@/app/components/base/icons/src/vender/line/others'
+import s from './style.module.css'
 
 type NodeSelectorProps = {
   onSelect: OnSelectBlock
@@ -42,7 +43,7 @@ const NodeSelector: FC<NodeSelectorProps> = ({
         expand && (
           <div className='pr-4'>
             <div
-              className='flex items-center px-2 rounded-[10px] bg-[#f6f7fa]'
+              className={`flex items-center px-2 rounded-[10px] ${s.sideSearch}`}
               onClick={e => e.stopPropagation()}
             >
               <input
@@ -55,14 +56,14 @@ const NodeSelector: FC<NodeSelectorProps> = ({
               {
                 searchText && (
                   <div
-                    className='flex items-center justify-center ml-[5px] w-[18px] h-[18px] cursor-pointer'
+                    className='flex items-center justify-center ml-[2px] w-[18px] h-[18px] cursor-pointer'
                     onClick={() => setSearchText('')}
                   >
                     <XCircle className='w-[14px] h-[14px] text-gray-400' />
                   </div>
                 )
               }
-              {!searchText && <SearchIcon className='shrink-0 w-[16px] h-[16px] text-[#3B6CE4] ml-[5px]'/>}
+              {!searchText && <SearchIcon className='shrink-0 w-[16px] h-[16px] text-[#3B6CE4] ml-[2px]'/>}
             </div>
           </div>
         )

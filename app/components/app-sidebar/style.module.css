@@ -9,3 +9,11 @@ background-image: url('./completion.png')
 .expertPic {
 background-image: url('./expert.png')
 }
+
+.sideTitle {
+    color: #0a152b;
+}
+
+.sideSearch { 
+    border: 1px solid #f0f0f0;
+}
