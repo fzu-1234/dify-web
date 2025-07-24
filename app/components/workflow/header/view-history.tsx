@@ -104,13 +104,14 @@ const ViewHistory = ({
                 popupContent={t('workflow.common.viewRunHistory')}
               >
                 <div
-                  className={cn('group flex items-center justify-center w-8 h-8 rounded-md hover:bg-state-accent-hover cursor-pointer btn-secondary mr-2', open && 'bg-state-accent-hover')}
+                  className={cn('group flex items-center justify-center h-8 rounded-md hover:bg-state-accent-hover cursor-pointer btn-secondary mr-2 text-[13px] px-2.5')}
                   onClick={() => {
                     setCurrentLogItem()
                     setShowMessageLogModal(false)
                   }}
                 >
-                  <ClockPlay className={cn('w-4 h-4 group-hover:text-components-button-secondary-accent-text', open ? 'text-components-button-secondary-accent-text' : 'text-components-button-ghost-text')} />
+                  <ClockPlay className={cn('w-4 h-4 group-hover:text-components-button-secondary-accent-text mr-1', open ? 'text-components-button-secondary-accent-text' : 'text-components-button-ghost-text')} />
+                  <span className={cn('group-hover:text-components-button-secondary-accent-text',open ? 'text-components-button-secondary-accent-text' : 'text-components-button-ghost-text')}>{t('workflow.common.history')}</span>
                 </div>
               </Tooltip>
             )
