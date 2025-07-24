@@ -10,7 +10,7 @@ const config = {
   theme: {
     typography: require('./typography'),
     fontFamily: {
-      sans: ['PingFang SC','Helvetica Neue', 'Helvetica','Microsoft YaHei','微软雅⿊','ui-sans-serif', 'system-ui', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'],
+      sans: ['PingFang SC' , 'Microsoft YaHei','ui-sans-serif', 'system-ui', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'],
       mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
     },
     extend: {

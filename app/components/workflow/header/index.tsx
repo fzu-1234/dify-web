@@ -4,7 +4,7 @@ import {
   useCallback,
   useMemo,
 } from 'react'
-import { RiApps2AddLine } from '@remixicon/react'
+import { RiApps2AddLine,RiFunctionLine } from '@remixicon/react'
 import { useNodes } from 'reactflow'
 import { useTranslation } from 'react-i18next'
 import { useContext } from 'use-context-selector'
@@ -177,11 +177,11 @@ const Header: FC = () => {
             {isChatMode && <ChatVariableButton disabled={nodesReadOnly} />}
             <EnvButton disabled={nodesReadOnly} />
             <Divider type='vertical' className='h-3.5 mx-auto' />
-            <RunAndHistory />
             <Button className='text-components-button-secondary-text' onClick={handleShowFeatures}>
-              <RiApps2AddLine className='w-4 h-4 mr-1 text-components-button-secondary-text' />
+              <RiFunctionLine className='w-4 h-4 mr-1 text-components-button-secondary-text' />
               {t('workflow.common.features')}
             </Button>
+             <RunAndHistory />
            { AUTH_WAY === 'SIGN' && <AppPublisher
               {...{
                 publishedAt,
@@ -219,7 +219,7 @@ const Header: FC = () => {
           <div className='flex flex-col mt-auto'>
             <div className='flex items-center justify-end my-4'>
               <Button className='text-components-button-secondary-text' onClick={handleShowFeatures}>
-                <RiApps2AddLine className='w-4 h-4 mr-1 text-components-button-secondary-text' />
+                <RiFunctionLine className='w-4 h-4 mr-1 text-components-button-secondary-text' />
                 {t('workflow.common.features')}
               </Button>
               <div className='mx-2 w-[1px] h-3.5 bg-gray-200'></div>

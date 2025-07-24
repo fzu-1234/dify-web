@@ -4,7 +4,7 @@ import {
   useState,
 } from 'react'
 import { useKeyPress } from 'ahooks'
-import { RiCloseLine, RiEqualizer2Line } from '@remixicon/react'
+import { RiCloseLine, RiEqualizer2Line,RiEqualizer3Line } from '@remixicon/react'
 import { useTranslation } from 'react-i18next'
 import { useNodes } from 'reactflow'
 import {
@@ -82,7 +82,7 @@ const DebugAndPreview = () => {
                 popupContent={t('workflow.panel.userInputField')}
               >
                 <ActionButton state={expanded ? ActionButtonState.Active : undefined} onClick={() => setExpanded(!expanded)}>
-                  <RiEqualizer2Line className='w-4 h-4' />
+                  <RiEqualizer3Line className='w-4 h-4' />
                 </ActionButton>
               </Tooltip>
               {expanded && <div className='absolute z-10 bottom-[-17px] right-[5px] w-3 h-3 bg-components-panel-on-panel-item-bg border-l-[0.5px] border-t-[0.5px] border-components-panel-border-subtle rotate-45'/>}

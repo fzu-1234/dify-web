@@ -6,7 +6,7 @@ import {
 } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
-  RiPlayLargeLine,
+  RiPlayLargeLine,RiPlayCircleLine
 } from '@remixicon/react'
 import {
   useNodeDataUpdate,
@@ -72,7 +72,7 @@ const NodeControl: FC<NodeControlProps> = ({
                       popupContent={t('workflow.panel.runThisStep')}
                       asChild={false}
                     >
-                      <RiPlayLargeLine className='w-3 h-3' />
+                      <RiPlayCircleLine className='w-3 h-3' />
                     </Tooltip>
                   )
               }

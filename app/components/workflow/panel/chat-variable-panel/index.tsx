@@ -7,7 +7,7 @@ import { useContext } from 'use-context-selector'
 import {
   useStoreApi,
 } from 'reactflow'
-import { RiBookOpenLine, RiCloseLine } from '@remixicon/react'
+import { RiBookOpenLine, RiCloseLine,RiBookReadLine } from '@remixicon/react'
 import { useTranslation } from 'react-i18next'
 import { useStore } from '@/app/components/workflow/store'
 import ActionButton, { ActionButtonState } from '@/app/components/base/action-button'
@@ -123,7 +123,7 @@ const ChatVariablePanel = () => {
         {t('workflow.chatVariable.panelTitle')}
         <div className='flex items-center gap-1'>
           <ActionButton state={showTip ? ActionButtonState.Active : undefined} onClick={() => setShowTip(!showTip)}>
-            <RiBookOpenLine className='w-4 h-4' />
+            <RiBookReadLine className='w-4 h-4' />
           </ActionButton>
           <div
             className='flex items-center justify-center w-6 h-6 cursor-pointer'

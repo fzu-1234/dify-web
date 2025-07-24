@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import useSWR from 'swr'
 import produce from 'immer'
 import { useContext } from 'use-context-selector'
-import { RiEqualizer2Line } from '@remixicon/react'
+import { RiEqualizer2Line ,RiEqualizer3Line} from '@remixicon/react'
 import { ContentModeration } from '@/app/components/base/icons/src/vender/features'
 import FeatureCard from '@/app/components/base/features/new-feature-panel/feature-card'
 import Button from '@/app/components/base/button'
@@ -162,7 +162,7 @@ const Moderation = ({
             )}
             {isHovering && (
               <Button className='w-full' onClick={handleOpenModerationSettingModal} disabled={disabled}>
-                <RiEqualizer2Line className='mr-1 w-4 h-4' />
+                <RiEqualizer3Line className='mr-1 w-4 h-4' />
                 {t('common.operation.settings')}
               </Button>
             )}

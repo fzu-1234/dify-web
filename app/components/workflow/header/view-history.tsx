@@ -104,7 +104,7 @@ const ViewHistory = ({
                 popupContent={t('workflow.common.viewRunHistory')}
               >
                 <div
-                  className={cn('group flex items-center justify-center w-7 h-7 rounded-md hover:bg-state-accent-hover cursor-pointer', open && 'bg-state-accent-hover')}
+                  className={cn('group flex items-center justify-center w-8 h-8 rounded-md hover:bg-state-accent-hover cursor-pointer btn-secondary mr-2', open && 'bg-state-accent-hover')}
                   onClick={() => {
                     setCurrentLogItem()
                     setShowMessageLogModal(false)

@@ -3,7 +3,7 @@ import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   RiLoader2Line,
-  RiPlayLargeLine,
+  RiPlayCircleLine,
 } from '@remixicon/react'
 import { useStore } from '../store'
 import {
@@ -49,7 +49,7 @@ const RunMode = memo(() => {
             )
             : (
               <>
-                <RiPlayLargeLine className='mr-1 w-4 h-4' />
+                <RiPlayCircleLine className='mr-1 w-4 h-4' />
                 {t('workflow.common.run')}
               </>
             )
@@ -77,12 +77,12 @@ const PreviewMode = memo(() => {
   return (
     <div
       className={cn(
-        'flex items-center px-2.5 h-7 rounded-md text-[13px] font-medium text-components-button-secondary-accent-text',
-        'hover:bg-state-accent-hover cursor-pointer',
+        'flex items-center px-2.5 h-8 rounded-md text-[13px] font-medium text-components-button-secondary-accent-text',
+        'hover:bg-state-accent-hover cursor-pointer btn-secondary',
       )}
       onClick={() => handleWorkflowStartRunInChatflow()}
     >
-      <RiPlayLargeLine className='mr-1 w-4 h-4' />
+      <RiPlayCircleLine className='mr-1 w-4 h-4' />
       {t('workflow.common.debugAndPreview')}
     </div>
   )
@@ -94,14 +94,14 @@ const RunAndHistory: FC = () => {
   const { nodesReadOnly } = useNodesReadOnly()
 
   return (
-    <div className='flex items-center px-0.5 h-8 rounded-lg border-[0.5px] border-components-button-secondary-border bg-components-button-secondary-bg shadow-xs'>
+    <div className='flex items-center px-0.5 h-8 rounded-lg border-[0px] border-components-button-secondary-border'>
       {
         !isChatMode && <RunMode />
       }
       {
         isChatMode && <PreviewMode />
       }
-      <div className='mx-0.5 w-[1px] h-3.5 bg-divider-regular'></div>
+      <div className='mx-2 w-[1px] h-3.5 bg-divider-regular'></div>
       <ViewHistory />
       <Checklist disabled={nodesReadOnly} />
     </div>

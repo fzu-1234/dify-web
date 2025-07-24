@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
-  RiEqualizer2Line,
+  RiEqualizer2Line,RiEqualizer3Line
 } from '@remixicon/react'
 import Image from 'next/image'
 import Button from '../../base/button'
@@ -119,7 +119,7 @@ const TextAreaWithButton = ({
                 size='small'
                 onClick={() => setIsSettingsOpen(!isSettingsOpen)}
               >
-                <RiEqualizer2Line className='text-components-button-secondary-text w-3.5 h-3.5' />
+                <RiEqualizer3Line className='text-components-button-secondary-text w-3.5 h-3.5' />
                 <div className='flex px-[3px] justify-center items-center gap-1'>
                   <span className='text-components-button-secondary-text system-xs-medium'>{t('datasetHitTesting.settingTitle')}</span>
                 </div>
@@ -130,7 +130,7 @@ const TextAreaWithButton = ({
               >
                 {icon}
                 <div className='text-text-secondary text-xs font-medium uppercase'>{t(`dataset.retrieval.${retrievalMethod}.title`)}</div>
-                <RiEqualizer2Line className='size-4 text-components-menu-item-text'></RiEqualizer2Line>
+                <RiEqualizer3Line className='size-4 text-components-menu-item-text'></RiEqualizer3Line>
               </div>
             }
           </div>

@@ -3,7 +3,7 @@ import {
   useCallback,
   useState,
 } from 'react'
-import { RiAddCircleFill } from '@remixicon/react'
+import { RiAddCircleFill,RiAddCircleLine } from '@remixicon/react'
 import { useStoreApi } from 'reactflow'
 import { useTranslation } from 'react-i18next'
 import type { OffsetOptions } from '@floating-ui/react'
@@ -82,7 +82,7 @@ const AddBlock = ({
           `${nodesReadOnly && 'cursor-not-allowed text-text-disabled hover:bg-transparent hover:text-text-disabled'}`,
           open && 'bg-state-accent-active text-text-accent',
         )}>
-          <RiAddCircleFill className='w-4 h-4' />
+          <RiAddCircleLine className='w-4 h-4' />
         </div>
       </TipPopup>
     )

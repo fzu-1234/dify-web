@@ -91,7 +91,7 @@ const BaseNode: FC<BaseNodeProps> = ({
   return (
     <div
       className={cn(
-        'flex border-[2px] rounded-2xl',
+        'flex border-[2px] rounded-lg',
         showSelectedBorder ? 'border-components-option-card-option-selected-border' : 'border-transparent',
         !showSelectedBorder && data._inParallelHovering && 'border-workflow-block-border-highlight',
         data._waitingRun && 'opacity-70',
@@ -105,7 +105,7 @@ const BaseNode: FC<BaseNodeProps> = ({
       <div
         className={cn(
           'group relative pb-1 shadow-xs',
-          'border border-transparent rounded-[15px]',
+          'border border-transparent rounded-[10px]',
           data.type !== BlockEnum.Iteration && 'w-[240px] bg-workflow-block-bg',
           data.type === BlockEnum.Iteration && 'flex flex-col w-full h-full bg-workflow-block-bg-transparent border-workflow-block-border',
           !data._runningStatus && 'hover:shadow-lg',

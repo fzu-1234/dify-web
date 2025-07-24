@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { usePathname, useRouter } from 'next/navigation'
 import produce from 'immer'
-import { RiEqualizer2Line, RiExternalLinkLine } from '@remixicon/react'
+import { RiEqualizer2Line, RiExternalLinkLine,RiEqualizer3Line } from '@remixicon/react'
 import { MessageFast } from '@/app/components/base/icons/src/vender/features'
 import FeatureCard from '@/app/components/base/features/new-feature-panel/feature-card'
 import Button from '@/app/components/base/button'
@@ -110,7 +110,7 @@ const AnnotationReply = ({
               {isHovering && (
                 <div className='flex items-center justify-between'>
                   <Button className='w-[178px]' onClick={() => setIsShowAnnotationConfigInit(true)} disabled={disabled}>
-                    <RiEqualizer2Line className='mr-1 w-4 h-4' />
+                    <RiEqualizer3Line className='mr-1 w-4 h-4' />
                     {t('common.operation.params')}
                   </Button>
                   <Button className='w-[178px]' onClick={() => {

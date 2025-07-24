@@ -10,6 +10,7 @@ import {
 import {
   RiCloseLine,
   RiPlayLargeLine,
+  RiPlayCircleLine
 } from '@remixicon/react'
 import { useShallow } from 'zustand/react/shallow'
 import { useTranslation } from 'react-i18next'
@@ -145,7 +146,7 @@ const BasePanel: FC<BasePanelProps> = ({
                         handleSyncWorkflowDraft(true)
                       }}
                     >
-                      <RiPlayLargeLine className='w-4 h-4 text-text-tertiary' />
+                      <RiPlayCircleLine className='w-4 h-4 text-text-tertiary' />
                     </div>
                   </Tooltip>
                 )
