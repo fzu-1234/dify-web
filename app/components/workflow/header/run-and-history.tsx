@@ -31,8 +31,8 @@ const RunMode = memo(() => {
     <>
       <div
         className={cn(
-          'flex items-center px-2.5 h-7 rounded-md text-[13px] font-medium text-components-button-secondary-accent-text',
-          'hover:bg-state-accent-hover cursor-pointer',
+          'flex items-center px-2.5 h-8 rounded-md text-[13px] font-medium text-components-button-secondary-accent-text',
+          'hover:bg-state-accent-hover cursor-pointer btn-secondary',
           isRunning && 'bg-state-accent-hover !cursor-not-allowed',
         )}
         onClick={() => {

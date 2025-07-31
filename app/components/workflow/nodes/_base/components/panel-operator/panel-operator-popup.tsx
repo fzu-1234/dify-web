@@ -184,7 +184,7 @@ const PanelOperatorPopup = ({
             {t('workflow.panel.about').toLocaleUpperCase()}
           </div>
           <div className='mb-1 text-gray-700 leading-[18px]'>{about}</div>
-          <div className='leading-[18px]'>
+          <div className='leading-[18px]' style={{ display: 'none' }}>
             {t('workflow.panel.createdBy')} {author}
           </div>
         </div>

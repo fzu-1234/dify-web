@@ -25,7 +25,7 @@ const translation = {
     callTimes: '调用次数',
     usedToken: '使用 Tokens',
     setAPIBtn: '设置模型提供商',
-    tryCloud: '或者尝试使用 Dify 的云版本并使用试用配额',
+    tryCloud: '或者尝试使用云版本并使用试用配额',
   },
   overview: {
     title: '概览',
@@ -70,7 +70,7 @@ const translation = {
           copyRightPlaceholder: '请输入作者或组织名称',
           privacyPolicy: '隐私政策',
           privacyPolicyPlaceholder: '请输入隐私政策链接',
-          privacyPolicyTip: '帮助访问者了解该应用收集的数据，可参考 Dify 的<privacyPolicyLink>隐私政策</privacyPolicyLink>。',
+          privacyPolicyTip: '帮助访问者了解该应用收集的数据，可参考<privacyPolicyLink>隐私政策</privacyPolicyLink>。',
           customDisclaimer: '自定义免责声明',
           customDisclaimerPlaceholder: '请输入免责声明',
           customDisclaimerTip: '在应用中展示免责声明，可用于告知用户 AI 的局限性。',

@@ -173,7 +173,7 @@ const translation = {
     notEqual: '兩個密碼不相同',
     confirmPassword: '確認密碼',
     langGeniusAccount: 'Dify 賬號',
-    langGeniusAccountTip: '您的 Dify 賬號和相關的使用者資料。',
+    langGeniusAccountTip: '您的賬號和相關的使用者資料。',
     editName: '編輯名字',
     showAppLength: '顯示 {{length}} 個應用',
     delete: '刪除帳戶',
