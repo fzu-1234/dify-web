@@ -13,6 +13,7 @@
 set -e
 
 export NEXT_PUBLIC_DEPLOY_ENV=${DEPLOY_ENV}
+export NEXT_PUBLIC_PUBLIC_PATH=${NEXT_PUBLIC_PUBLIC_PATH}
 export NEXT_PUBLIC_EDITION=${EDITION}
 export NEXT_PUBLIC_API_PREFIX=${CONSOLE_API_URL}/ai-portal/proxy/console/api
 export NEXT_PUBLIC_PUBLIC_API_PREFIX=${APP_API_URL}/api
@@ -28,5 +29,9 @@ export NEXT_PUBLIC_INDEXING_MAX_SEGMENTATION_TOKENS_LENGTH=${INDEXING_MAX_SEGMEN
 
 export NEXT_PUBLIC_AUTH_WAY=${AUTH_WAY}
 export NEXT_PUBLIC_PUBLIC_PATH=${NEXT_PUBLIC_PATH}
+
+# Replace /_next/static with NEXT_PUBLIC_PUBLIC_PATH in all HTML files
+find /app -name "*.html" -type f -exec sed -i "s|/_next/static|${NEXT_PUBLIC_PUBLIC_PATH}/_next/static|g" {} \;
+find /app -name "*.js" -type f -exec sed -i "s|/_next/static|${NEXT_PUBLIC_PUBLIC_PATH}/_next/static|g" {} \;
 
 pm2 start ./pm2.json --no-daemon
