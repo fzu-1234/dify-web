@@ -374,6 +374,7 @@ const Workflow: FC<WorkflowProps> = memo(({
         selectionMode={SelectionMode.Partial}
         selectionOnDrag={controlMode === ControlMode.Pointer && !workflowReadOnly}
         minZoom={0.25}
+        attributionPosition={null}
       >
         <Background
           gap={[14, 14]}
