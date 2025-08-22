@@ -85,7 +85,7 @@ const PanelOperatorPopup = ({
   return (
     <div className='w-[240px] border-[0.5px] border-gray-200 rounded-lg shadow-xl bg-white'>
       {
-        (showChangeBlock || canRunBySingle(data.type)) && (
+        (showChangeBlock || canRunBySingle(data.type)) && false && (
           <>
             <div className='p-1'>
               {
@@ -125,7 +125,7 @@ const PanelOperatorPopup = ({
           <>
             <div className='p-1'>
               <div
-                className='flex items-center justify-between px-3 h-8 text-sm text-gray-700 rounded-lg cursor-pointer hover:bg-gray-50'
+                className='flex hidden items-center justify-between px-3 h-8 text-sm text-gray-700 rounded-lg cursor-pointer hover:bg-gray-50 '
                 onClick={() => {
                   onClosePopup()
                   handleNodesCopy(id)
@@ -163,7 +163,7 @@ const PanelOperatorPopup = ({
         )
       }
       {
-        showHelpLink && (
+        showHelpLink && false && (
           <>
             <div className='p-1'>
               <a
@@ -178,7 +178,7 @@ const PanelOperatorPopup = ({
           </>
         )
       }
-      <div className='p-1'>
+      <div className='p-1 hidden'>
         <div className='px-3 py-2 text-xs text-gray-500'>
           <div className='flex items-center mb-1 h-[22px] font-medium'>
             {t('workflow.panel.about').toLocaleUpperCase()}

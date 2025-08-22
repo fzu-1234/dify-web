@@ -1,9 +1,11 @@
 import { memo } from 'react'
+import { useTranslation } from 'react-i18next'
 import Button from '@/app/components/base/button'
 import { BubbleX } from '@/app/components/base/icons/src/vender/line/others'
 import { useStore } from '@/app/components/workflow/store'
 
 const ChatVariableButton = ({ disabled }: { disabled: boolean }) => {
+  const { t } = useTranslation()
   const setShowChatVariablePanel = useStore(s => s.setShowChatVariablePanel)
   const setShowEnvPanel = useStore(s => s.setShowEnvPanel)
   const setShowDebugAndPreviewPanel = useStore(s => s.setShowDebugAndPreviewPanel)
@@ -15,8 +17,9 @@ const ChatVariableButton = ({ disabled }: { disabled: boolean }) => {
   }
 
   return (
-    <Button className='p-2' disabled={disabled} onClick={handleClick}>
-      <BubbleX className='w-4 h-4 text-components-button-secondary-text' />
+    <Button className='' disabled={disabled} onClick={handleClick}>
+      <BubbleX className='w-4 h-4 text-components-button-secondary-text mr-1' />
+      {t('workflow.chatVariable.panelTitle')}
     </Button>
   )
 }

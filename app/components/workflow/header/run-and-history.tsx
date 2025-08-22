@@ -102,7 +102,7 @@ const RunAndHistory: FC = () => {
         isChatMode && <PreviewMode />
       }
       <div className='mx-2 w-[1px] h-3.5 bg-divider-regular'></div>
-      <ViewHistory />
+      {/* <ViewHistory /> */}
       <Checklist disabled={nodesReadOnly} />
     </div>
   )

@@ -39,7 +39,7 @@ const NodeControl: FC<NodeControlProps> = ({
   return (
     <div
       className={`
-      hidden group-hover:flex pb-1 absolute right-0 -top-7 h-7
+      hidden group-hover:flex pb-1 absolute right-3 top-3 h-7
       ${data.selected && '!flex'}
       ${open && '!flex'}
       `}

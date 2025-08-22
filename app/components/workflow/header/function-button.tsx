@@ -152,26 +152,10 @@ const Header: FC = () => {
 
   return (
     <div
-      className='absolute top-0 left-0 z-10 flex items-center justify-between w-full px-3 h-14 bg-mask-top2bottom-gray-50-to-transparent'
+      className='absolute left-1/2 transform -translate-x-1/2 z-10 flex items-center justify-between w-auto px-3 h-14 bg-mask-top2bottom-gray-50-to-transparent bottom-4'
     >
-      <div>
-        {
-          appSidebarExpand === 'collapse' && (
-            <div className='system-xs-regular text-text-tertiary'>{appDetail?.name}</div>
-          )
-        }
-        {
-          normal && <EditingTitle />
-        }
-        {
-          viewHistory && <RunningTitle />
-        }
-        {
-          restoring && <RestoringTitle />
-        }
-      </div>
       {
-        normal && false && (
+        normal && (
           <div className='flex items-center gap-2'>
             {/* <GlobalVariableButton disabled={nodesReadOnly} /> */}
             {isChatMode && <ChatVariableButton disabled={nodesReadOnly} />}
@@ -200,7 +184,7 @@ const Header: FC = () => {
         )
       }
       {
-        viewHistory && false && (
+        viewHistory && (
           <div className='flex items-center space-x-2'>
             <ViewHistory withText />
             <Divider type='vertical' className='h-3.5 mx-auto' />
@@ -215,7 +199,7 @@ const Header: FC = () => {
         )
       }
       {
-        restoring && false && (
+        restoring && (
           <div className='flex flex-col mt-auto'>
             <div className='flex items-center justify-end my-4'>
               <Button className='text-components-button-secondary-text' onClick={handleShowFeatures}>

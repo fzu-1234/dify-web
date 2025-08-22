@@ -134,7 +134,7 @@ const BasePanel: FC<BasePanelProps> = ({
             />
             <div className='shrink-0 flex items-center text-gray-500'>
               {
-                canRunBySingle(data.type) && !nodesReadOnly && (
+                canRunBySingle(data.type) && !nodesReadOnly && false && (
                   <Tooltip
                     popupContent={t('workflow.panel.runThisStep')}
                     popupClassName='mr-1'
@@ -151,9 +151,9 @@ const BasePanel: FC<BasePanelProps> = ({
                   </Tooltip>
                 )
               }
-              <HelpLink nodeType={data.type} />
-              <PanelOperator id={id} data={data} showHelpLink={false} />
-              <div className='mx-3 w-[1px] h-3.5 bg-divider-regular' />
+              {/* <HelpLink nodeType={data.type} /> */}
+              {/* <PanelOperator id={id} data={data} showHelpLink={false} /> */}
+              {/* <div className='mx-3 w-[1px] h-3.5 bg-divider-regular' /> */}
               <div
                 className='flex items-center justify-center w-6 h-6 cursor-pointer'
                 onClick={() => handleNodeSelect(id, true)}

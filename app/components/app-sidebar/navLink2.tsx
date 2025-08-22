@@ -40,7 +40,7 @@ const NodeSelector: FC<NodeSelectorProps> = ({
           grow space-y-1 overflow-hidden
           ${expand ? 'pt-4 pl-4' : 'pt-4'}`}>
       {
-        expand && (
+        expand && false && (
           <div className='pr-4'>
             <div
               className={`flex items-center px-2 rounded-[10px] ${s.sideSearch}`}

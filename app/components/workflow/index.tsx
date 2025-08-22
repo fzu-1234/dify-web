@@ -54,6 +54,7 @@ import {
   useWorkflowUpdate,
 } from './hooks'
 import Header from './header'
+import FunctionButton from './header/function-button'
 import CustomNode from './nodes'
 import CustomNoteNode from './note-node'
 import { CUSTOM_NOTE_NODE } from './note-node/constants'
@@ -297,6 +298,7 @@ const Workflow: FC<WorkflowProps> = memo(({
       <CandidateNode />
       <Header />
       <Panel />
+      <FunctionButton/>
       <Operator handleRedo={handleHistoryForward} handleUndo={handleHistoryBack} />
       {
         showFeaturesPanel && <Features />
@@ -374,7 +376,7 @@ const Workflow: FC<WorkflowProps> = memo(({
         selectionMode={SelectionMode.Partial}
         selectionOnDrag={controlMode === ControlMode.Pointer && !workflowReadOnly}
         minZoom={0.25}
-        attributionPosition={null}
+        proOptions={{ hideAttribution: true }}
       >
         <Background
           gap={[14, 14]}
