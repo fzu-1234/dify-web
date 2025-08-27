@@ -18,6 +18,9 @@ import {
   QuestionClassifier,
   TemplatingTransform,
   VariableX,
+  Workflow,
+  Toolbox,
+  Note,
 } from '@/app/components/base/icons/src/vender/workflow'
 import AppIcon from '@/app/components/base/app-icon'
 
@@ -40,6 +43,8 @@ const getIcon = (type: BlockEnum, className: string) => {
     [BlockEnum.LLM]: <Llm className={className} />,
     [BlockEnum.Code]: <Code className={className} />,
     [BlockEnum.End]: <End className={className} />,
+    [BlockEnum.Workflow]: <Workflow className={className} />,
+    [BlockEnum.Toolbox]: <Toolbox className={className} />,
     [BlockEnum.IfElse]: <IfElse className={className} />,
     [BlockEnum.HttpRequest]: <Http className={className} />,
     [BlockEnum.Answer]: <Answer className={className} />,
@@ -55,6 +60,7 @@ const getIcon = (type: BlockEnum, className: string) => {
     [BlockEnum.ParameterExtractor]: <ParameterExtractor className={className} />,
     [BlockEnum.DocExtractor]: <DocsExtractor className={className} />,
     [BlockEnum.ListFilter]: <ListFilter className={className} />,
+    [BlockEnum.Note]: <Note className={className} />,
   }[type]
 }
 const ICON_CONTAINER_BG_COLOR_MAP: Record<string, string> = {
@@ -62,6 +68,8 @@ const ICON_CONTAINER_BG_COLOR_MAP: Record<string, string> = {
   [BlockEnum.LLM]: 'bg-util-colors-violet-violet-500',
   [BlockEnum.Code]: 'bg-util-colors-indigo-indigo-500',
   [BlockEnum.End]: 'bg-util-colors-blue-blue-500',
+  [BlockEnum.Workflow]: 'bg-util-colors-blue-blue-500',
+  [BlockEnum.Toolbox]: 'bg-util-colors-green-green-500',
   [BlockEnum.IfElse]: 'bg-util-colors-green-green-500 ',
   [BlockEnum.Iteration]: 'bg-util-colors-green-green-500 ',
   [BlockEnum.HttpRequest]: 'bg-util-colors-warning-warning-500',
@@ -75,6 +83,7 @@ const ICON_CONTAINER_BG_COLOR_MAP: Record<string, string> = {
   [BlockEnum.ParameterExtractor]: 'bg-util-colors-indigo-indigo-500',
   [BlockEnum.DocExtractor]: 'bg-util-colors-cyan-cyan-500 ',
   [BlockEnum.ListFilter]: 'bg-util-colors-green-green-500 ',
+  [BlockEnum.Note]: 'bg-util-colors-cyan-cyan-500 ',
 }
 const BlockIcon: FC<BlockIconProps> = ({
   type,

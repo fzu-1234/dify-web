@@ -64,6 +64,9 @@ const translation = {
     copy: '拷贝',
     duplicate: '复制节点',
     addBlock: '添加节点',
+    block: '节点',
+    workflowTool: '工作流工具',
+    toolbox: '工具箱',
     pasteHere: '粘贴到这里',
     pointerMode: '指针模式',
     handMode: '手模式',
@@ -219,6 +222,7 @@ const translation = {
     'transform': '转换',
     'utilities': '工具',
     'noResult': '未找到匹配项',
+    'execute': '执行',
   },
   blocks: {
     'start': '开始',
@@ -239,6 +243,9 @@ const translation = {
     'parameter-extractor': '参数提取',
     'document-extractor': '文档解析',
     'list-operator': '列表操作',
+    'toolbox': '工具箱',
+    'workflow': '工作流',
+    'note': '注释',
   },
   blocksAbout: {
     'start': '定义一个 workflow 流程启动的初始参数',

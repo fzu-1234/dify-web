@@ -427,6 +427,16 @@ html[data-theme="light"] {
   --color-workflow-block-parma-bg: #F6F7FA;
   --color-workflow-block-bg: #fff;
   --color-workflow-block-bg-transparent: #FCFCFDE5;
+  --color-workflow-llm-block-bg:linear-gradient(#875bf780 0%, #fff 100%);
+  --color-workflow-kr-block-bg: linear-gradient(#06AeD480 0%, #fff 100%);
+  --color-workflow-tool-block-bg:linear-gradient(#17B26A80 0%, #fff 100%);
+  --color-workflow-workflow-block-bg:linear-gradient(#2E90FA80 0%, #fff 100%);
+  --color-workflow-normal-block-bg:linear-gradient(#6172F380 0%, #fff 100%);
+  --color-workflow-llm-block-border:#875bf7;
+  --color-workflow-kr-block-border: #06AeD4;
+  --color-workflow-tool-block-border:#17B26A;
+  --color-workflow-workflow-block-border:#2E90FA;
+  --color-workflow-normal-block-border:#6172F3;
   --color-workflow-block-border-highlight: #155AEF24;
 
   --color-workflow-canvas-workflow-dot-color: transparent;

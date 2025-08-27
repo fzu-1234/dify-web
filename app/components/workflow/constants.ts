@@ -4,6 +4,8 @@ import StartNodeDefault from './nodes/start/default'
 import AnswerDefault from './nodes/answer/default'
 import LLMDefault from './nodes/llm/default'
 import KnowledgeRetrievalDefault from './nodes/knowledge-retrieval/default'
+import WorkflowDefault from './nodes/workflow/default'
+import ToolboxDefault from './nodes/toolbox/default'
 import QuestionClassifierDefault from './nodes/question-classifier/default'
 import IfElseDefault from './nodes/if-else/default'
 import CodeDefault from './nodes/code/default'
@@ -18,6 +20,7 @@ import IterationDefault from './nodes/iteration/default'
 import DocExtractorDefault from './nodes/document-extractor/default'
 import ListFilterDefault from './nodes/list-operator/default'
 import IterationStartDefault from './nodes/iteration-start/default'
+import NoteDefault from './nodes/note/default'
 
 type NodesExtraData = {
   author: string
@@ -73,6 +76,24 @@ export const NODES_EXTRA_DATA: Record<BlockEnum, NodesExtraData> = {
     getAvailablePrevNodes: KnowledgeRetrievalDefault.getAvailablePrevNodes,
     getAvailableNextNodes: KnowledgeRetrievalDefault.getAvailableNextNodes,
     checkValid: KnowledgeRetrievalDefault.checkValid,
+  },
+  [BlockEnum.Workflow]: {
+    author: 'System',
+    about: '',
+    availablePrevNodes: [],
+    availableNextNodes: [],
+    getAvailablePrevNodes: WorkflowDefault.getAvailablePrevNodes,
+    getAvailableNextNodes: WorkflowDefault.getAvailableNextNodes,
+    checkValid: WorkflowDefault.checkValid,
+  },
+  [BlockEnum.Toolbox]: {
+    author: 'System',
+    about: '',
+    availablePrevNodes: [],
+    availableNextNodes: [],
+    getAvailablePrevNodes: ToolboxDefault.getAvailablePrevNodes,
+    getAvailableNextNodes: ToolboxDefault.getAvailableNextNodes,
+    checkValid: ToolboxDefault.checkValid,
   },
   [BlockEnum.IfElse]: {
     author: 'System',
@@ -200,7 +221,15 @@ export const NODES_EXTRA_DATA: Record<BlockEnum, NodesExtraData> = {
     getAvailableNextNodes: ListFilterDefault.getAvailableNextNodes,
     checkValid: ListFilterDefault.checkValid,
   },
-
+  [BlockEnum.Note]: {
+    author: 'System',
+    about: '',
+    availablePrevNodes: [],
+    availableNextNodes: [],
+    getAvailablePrevNodes: NoteDefault.getAvailablePrevNodes,
+    getAvailableNextNodes: NoteDefault.getAvailableNextNodes,
+    checkValid: NoteDefault.checkValid,
+  },
 }
 
 export const NODES_INITIAL_DATA = {
@@ -335,6 +364,12 @@ export const NODES_INITIAL_DATA = {
     title: '',
     desc: '',
     ...ListFilterDefault.defaultValue,
+  },
+  [BlockEnum.Note]: {
+    type: BlockEnum.Note,
+    title: '',
+    desc: '',
+    ...NoteDefault.defaultValue,
   },
 }
 export const MAX_ITERATION_PARALLEL_NUM = 10

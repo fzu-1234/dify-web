@@ -111,6 +111,11 @@ const config = {
         'dataset-option-card-purple-gradient': 'var(--color-dataset-option-card-purple-gradient)',
         'dataset-option-card-orange-gradient': 'var(--color-dataset-option-card-orange-gradient)',
         'dataset-chunk-list-mask-bg': 'var(--color-dataset-chunk-list-mask-bg)',
+        'workflow-llm-block-bg': 'var(--color-workflow-llm-block-bg)',
+        'workflow-kr-block-bg': 'var(--color-workflow-kr-block-bg)',
+        'workflow-tool-block-bg': 'var(--color-workflow-tool-block-bg)',
+        'workflow-workflow-block-bg': 'var(--color-workflow-workflow-block-bg)',
+        'workflow-normal-block-bg': 'var(--color-workflow-normal-block-bg)',
       },
       lineClamp: {
         '20': '20',

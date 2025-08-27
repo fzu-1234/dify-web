@@ -429,7 +429,11 @@ const vars = {
   'workflow-block-bg': 'var(--color-workflow-block-bg)',
   'workflow-block-bg-transparent': 'var(--color-workflow-block-bg-transparent)',
   'workflow-block-border-highlight': 'var(--color-workflow-block-border-highlight)',
-
+  'workflow-llm-block-border': 'var(--color-workflow-llm-block-border)',
+  'workflow-kr-block-border': 'var(--color-workflow-kr-block-border)',
+  'workflow-tool-block-border': 'var(--color-workflow-tool-block-border)',
+  'workflow-workflow-block-border': 'var(--color-workflow-workflow-block-border)',
+  'workflow-normal-block-border': 'var(--color-workflow-normal-block-border)',
   'workflow-canvas-workflow-dot-color': 'var(--color-workflow-canvas-workflow-dot-color)',
   'workflow-canvas-workflow-bg': 'var(--color-workflow-canvas-workflow-bg)',
 
