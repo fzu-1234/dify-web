@@ -73,7 +73,7 @@ const Blocks = ({
               selector={`workflow-block-${block.type}`}
               position='right'
               className='!p-0 !px-3 !py-2.5 !w-[200px] !leading-[18px] !text-xs !text-gray-700 !border-[0.5px] !border-black/5 !rounded-xl !shadow-lg space-x-1'
-              htmlContent={(
+              popupContent={(
                 <div>
                   <BlockIcon
                     size='md'
