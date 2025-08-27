@@ -34,7 +34,7 @@ const Blocks = ({
   const groups = useMemo(() => {
     return BLOCK_CLASSIFICATIONS.reduce((acc, classification) => {
       const list = groupBy(blocks, 'classification')[classification].filter((block) => {
-        if (block.type === BlockEnum.Answer && !isChatMode)
+        if ((block.type === BlockEnum.Answer && !isChatMode) || block.type === BlockEnum.Note)
           return false
 
         return block.title.toLowerCase().includes(searchText.toLowerCase()) && availableBlocksTypes.includes(block.type)
@@ -64,11 +64,11 @@ const Blocks = ({
           )
         }
         {
-          list.map(block => (
+          list.map((block, index) => (
             <Tooltip
               key={block.type}
               position='right'
-              popupClassName='w-[200px]'
+              popupClassName='!p-0 !px-3 !py-2.5 w-[200px]  !leading-[18px] !text-xs !text-gray-700 !border-[0.5px] !border-black/5 !rounded-xl !shadow-lg space-x-1'
               popupContent={(
                 <div>
                   <BlockIcon
@@ -83,7 +83,8 @@ const Blocks = ({
             >
               <div
                 key={block.type}
-                className='flex items-center px-3 w-full h-8 rounded-lg hover:bg-state-base-hover cursor-pointer'
+                className={`flex items-center px-3 h-10 select-none rounded-lg hover:border-[#3B6CE4] mt-2 border-[1px] border-[#CDD9FA] cursor-pointer
+                   ${classification !== '-' ? 'inline-flex flex-col items-center justify-center h-16 w-[48%] gap-1' : 'w-full'} ${index % 2 === 0 ? 'mr-1' : ''}`}
                 onClick={() => onSelect(block.type)}
               >
                 <BlockIcon
