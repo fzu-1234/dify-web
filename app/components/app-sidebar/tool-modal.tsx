@@ -151,7 +151,7 @@ const ToolModal: React.FC<ToolModalProps> = ({ open, onCancel, toolType, onSelec
           childrenColumnName: 'tools',
           rowExpandable: record => !!record.tools && record.tools.length > 0, // 只有有 tools 才可展开
         }}
-        scroll={{ y: '600px' }} // 设置高度，超出部分自动出现滚动条
+        scroll={{ y: '530px' }} // 设置高度，超出部分自动出现滚动条
         rowKey={record => record.id} // 必须设置唯一 key
       />
     </Modal>
