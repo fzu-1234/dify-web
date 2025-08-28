@@ -63,7 +63,7 @@ const NodeSelector: FC<NodeSelectorProps> = ({
                   </div>
                 )
               }
-              {!searchText && <SearchIcon className='shrink-0 w-[16px] h-[16px] text-[#3B6CE4] ml-[2px]'/>}
+              {!searchText && <SearchIcon className='shrink-0 w-[16px] h-[16px] text-[#3B6CE4] ml-[5px]'/>}
             </div>
           </div>
         )
