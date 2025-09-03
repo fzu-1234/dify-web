@@ -103,7 +103,7 @@ const BasePanel: FC<BasePanelProps> = ({
     saveStateToHistory(WorkflowHistoryEvent.NodeDescriptionChange)
   }, [handleNodeDataUpdateWithSyncDraft, id, saveStateToHistory])
   // console.log('节点数据',data);
-  if (data.type !== 'llm' && data.type !== 'knowledge-retrieval') {
+  if (data.type !== 'knowledge-retrieval') {
     return null
   }
   return (
