@@ -31,7 +31,7 @@ const translation = {
     accessAPIReference: '訪問 API',
     embedIntoSite: '嵌入網站',
     addTitle: '添加標題...',
-    addDescription: '添加描述...',
+    addDescription: '添加描述1...',
     noVar: '沒有變量',
     variableNamePlaceholder: '變量名',
     searchVar: '搜索變量',

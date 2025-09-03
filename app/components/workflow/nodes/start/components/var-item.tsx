@@ -48,17 +48,17 @@ const VarItem: FC<Props> = ({
   return (
     <div ref={ref} className='flex items-center h-8 justify-between px-2.5 bg-white rounded-lg border border-gray-200 shadow-xs cursor-pointer hover:shadow-md'>
       <div className='flex items-center space-x-1 grow w-0'>
-        <Variable02 className='w-3.5 h-3.5 text-primary-500' />
+        {/* <Variable02 className='w-3.5 h-3.5 text-primary-500' /> */}
         <div title={payload.variable} className='shrink-0 max-w-[130px] truncate text-[13px] font-medium text-gray-700'>{payload.variable}</div>
         {payload.label && (<><div className='shrink-0 text-xs font-medium text-gray-400'>·</div>
           <div title={payload.label as string} className='max-w-[130px] truncate text-[13px] font-medium text-gray-500'>{payload.label as string}</div>
         </>)}
-        {showLegacyBadge && (
+        {/* {showLegacyBadge && (
           <Badge
             text='LEGACY'
             className='shrink-0 border-text-accent-secondary text-text-accent-secondary'
           />
-        )}
+        )} */}
       </div>
       <div className='shrink-0 ml-2 flex items-center'>
         {rightContent || (<>

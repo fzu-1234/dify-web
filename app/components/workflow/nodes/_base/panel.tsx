@@ -165,12 +165,12 @@ const BasePanel: FC<BasePanelProps> = ({
               </div>
             </div>
           </div>
-          <div className='p-2 hidden'>
+          {/* <div className='p-2'>
             <DescriptionInput
               value={data.desc || ''}
               onChange={handleDescriptionChange}
             />
-          </div>
+          </div> */}
         </div>
         <div>
           {cloneElement(children, { id, data })}
@@ -192,8 +192,8 @@ const BasePanel: FC<BasePanelProps> = ({
             />
           )
         }
-        {
-          !!availableNextBlocks.length && false && (
+        {/* {
+          !!availableNextBlocks.length && (
             <div className='p-4 border-t-[0.5px] border-t-black/5'>
               <div className='flex items-center mb-1 system-sm-semibold-uppercase text-text-secondary'>
                 {t('workflow.panel.nextStep').toLocaleUpperCase()}
@@ -204,7 +204,7 @@ const BasePanel: FC<BasePanelProps> = ({
               <NextStep selectedNode={{ id, data } as Node} />
             </div>
           )
-        }
+        } */}
       </div>
     </div>
   )
