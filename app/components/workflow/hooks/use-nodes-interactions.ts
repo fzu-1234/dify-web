@@ -271,6 +271,7 @@ export const useNodesInteractions = () => {
     } = store.getState()
 
     const nodes = getNodes()
+    // console.log('当前节点', nodeId,nodes);
     const selectedNode = nodes.find(node => node.data.selected)
 
     if (!cancelSelection && selectedNode?.id === nodeId)
@@ -308,6 +309,7 @@ export const useNodesInteractions = () => {
     handleSyncWorkflowDraft()
   }, [store, handleSyncWorkflowDraft])
 
+  // 节点点击事件
   const handleNodeClick = useCallback<NodeMouseHandler>((_, node) => {
     if (node.type === CUSTOM_ITERATION_START_NODE)
       return

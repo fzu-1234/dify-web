@@ -139,14 +139,14 @@ const SelectDataSet: FC<ISelectDataSetProps> = ({
                   )}
                 </div>
                 {
-                  item.indexing_technique && (
+                  item.indexing_technique && false && (
                     <Badge
                       text={formatIndexingTechniqueAndMethod(item.indexing_technique, item.retrieval_model_dict?.search_method)}
                     />
                   )
                 }
                 {
-                  item.provider === 'external' && (
+                  item.provider === 'external' && false && (
                     <Badge text={t('dataset.externalTag')} />
                   )
                 }

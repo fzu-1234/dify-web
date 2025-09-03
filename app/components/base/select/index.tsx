@@ -329,7 +329,7 @@ const PortalSelect: FC<PortalSelectProps> = ({
           : (
             <div
               className={classNames(`
-            flex items-center justify-between px-2.5 h-9 rounded-lg border-0 bg-gray-100 text-sm ${readonly ? 'cursor-not-allowed' : 'cursor-pointer'} 
+            flex items-center justify-between px-2.5 h-9 rounded-lg border-0 text-sm ${readonly ? 'cursor-not-allowed' : 'cursor-pointer'} 
           `, triggerClassName, triggerClassNameFn?.(open))}
               title={selectedItem?.name}
             >

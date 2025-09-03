@@ -100,7 +100,7 @@ const Editor: FC<Props> = ({
   const { t } = useTranslation()
   const { eventEmitter } = useEventEmitterContextContext()
   const controlPromptEditorRerenderKey = useStore(s => s.controlPromptEditorRerenderKey)
-
+  // console.log('controlPromptEditorRerenderKey', title)
   const isShowHistory = !isChatModel && isChatApp
 
   const ref = useRef<HTMLDivElement>(null)
@@ -142,7 +142,7 @@ const Editor: FC<Props> = ({
               <div className='w-px h-3 ml-2 mr-2 bg-gray-200'></div>
               {/* Operations */}
               <div className='flex items-center space-x-[2px]'>
-                {isSupportJinja && (
+                {isSupportJinja && false && (
                   <Tooltip
                     popupContent={
                       <div>
@@ -179,7 +179,7 @@ const Editor: FC<Props> = ({
                     <RiDeleteBinLine className='w-4 h-4' />
                   </ActionButton>
                 )}
-                {!isCopied
+                {false && (!isCopied
                   ? (
                     <ActionButton onClick={handleCopy}>
                       <Clipboard className='w-4 h-4' />
@@ -189,7 +189,7 @@ const Editor: FC<Props> = ({
                     <ActionButton>
                       <ClipboardCheck className='w-4 h-4' />
                     </ActionButton>
-                  )
+                  ))
                 }
                 <ToggleExpandBtn isExpand={isExpand} onExpandChange={setIsExpand} />
               </div>

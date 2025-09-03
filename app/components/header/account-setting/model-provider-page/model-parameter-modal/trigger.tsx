@@ -40,7 +40,7 @@ const Trigger: FC<TriggerProps> = ({
   const { t } = useTranslation()
   const language = useLanguage()
   const { modelProviders } = useProviderContext()
-
+  // console.log('currentProvider', currentProvider)
   return (
     <div
       className={cn(
@@ -51,7 +51,7 @@ const Trigger: FC<TriggerProps> = ({
       )}
     >
       {
-        currentProvider && (
+        currentProvider && false && (
           <ModelIcon
             className='mr-1.5 !w-5 !h-5'
             provider={currentProvider}
@@ -60,7 +60,7 @@ const Trigger: FC<TriggerProps> = ({
         )
       }
       {
-        !currentProvider && (
+        !currentProvider && false && (
           <ModelIcon
             className='mr-1.5 !w-5 !h-5'
             provider={modelProviders.find(item => item.provider === providerName)}
@@ -103,7 +103,7 @@ const Trigger: FC<TriggerProps> = ({
             </Tooltip>
           )
           : (
-            <SlidersH className={cn(!isInWorkflow ? 'text-indigo-600' : 'text-gray-500', 'shrink-0 w-4 h-4')} />
+            false && <SlidersH className={cn(!isInWorkflow ? 'text-indigo-600' : 'text-gray-500', 'shrink-0 w-4 h-4')} />
           )
       }
       {isInWorkflow && (<RiArrowDownSLine className='absolute top-[9px] right-2 w-3.5 h-3.5 text-gray-500' />)}

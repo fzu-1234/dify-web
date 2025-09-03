@@ -9,6 +9,7 @@ import {
 } from 'reactflow'
 import {
   RiCloseLine,
+  RiListCheck,
   RiListCheck3,
 } from '@remixicon/react'
 import BlockIcon from '../block-icon'
@@ -57,16 +58,17 @@ const WorkflowChecklist = ({
       <PortalToFollowElemTrigger onClick={() => !disabled && setOpen(v => !v)}>
         <div
           className={cn(
-            'relative ml-0.5 flex items-center justify-center w-7 h-7 rounded-md',
+            'relative ml-0.5 flex items-center justify-center h-8 rounded-md btn-secondary text-[13px] px-2.5 hover:bg-state-accent-hover',
             disabled && 'opacity-50 cursor-not-allowed',
           )}
         >
           <div
-            className={cn('group flex items-center justify-center w-full h-full rounded-md cursor-pointer hover:bg-state-accent-hover', open && 'bg-state-accent-hover')}
+            className={cn('group flex items-center justify-center w-full h-full rounded-md cursor-pointer')}
           >
-            <RiListCheck3
-              className={cn('w-4 h-4 group-hover:text-components-button-secondary-accent-text', open ? 'text-components-button-secondary-accent-text' : 'text-components-button-ghost-text')}
+            <RiListCheck
+              className={cn('w-4 h-4 mr-1 group-hover:text-components-button-secondary-accent-text', open ? 'text-components-button-secondary-accent-text' : 'text-components-button-ghost-text')}
             />
+            <span className={cn('group-hover:text-components-button-secondary-accent-text',open ? 'text-components-button-secondary-accent-text' : 'text-components-button-ghost-text')}>{t('workflow.panel.list')}</span>
           </div>
           {
             !!needWarningNodes.length && (

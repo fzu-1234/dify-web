@@ -48,7 +48,7 @@ const Item: FC<ItemProps> = ({
       {
         config.data_source_type === DataSourceType.FILE && (
           <div className='shrink-0 flex items-center justify-center mr-2 w-6 h-6 bg-[#F5F8FF] rounded-md border-[0.5px] border-[#E0EAFF]'>
-            <Folder className='w-4 h-4 text-[#444CE7]' />
+            <Folder className='w-4 h-4' />
           </div>
         )
       }

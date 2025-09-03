@@ -79,7 +79,7 @@ export const NodeTargetHandle = memo(({
         position={Position.Left}
         className={cn(
           '!w-4 !h-4 !bg-transparent !rounded-none !outline-none !border-none z-[1]',
-          'after:absolute after:w-0.5 after:h-2 after:left-1.5 after:top-1 after:bg-workflow-link-line-handle',
+          'after:absolute after:w-2 after:h-2 after:left-[0.2rem] after:rounded-[50%] after:top-1 after:bg-workflow-link-line-handle',
           'hover:scale-125 transition-all',
           data._runningStatus === NodeRunningStatus.Succeeded && 'after:bg-workflow-link-line-success-handle',
           data._runningStatus === NodeRunningStatus.Failed && 'after:bg-workflow-link-line-error-handle',
@@ -168,7 +168,7 @@ export const NodeSourceHandle = memo(({
       position={Position.Right}
       className={cn(
         'group/handle !w-4 !h-4 !bg-transparent !rounded-none !outline-none !border-none z-[1]',
-        'after:absolute after:w-0.5 after:h-2 after:right-1.5 after:top-1 after:bg-workflow-link-line-handle',
+        'after:absolute after:w-2 after:h-2 after:right-[0.2rem] after:rounded-[50%] after:top-1 after:bg-workflow-link-line-handle',
         'hover:scale-125 transition-all',
         data._runningStatus === NodeRunningStatus.Succeeded && 'after:bg-workflow-link-line-success-handle',
         data._runningStatus === NodeRunningStatus.Failed && 'after:bg-workflow-link-line-error-handle',

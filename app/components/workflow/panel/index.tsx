@@ -44,7 +44,7 @@ const Panel: FC = () => {
       key={`${isRestoring}`}
     >
       {
-        showMessageLogModal && (
+        showMessageLogModal && false && (
           <MessageLogModal
             fixedWidth
             width={400}

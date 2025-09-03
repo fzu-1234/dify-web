@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import produce from 'immer'
-import { RiEqualizer2Line } from '@remixicon/react'
+import { RiEqualizer2Line,RiEqualizer3Line } from '@remixicon/react'
 import { FolderUpload } from '@/app/components/base/icons/src/vender/features'
 import FeatureCard from '@/app/components/base/features/new-feature-panel/feature-card'
 import SettingModal from '@/app/components/base/features/new-feature-panel/file-upload/setting-modal'
@@ -90,7 +90,7 @@ const FileUpload = ({
                 onChange={onChange}
               >
                 <Button className='w-full' disabled={disabled}>
-                  <RiEqualizer2Line className='mr-1 w-4 h-4' />
+                  <RiEqualizer3Line className='mr-1 w-4 h-4' />
                   {t('common.operation.settings')}
                 </Button>
               </SettingModal>

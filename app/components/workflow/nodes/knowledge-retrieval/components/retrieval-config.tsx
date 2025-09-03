@@ -1,7 +1,7 @@
 'use client'
 import type { FC } from 'react'
 import React, { useCallback, useState } from 'react'
-import { RiEqualizer2Line } from '@remixicon/react'
+import { RiEqualizer2Line,RiEqualizer3Line } from '@remixicon/react'
 import { useTranslation } from 'react-i18next'
 import type { MultipleRetrievalConfig, SingleRetrievalConfig } from '../types'
 import type { ModelConfig } from '../../../types'
@@ -111,7 +111,7 @@ const RetrievalConfig: FC<Props> = ({
           disabled={readonly}
           className={cn(open && 'bg-components-button-ghost-bg-hover')}
         >
-          <RiEqualizer2Line className='mr-1 w-3.5 h-3.5' />
+          <RiEqualizer3Line className='mr-1 w-3.5 h-3.5' />
           {t('dataset.retrievalSettings')}
         </Button>
       </PortalToFollowElemTrigger>

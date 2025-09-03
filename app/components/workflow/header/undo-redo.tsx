@@ -31,7 +31,8 @@ const UndoRedo: FC<UndoRedoProps> = ({ handleUndo, handleRedo }) => {
   const { nodesReadOnly } = useNodesReadOnly()
 
   return (
-    <div className='flex items-center space-x-0.5 p-0.5 backdrop-blur-[5px] rounded-lg border-[0.5px] border-components-actionbar-border bg-components-actionbar-bg shadow-lg'>
+    <div className='flex items-center space-x-0.5 p-0.5 backdrop-blur-[5px] rounded-lg border-components-actionbar-border bg-components-actionbar-bg'>
+      {/* <Divider type='vertical' className="h-3.5 mx-0.5" /> */}
       <TipPopup title={t('workflow.common.undo')!} shortcuts={['ctrl', 'z']}>
         <div
           data-tooltip-id='workflow.undo'
@@ -57,8 +58,8 @@ const UndoRedo: FC<UndoRedoProps> = ({ handleUndo, handleRedo }) => {
           <RiArrowGoForwardFill className='h-4 w-4' />
         </div>
       </TipPopup>
-      <Divider type='vertical' className="h-3.5 mx-0.5" />
-      <ViewWorkflowHistory />
+      {/* <Divider type='vertical' className="h-3.5 mx-0.5" /> */}
+      {/* <ViewWorkflowHistory /> */}
     </div >
   )
 }

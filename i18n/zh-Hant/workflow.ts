@@ -18,7 +18,7 @@ const translation = {
     runHistory: '運行歷史',
     goBackToEdit: '返回編輯模式',
     conversationLog: '對話記錄',
-    features: '功能',
+    features: '外部工具箱',
     debugAndPreview: '預覽',
     restart: '重新開始',
     currentDraft: '當前草稿',

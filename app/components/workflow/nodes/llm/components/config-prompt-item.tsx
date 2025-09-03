@@ -46,11 +46,11 @@ const roleOptions = [
     value: PromptRole.system,
   },
   {
-    label: 'user',
+    label: '用户提示词',
     value: PromptRole.user,
   },
   {
-    label: 'assistant',
+    label: '辅助提示词',
     value: PromptRole.assistant,
   },
 ]
@@ -104,7 +104,7 @@ const ConfigPromptItem: FC<Props> = ({
         <div className='relative left-1 flex items-center'>
           {payload.role === PromptRole.system
             ? (<div className='relative left-[-4px] text-xs font-semibold text-gray-700 uppercase'>
-              SYSTEM
+              系统提示器
             </div>)
             : (
               <TypeSelector

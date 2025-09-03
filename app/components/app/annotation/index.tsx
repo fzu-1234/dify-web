@@ -3,7 +3,7 @@ import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useDebounce } from 'ahooks'
-import { RiEqualizer2Line } from '@remixicon/react'
+import { RiEqualizer2Line,RiEqualizer3Line } from '@remixicon/react'
 import Toast from '../../base/toast'
 import Filter from './filter'
 import type { QueryParam } from './filter'
@@ -190,7 +190,7 @@ const Annotation: FC<Props> = ({
                     <div className='flex items-center pl-1.5'>
                       <div className='shrink-0 mr-1 w-[1px] h-3.5 bg-divider-subtle'></div>
                       <ActionButton onClick={() => setIsShowEdit(true)}>
-                        <RiEqualizer2Line className='w-4 h-4 text-text-tertiary' />
+                        <RiEqualizer3Line className='w-4 h-4 text-text-tertiary' />
                       </ActionButton>
                     </div>
                   )}

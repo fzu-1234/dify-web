@@ -58,6 +58,7 @@ const BaseNode: FC<BaseNodeProps> = ({
   const { nodesReadOnly } = useNodesReadOnly()
   const { handleNodeIterationChildSizeChange } = useNodeIterationInteractions()
   const toolIcon = useToolIcon(data)
+  // console.log('卡片数据', data)
 
   useEffect(() => {
     if (nodeRef.current && data.selected && data.isInIteration) {
@@ -91,8 +92,12 @@ const BaseNode: FC<BaseNodeProps> = ({
   return (
     <div
       className={cn(
-        'flex border-[2px] rounded-2xl',
-        showSelectedBorder ? 'border-components-option-card-option-selected-border' : 'border-transparent',
+        'flex border-[2px] rounded-lg',
+        showSelectedBorder ? 'border-workflow-normal-block-border' : 'border-transparent',
+        (showSelectedBorder && data.type === BlockEnum.LLM) && 'border-workflow-llm-block-border',
+        (showSelectedBorder && data.type === BlockEnum.KnowledgeRetrieval) && 'border-workflow-kr-block-border',
+        (showSelectedBorder && data.type === BlockEnum.Tool && (data.provider_type === 'api' || data.provider_type === 'builtin')) && 'border-workflow-tool-block-border',
+        (showSelectedBorder && data.type === BlockEnum.Tool && data.provider_type === 'workflow') && 'border-workflow-workflow-block-border',
         !showSelectedBorder && data._inParallelHovering && 'border-workflow-block-border-highlight',
         data._waitingRun && 'opacity-70',
       )}
@@ -105,7 +110,7 @@ const BaseNode: FC<BaseNodeProps> = ({
       <div
         className={cn(
           'group relative pb-1 shadow-xs',
-          'border border-transparent rounded-[15px]',
+          'border border-transparent rounded-[5px]',
           data.type !== BlockEnum.Iteration && 'w-[240px] bg-workflow-block-bg',
           data.type === BlockEnum.Iteration && 'flex flex-col w-full h-full bg-workflow-block-bg-transparent border-workflow-block-border',
           !data._runningStatus && 'hover:shadow-lg',
@@ -168,8 +173,12 @@ const BaseNode: FC<BaseNodeProps> = ({
           )
         }
         <div className={cn(
-          'flex items-center px-3 pt-3 pb-2 rounded-t-2xl',
+          'flex items-center px-3 pt-3 pb-2 rounded-t-2xl rounded-[5px] bg-workflow-normal-block-bg',
           data.type === BlockEnum.Iteration && 'bg-transparent',
+          data.type === BlockEnum.LLM && 'bg-workflow-llm-block-bg',
+          data.type === BlockEnum.KnowledgeRetrieval && 'bg-workflow-kr-block-bg',
+          (data.type === BlockEnum.Tool && (data.provider_type === 'api' || data.provider_type === 'builtin')) && 'bg-workflow-tool-block-bg',
+          (data.type === BlockEnum.Tool && data.provider_type === 'workflow') && 'bg-workflow-workflow-block-bg',
         )}>
           <BlockIcon
             className='shrink-0 mr-2'

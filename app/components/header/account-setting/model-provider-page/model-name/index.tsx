@@ -33,7 +33,7 @@ const ModelName: FC<ModelNameProps> = ({
   children,
 }) => {
   const language = useLanguage()
-
+  // console.log('modelItem',modelItem);
   if (!modelItem)
     return null
   return (
@@ -45,14 +45,14 @@ const ModelName: FC<ModelNameProps> = ({
         {modelItem.label[language] || modelItem.label.en_US}
       </div>
       {
-        showModelType && modelItem.model_type && (
+        showModelType && modelItem.model_type && false && (
           <ModelBadge className={cn('ml-1', modelTypeClassName)}>
             {modelTypeFormat(modelItem.model_type)}
           </ModelBadge>
         )
       }
       {
-        modelItem.model_properties.mode && showMode && (
+        modelItem.model_properties.mode && showMode && false && (
           <ModelBadge className={cn('ml-1', modeClassName)}>
             {(modelItem.model_properties.mode as string).toLocaleUpperCase()}
           </ModelBadge>
@@ -68,7 +68,7 @@ const ModelName: FC<ModelNameProps> = ({
         ))
       }
       {
-        showContextSize && modelItem.model_properties.context_size && (
+        showContextSize && modelItem.model_properties.context_size && false && (
           <ModelBadge className='ml-1'>
             {sizeFormat(modelItem.model_properties.context_size as number)}
           </ModelBadge>

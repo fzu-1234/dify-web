@@ -8,6 +8,7 @@ import {
   RiAddLine,
   RiEqualizer2Line,
   RiSparklingFill,
+  RiEqualizer3Line
 } from '@remixicon/react'
 import { useContext } from 'use-context-selector'
 import { useShallow } from 'zustand/react/shallow'
@@ -426,7 +427,7 @@ const Debug: FC<IDebug> = ({
                       popupContent={t('workflow.panel.userInputField')}
                     >
                       <ActionButton state={expanded ? ActionButtonState.Active : undefined} onClick={() => setExpanded(!expanded)}>
-                        <RiEqualizer2Line className='w-4 h-4' />
+                        <RiEqualizer3Line className='w-4 h-4' />
                       </ActionButton>
                     </TooltipPlus>
                     {expanded && <div className='absolute z-10 bottom-[-14px] right-[5px] w-3 h-3 bg-components-panel-on-panel-item-bg border-l-[0.5px] border-t-[0.5px] border-components-panel-border-subtle rotate-45' />}

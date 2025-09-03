@@ -9,6 +9,10 @@ const config = {
   ],
   theme: {
     typography: require('./typography'),
+    fontFamily: {
+      sans: ['PingFang SC' , 'Microsoft YaHei','ui-sans-serif', 'system-ui', 'sans-serif', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'],
+      mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'Liberation Mono', 'Courier New', 'monospace'],
+    },
     extend: {
       colors: {
         gray: {
@@ -107,6 +111,11 @@ const config = {
         'dataset-option-card-purple-gradient': 'var(--color-dataset-option-card-purple-gradient)',
         'dataset-option-card-orange-gradient': 'var(--color-dataset-option-card-orange-gradient)',
         'dataset-chunk-list-mask-bg': 'var(--color-dataset-chunk-list-mask-bg)',
+        'workflow-llm-block-bg': 'var(--color-workflow-llm-block-bg)',
+        'workflow-kr-block-bg': 'var(--color-workflow-kr-block-bg)',
+        'workflow-tool-block-bg': 'var(--color-workflow-tool-block-bg)',
+        'workflow-workflow-block-bg': 'var(--color-workflow-workflow-block-bg)',
+        'workflow-normal-block-bg': 'var(--color-workflow-normal-block-bg)',
       },
       lineClamp: {
         '20': '20',

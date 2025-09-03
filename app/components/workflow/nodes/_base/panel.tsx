@@ -10,6 +10,7 @@ import {
 import {
   RiCloseLine,
   RiPlayLargeLine,
+  RiPlayCircleLine
 } from '@remixicon/react'
 import { useShallow } from 'zustand/react/shallow'
 import { useTranslation } from 'react-i18next'
@@ -101,7 +102,10 @@ const BasePanel: FC<BasePanelProps> = ({
     handleNodeDataUpdateWithSyncDraft({ id, data: { desc } })
     saveStateToHistory(WorkflowHistoryEvent.NodeDescriptionChange)
   }, [handleNodeDataUpdateWithSyncDraft, id, saveStateToHistory])
-
+  // console.log('节点数据',data);
+  if (data.type !== 'llm' && data.type !== 'knowledge-retrieval') {
+    return null
+  }
   return (
     <div className={cn(
       'relative mr-2 h-full',
@@ -133,7 +137,7 @@ const BasePanel: FC<BasePanelProps> = ({
             />
             <div className='shrink-0 flex items-center text-gray-500'>
               {
-                canRunBySingle(data.type) && !nodesReadOnly && (
+                canRunBySingle(data.type) && !nodesReadOnly && false && (
                   <Tooltip
                     popupContent={t('workflow.panel.runThisStep')}
                     popupClassName='mr-1'
@@ -145,14 +149,14 @@ const BasePanel: FC<BasePanelProps> = ({
                         handleSyncWorkflowDraft(true)
                       }}
                     >
-                      <RiPlayLargeLine className='w-4 h-4 text-text-tertiary' />
+                      <RiPlayCircleLine className='w-4 h-4 text-text-tertiary' />
                     </div>
                   </Tooltip>
                 )
               }
-              <HelpLink nodeType={data.type} />
-              <PanelOperator id={id} data={data} showHelpLink={false} />
-              <div className='mx-3 w-[1px] h-3.5 bg-divider-regular' />
+              {/* <HelpLink nodeType={data.type} /> */}
+              {/* <PanelOperator id={id} data={data} showHelpLink={false} /> */}
+              {/* <div className='mx-3 w-[1px] h-3.5 bg-divider-regular' /> */}
               <div
                 className='flex items-center justify-center w-6 h-6 cursor-pointer'
                 onClick={() => handleNodeSelect(id, true)}
@@ -161,7 +165,7 @@ const BasePanel: FC<BasePanelProps> = ({
               </div>
             </div>
           </div>
-          <div className='p-2'>
+          <div className='p-2 hidden'>
             <DescriptionInput
               value={data.desc || ''}
               onChange={handleDescriptionChange}
@@ -189,7 +193,7 @@ const BasePanel: FC<BasePanelProps> = ({
           )
         }
         {
-          !!availableNextBlocks.length && (
+          !!availableNextBlocks.length && false && (
             <div className='p-4 border-t-[0.5px] border-t-black/5'>
               <div className='flex items-center mb-1 system-sm-semibold-uppercase text-text-secondary'>
                 {t('workflow.panel.nextStep').toLocaleUpperCase()}

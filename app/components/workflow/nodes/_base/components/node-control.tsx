@@ -6,7 +6,7 @@ import {
 } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
-  RiPlayLargeLine,
+  RiPlayLargeLine,RiPlayCircleLine
 } from '@remixicon/react'
 import {
   useNodeDataUpdate,
@@ -39,7 +39,7 @@ const NodeControl: FC<NodeControlProps> = ({
   return (
     <div
       className={`
-      hidden group-hover:flex pb-1 absolute right-0 -top-7 h-7
+      hidden group-hover:flex pb-1 absolute right-3 top-3 h-7
       ${data.selected && '!flex'}
       ${open && '!flex'}
       `}
@@ -72,7 +72,7 @@ const NodeControl: FC<NodeControlProps> = ({
                       popupContent={t('workflow.panel.runThisStep')}
                       asChild={false}
                     >
-                      <RiPlayLargeLine className='w-3 h-3' />
+                      <RiPlayCircleLine className='w-3 h-3' />
                     </Tooltip>
                   )
               }

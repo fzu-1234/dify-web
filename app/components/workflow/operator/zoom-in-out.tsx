@@ -132,8 +132,7 @@ const ZoomInOut: FC = () => {
       <PortalToFollowElemTrigger asChild>
         <div className={`
           p-0.5 h-9 cursor-pointer text-[13px] backdrop-blur-[5px] rounded-lg
-          bg-components-actionbar-bg shadow-lg border-[0.5px] border-components-actionbar-border 
-          hover:bg-state-base-hover
+          bg-components-actionbar-bg border-components-actionbar-border 
           ${workflowReadOnly && '!cursor-not-allowed opacity-50'}
         `}>
           <div className={cn(

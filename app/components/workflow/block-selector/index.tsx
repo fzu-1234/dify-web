@@ -129,7 +129,10 @@ const NodeSelector: FC<NodeSelectorProps> = ({
         <div className={
           classNames(`rounded-lg border-[0.5px] backdrop-blur-[5px]
           border-components-panel-border bg-components-panel-bg-blur shadow-lg`, popupClassName)}>
-          <div className='p-2 pb-1' onClick={e => e.stopPropagation()}>
+          <div className='shrink-0 text-[16px] border-b border-divider-burn font-semibold py-2 pl-4'>
+            {t('workflow.common.block')}
+          </div>
+          <div className='p-2 pb-1 hidden' onClick={e => e.stopPropagation()}>
             <Input
               showLeftIcon
               showClearIcon

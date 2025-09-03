@@ -37,7 +37,7 @@ const Tabs: FC<TabsProps> = ({
     <div className='grow overflow-hidden flex flex-col' onClick={e => e.stopPropagation()}>
       {
         expand && (
-          <div className='flex items-center px-3 border-b-[0.5px] border-b-black/5 mr-4'>
+          <div className='flex items-center px-3 border-b-[0.5px] border-b-black/5 mr-4 hidden'>
             {
               tabs.map(tab => (
                 <div
@@ -45,7 +45,7 @@ const Tabs: FC<TabsProps> = ({
                   className={cn(
                     'relative mr-4 h-[38px] text-[14px] leading-[38px] font-medium cursor-pointer',
                     activeTab === tab.key
-                      ? 'text-[#175EFF] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#175EFF]'
+                      ? 'text-[#3B6CE4] after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-[#3B6CE4]'
                       : 'text-[#333333]',
                   )}
                   onClick={() => tabClick(tab.key)}

@@ -11,6 +11,7 @@ import {
   RiEqualizer2Line,
   RiLoopLeftLine,
   RiMoreFill,
+  RiEqualizer3Line,
 } from '@remixicon/react'
 import { useContext } from 'use-context-selector'
 import { useRouter } from 'next/navigation'
@@ -294,7 +295,7 @@ export const OperationAction: FC<{
                 ? 'p-2 bg-components-button-secondary-bg hover:bg-components-button-secondary-bg-hover border-[0.5px] border-components-button-secondary-border hover:border-components-button-secondary-border-hover shadow-xs shadow-shadow-shadow-3 backdrop-blur-[5px]'
                 : 'p-0.5 hover:bg-state-base-hover')}
             onClick={() => router.push(`/datasets/${datasetId}/documents/${detail.id}/settings`)}>
-            <RiEqualizer2Line className='w-4 h-4 text-components-button-secondary-text' />
+            <RiEqualizer3Line className='w-4 h-4 text-components-button-secondary-text' />
           </button>
         </Tooltip>
         <Popover

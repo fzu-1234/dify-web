@@ -70,7 +70,7 @@ const DatasetItem: FC<Props> = ({
               </div>
             )
             : <div className='shrink-0 flex items-center justify-center w-6 h-6 bg-[#F5F8FF] rounded-md border-[0.5px] border-[#E0EAFF]'>
-              <Folder className='w-4 h-4 text-[#444CE7]' />
+              <Folder className='w-4 h-4' />
             </div>
         }
         <div className='w-0 grow text-text-secondary system-sm-medium truncate'>{payload.name}</div>
@@ -97,17 +97,19 @@ const DatasetItem: FC<Props> = ({
           </ActionButton>
         </div>
       )}
-      {
+      { false && (
         payload.indexing_technique && <Badge
           className='group-hover/dataset-item:hidden shrink-0'
           text={formatIndexingTechniqueAndMethod(payload.indexing_technique, payload.retrieval_model_dict?.search_method)}
         />
+      )
       }
-      {
+      { false && (
         payload.provider === 'external' && <Badge
           className='group-hover/dataset-item:hidden shrink-0'
           text={t('dataset.externalTag') as string}
         />
+      )
       }
 
       {isShowSettingsModal && (

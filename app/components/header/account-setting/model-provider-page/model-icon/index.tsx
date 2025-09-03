@@ -21,11 +21,11 @@ const ModelIcon: FC<ModelIconProps> = ({
   const language = useLanguage()
 
   if (provider?.provider === 'openai' && (modelName?.startsWith('gpt-4') || modelName?.includes('4o')))
-    return <OpenaiViolet className={`w-4 h-4 ${className}`}/>
+    return false && <OpenaiViolet className={`w-4 h-4 ${className}`}/>
 
   if (provider?.icon_small) {
     const baseUrl = AUTH_WAY !== 'SIGN' ? `${PUBLIC_PATH}/ai-portal/proxy` : ''
-    return (
+    return false && (
       <img
         alt='model-icon'
         src={`${baseUrl}${provider.icon_small[language] || provider.icon_small.en_US}`}
@@ -34,7 +34,7 @@ const ModelIcon: FC<ModelIconProps> = ({
     )
   }
 
-  return (
+  return false && (
     <div className={`
       flex items-center justify-center w-6 h-6 rounded border-[0.5px] border-black/5 bg-gray-50
       ${className}

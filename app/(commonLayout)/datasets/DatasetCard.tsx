@@ -126,7 +126,7 @@ const DatasetCard = ({
             'shrink-0 flex items-center justify-center p-2.5 bg-[#F5F8FF] rounded-md border-[0.5px] border-[#E0EAFF]',
             !dataset.embedding_available && 'opacity-50 hover:opacity-100',
           )}>
-            <Folder className='w-5 h-5 text-[#444CE7]' />
+            <Folder className='w-5 h-5' />
           </div>
           <div className='grow w-0 py-[1px]'>
             <div className='flex items-center text-sm leading-5 font-semibold text-text-secondary'>

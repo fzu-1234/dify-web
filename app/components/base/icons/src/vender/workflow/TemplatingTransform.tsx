@@ -2,7 +2,7 @@
 // DON NOT EDIT IT MANUALLY
 
 import * as React from 'react'
-import data from './TemplatingTransform.json'
+import data from './TemplatingTransform_Funo.json'
 import IconBase from '@/app/components/base/icons/IconBase'
 import type { IconBaseProps, IconData } from '@/app/components/base/icons/IconBase'
 

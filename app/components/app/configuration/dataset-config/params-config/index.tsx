@@ -2,7 +2,7 @@
 import { memo, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useContext } from 'use-context-selector'
-import { RiEqualizer2Line } from '@remixicon/react'
+import { RiEqualizer2Line,RiEqualizer3Line } from '@remixicon/react'
 import ConfigContent from './config-content'
 import cn from '@/utils/classnames'
 import ConfigContext from '@/context/debug-configuration'
@@ -121,7 +121,7 @@ const ParamsConfig = ({
         }}
         disabled={disabled}
       >
-        <RiEqualizer2Line className='mr-1 w-3.5 h-3.5' />
+        <RiEqualizer3Line className='mr-1 w-3.5 h-3.5' />
         {t('dataset.retrievalSettings')}
       </Button>
       {

@@ -35,6 +35,7 @@ const Blocks = ({
 
   const groups = useMemo(() => {
     return BLOCK_CLASSIFICATIONS.reduce((acc, classification) => {
+      // console.log('groups',acc, classification);
       const list = groupBy(blocks, 'classification')[classification].filter((block) => {
         if (block.type === BlockEnum.Answer && !isChatMode)
           return false
@@ -51,8 +52,8 @@ const Blocks = ({
   const isEmpty = Object.values(groups).every(list => !list.length)
 
   const renderGroup = useCallback((classification: string) => {
-    const list = groups[classification]
-
+    const list = groups[classification];
+    // console.log('renderGroup', list, classification);
     return (
       <div
         key={classification}
@@ -66,13 +67,13 @@ const Blocks = ({
           )
         }
         {
-          list.map(block => (
+          list.map((block,index) => (
             <Tooltip
               key={block.type}
               selector={`workflow-block-${block.type}`}
               position='right'
-              className='!p-0 !px-3 !py-2.5 !w-[200px] !leading-[18px] !text-xs !text-gray-700 !border-[0.5px] !border-black/5 !rounded-xl !shadow-lg'
-              htmlContent={(
+              className='!p-0 !px-3 !py-2.5 !w-[200px] !leading-[18px] !text-xs !text-gray-700 !border-[0.5px] !border-black/5 !rounded-xl !shadow-lg space-x-1'
+              popupContent={(
                 <div>
                   <BlockIcon
                     size='md'
@@ -87,17 +88,18 @@ const Blocks = ({
             >
               <div
                 key={block.type}
-                className='flex items-center px-3 w-full h-12 select-none rounded-lg hover:border-[#3B6CE4] cursor-pointer mt-2 border-[1px] border-[#CDD9FA]'
+                className= {`flex items-center px-3 h-12 select-none rounded-lg hover:border-[#3B6CE4] cursor-pointer mt-2 border-[1px] border-[#CDD9FA] 
+                ${(expand && classification !== '-') ? 'inline-flex flex-col items-center justify-center h-20 w-[48%] gap-1' : 'w-full'} ${(expand && index % 2 === 0) ? 'mr-1' : ''}` }
                 onMouseDown={() => onSelect(block.type)}
               >
                 <BlockIcon
                   size='md'
-                  className={`shrink-0 ${expand ? 'mr-2' : ''}`}
+                  className={`shrink-0 ${(expand && classification === '-') ? 'mr-2' : ''} `}
                   type={block.type}
                 />
                 {
                   expand && (
-                    <div className='text-sm text-[#333333]'>{block.title}</div>
+                    <div className={`text-sm text-[#333333] ${(expand && classification !== '-') ? 'text-center' : ''}`}>{block.title}</div>
                   )
                 }
               </div>
@@ -109,7 +111,7 @@ const Blocks = ({
   }, [expand, groups, nodesExtraData, onSelect, t])
 
   return (
-    <div className={`py-1 grow overflow-y-auto ${expand ? 'pr-4' : ''}`}>
+    <div className={`py-1 grow overflow-y-auto ${expand ? 'pr-4' : 'px-1'}`}>
       {
         isEmpty && (
           <div className='flex items-center px-3 h-[22px] text-xs font-medium text-gray-500'>{t('workflow.tabs.noResult')}</div>
