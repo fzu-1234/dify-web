@@ -89,6 +89,7 @@ const Panel: FC<NodePanelProps<DocExtractorNodeType>> = ({
             name='text'
             type={inputs.is_array_file ? 'array[string]' : 'string'}
             description={t(`${i18nPrefix}.outputVars.text`)}
+            nodeType='document-extractor'
           />
         </OutputVars>
       </div>

@@ -33,7 +33,7 @@ const translation = {
     reload: '刷新',
     ok: '好的',
     log: '日志',
-    learnMore: '了解更多',
+    learnMore: '',
     params: '参数设置',
     duplicate: '复制',
     rename: '重命名',
@@ -443,7 +443,7 @@ const translation = {
   apiBasedExtension: {
     title: 'API 扩展提供了一个集中式的 API 管理，在此统一添加 API 配置后，方便在各类应用中直接使用。',
     link: '了解如何开发您自己的 API 扩展。',
-    linkUrl: 'https://docs.dify.ai/v/zh-hans/guides/extension/api-based-extension',
+    linkUrl: '',
     add: '新增 API 扩展',
     selector: {
       title: 'API 扩展',

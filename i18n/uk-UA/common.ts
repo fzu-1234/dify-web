@@ -441,7 +441,7 @@ const translation = {
   apiBasedExtension: {
     title: 'API-розширення забезпечують централізоване керування API, спрощуючи конфігурацію для зручного використання в різних програмах Dify.',
     link: 'Дізнайтеся, як розробити власне розширення API.',
-    linkUrl: 'https://docs.dify.ai/features/extension/api_based_extension',
+    linkUrl: '',
     add: 'Додати розширення API',
     selector: {
       title: 'Розширення API',

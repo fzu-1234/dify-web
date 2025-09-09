@@ -5,6 +5,7 @@ import type { VariantProps } from 'class-variance-authority'
 import { cva } from 'class-variance-authority'
 import cn from '@/utils/classnames'
 import Tooltip from '@/app/components/base/tooltip'
+import RadioUI from '@/app/components/base/radio/ui'
 
 const variants = cva([], {
   variants: {
@@ -57,7 +58,10 @@ const OptionCard: FC<Props> = ({
       )}
       onClick={handleSelect}
     >
-      <span>{title}</span>
+      <div className='flex items-center space-x-2'>
+        <RadioUI isChecked={selected} />
+        <span>{title}</span>
+      </div>
       {tooltip
         && <Tooltip
           popupContent={

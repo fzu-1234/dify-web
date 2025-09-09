@@ -59,7 +59,7 @@ const translation = {
       unknownError: 'Невідома помилка',
       maxDepth: 'Максимальна глибина',
       crawlSubPage: 'Сканування підсторінок',
-      firecrawlDocLink: 'https://docs.dify.ai/guides/knowledge-base/sync-from-website',
+      firecrawlDocLink: '',
       preview: 'Попередній перегляд',
       fireCrawlNotConfigured: 'Firecrawl не налаштовано',
       includeOnlyPaths: 'Включати лише контури',

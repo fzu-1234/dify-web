@@ -69,7 +69,7 @@ const NewFeaturePanel = ({
         </div>
         {/* list */}
         <div className='grow basis-0 overflow-y-auto px-4 pb-4'>
-          {showFileUpload && (
+          {/* {showFileUpload && (
             <div className='relative mb-1 p-2 rounded-xl border border-components-panel-border shadow-xs'>
               <div className='absolute top-0 left-0 w-full h-full rounded-xl opacity-40' style={{ background: 'linear-gradient(92deg, rgba(11, 165, 236, 0.25) 18.12%, rgba(255, 255, 255, 0.00) 167.31%)' }}></div>
               <div className='relative flex items-start w-full h-full'>
@@ -86,7 +86,7 @@ const NewFeaturePanel = ({
                 </div>
               </div>
             </div>
-          )}
+          )} */}
           {!isChatMode && !inWorkflow && (
             <MoreLikeThis disabled={disabled} onChange={onChange} />
           )}
@@ -99,11 +99,15 @@ const NewFeaturePanel = ({
               onAutoAddPromptVariable={onAutoAddPromptVariable}
             />
           )}
-          {isChatMode && (
-            <FollowUp disabled={disabled} onChange={onChange} />
-          )}
           {text2speechDefaultModel && (isChatMode || !inWorkflow) && (
             <TextToSpeech disabled={disabled} onChange={onChange} />
+          )}
+          {(isChatMode || !inWorkflow) && <Moderation disabled={disabled} onChange={onChange} />}
+          {!inWorkflow && isChatMode && (
+            <AnnotationReply disabled={disabled} onChange={onChange} />
+          )}
+          {isChatMode && (
+            <FollowUp disabled={disabled} onChange={onChange} />
           )}
           {isChatMode && speech2textDefaultModel && (
             <SpeechToText disabled={disabled} onChange={onChange} />
@@ -112,10 +116,6 @@ const NewFeaturePanel = ({
           {showFileUpload && !isChatMode && <ImageUpload disabled={disabled} onChange={onChange} />}
           {isChatMode && (
             <Citation disabled={disabled} onChange={onChange} />
-          )}
-          {(isChatMode || !inWorkflow) && <Moderation disabled={disabled} onChange={onChange} />}
-          {!inWorkflow && isChatMode && (
-            <AnnotationReply disabled={disabled} onChange={onChange} />
           )}
         </div>
       </div>

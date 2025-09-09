@@ -11,7 +11,7 @@ const translation = {
     advancedWarning: {
       title: '您已切换到专家模式，一旦修改提示词，将无法返回简易模式。',
       description: '在专家模式下，您可以编辑完整的提示词。',
-      learnMore: '了解更多',
+      learnMore: '',
       ok: '确定',
     },
     operation: {
@@ -150,7 +150,7 @@ const translation = {
       title: '对话历史',
       description: '设置对话角色的前缀名称',
       tip: '对话历史未启用，请在上面的提示中添加<histories>。',
-      learnMore: '了解更多',
+      learnMore: '',
       editModal: {
         title: '编辑对话角色名称',
         userPrefix: '用户前缀',

@@ -1,15 +1,16 @@
 import { memo } from 'react'
 import {
-  RiFile3Fill,
+  RiFileLine,
   RiFileCodeFill,
   RiFileExcelFill,
   RiFileGifFill,
-  RiFileImageFill,
-  RiFileMusicFill,
+  RiImageLine,
+  RiMusic2Fill,
   RiFilePdf2Fill,
   RiFilePpt2Fill,
-  RiFileTextFill,
+  RiFileTextLine,
   RiFileVideoFill,
+  RiVideoLine,
   RiFileWordFill,
   RiMarkdownFill,
 } from '@remixicon/react'
@@ -23,19 +24,19 @@ const FILE_TYPE_ICON_MAP = {
     color: 'text-[#EA3434]',
   },
   [FileAppearanceTypeEnum.image]: {
-    component: RiFileImageFill,
+    component: RiImageLine,
     color: 'text-[#00B2EA]',
   },
   [FileAppearanceTypeEnum.video]: {
-    component: RiFileVideoFill,
+    component: RiVideoLine,
     color: 'text-[#844FDA]',
   },
   [FileAppearanceTypeEnum.audio]: {
-    component: RiFileMusicFill,
+    component: RiMusic2Fill,
     color: 'text-[#FF3093]',
   },
   [FileAppearanceTypeEnum.document]: {
-    component: RiFileTextFill,
+    component: RiFileTextLine,
     color: 'text-[#6F8BB5]',
   },
   [FileAppearanceTypeEnum.code]: {
@@ -47,7 +48,7 @@ const FILE_TYPE_ICON_MAP = {
     color: 'text-[#309BEC]',
   },
   [FileAppearanceTypeEnum.custom]: {
-    component: RiFile3Fill,
+    component: RiFileLine,
     color: 'text-[#BCC0D1]',
   },
   [FileAppearanceTypeEnum.excel]: {

@@ -32,7 +32,7 @@ const translation = {
   communityIntro: '与团队成员、贡献者和开发者在不同频道中交流',
   roadmap: '产品路线图',
   newApp: {
-    learnMore: '了解更多',
+    learnMore: '',
     startFromBlank: '创建空白应用',
     startFromTemplate: '从应用模版创建',
     captionAppType: '想要哪种应用类型？',

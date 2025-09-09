@@ -144,9 +144,7 @@ const VarGroupItem: FC<Props> = ({
         : t(`${i18nPrefix}.title`)!}
       operations={
         <div className='flex items-center h-6  space-x-2'>
-          {payload.variables.length > 0 && (
-            <div className='flex items-center h-[18px] px-1 border border-divider-deep rounded-[5px] text-text-tertiary system-2xs-medium-uppercase'>{payload.output_type}</div>
-          )}
+
           {
             !readOnly
               ? <VarReferencePicker

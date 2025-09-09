@@ -164,16 +164,19 @@ const Panel: FC<NodePanelProps<ListFilterNodeType>> = ({
               name='result'
               type={`Array[${itemVarTypeShowName}]`}
               description={t(`${i18nPrefix}.outputVars.result`)}
+              nodeType='list-operator'
             />
             <VarItem
               name='first_record'
               type={itemVarTypeShowName}
               description={t(`${i18nPrefix}.outputVars.first_record`)}
+              nodeType='list-operator'
             />
             <VarItem
               name='last_record'
               type={itemVarTypeShowName}
               description={t(`${i18nPrefix}.outputVars.last_record`)}
+              nodeType='list-operator'
             />
           </>
         </OutputVars>

@@ -4,7 +4,7 @@ import {
 } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
-  RiAddLine,
+  RiAddCircleLine,
 } from '@remixicon/react'
 import useConfig from './use-config'
 import type { IfElseNodeType } from './types'
@@ -69,8 +69,8 @@ const Panel: FC<NodePanelProps<IfElseNodeType>> = ({
           onClick={() => handleAddCase()}
           disabled={readOnly}
         >
-          <RiAddLine className='mr-1 w-4 h-4' />
-          ELIF
+          <RiAddCircleLine className='mr-1 w-4 h-4' />
+          添加分支
         </Button>
       </div>
       <div className='my-2 mx-3 h-[1px] bg-divider-subtle'></div>

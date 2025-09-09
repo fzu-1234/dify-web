@@ -88,14 +88,14 @@ const Base: FC<Props> = ({
                 <CodeGeneratorButton onGenerated={onGenerated} codeLanguages={codeLanguages}/>
               </div>
             )}
-            {!isCopied
+            {/* {!isCopied
               ? (
                 <Clipboard className='mx-1 w-3.5 h-3.5 text-text-tertiary cursor-pointer' onClick={handleCopy} />
               )
               : (
                 <ClipboardCheck className='mx-1 w-3.5 h-3.5 text-text-tertiary' />
               )
-            }
+            } */}
 
             <div className='ml-1'>
               <ToggleExpandBtn isExpand={isExpand} onExpandChange={setIsExpand} />

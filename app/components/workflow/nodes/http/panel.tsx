@@ -15,6 +15,10 @@ import Split from '@/app/components/workflow/nodes/_base/components/split'
 import OutputVars, { VarItem } from '@/app/components/workflow/nodes/_base/components/output-vars'
 import { Settings01 } from '@/app/components/base/icons/src/vender/line/general'
 import { FileArrow01 } from '@/app/components/base/icons/src/vender/line/files'
+import {
+  RiArrowUpCircleLine,
+  RiListSettingsFill
+} from '@remixicon/react'
 import type { NodePanelProps } from '@/app/components/workflow/types'
 import BeforeRunForm from '@/app/components/workflow/nodes/_base/components/before-run-form'
 import ResultPanel from '@/app/components/workflow/run/result-panel'
@@ -80,7 +84,7 @@ const Panel: FC<NodePanelProps<HttpNodeType>> = ({
                 onClick={showAuthorization}
                 className={cn(!readOnly && 'cursor-pointer hover:bg-gray-50', 'flex items-center h-6 space-x-1 px-2 rounded-md ')}
               >
-                {!readOnly && <Settings01 className='w-3 h-3 text-gray-500' />}
+                {!readOnly && <RiListSettingsFill className='w-3 h-3 text-gray-500' />}
                 <div className='text-xs font-medium text-gray-500'>
                   {t(`${i18nPrefix}.authorization.authorization`)}
                   <span className='ml-1 text-gray-700'>{t(`${i18nPrefix}.authorization.${inputs.authorization.type}`)}</span>
@@ -90,7 +94,7 @@ const Panel: FC<NodePanelProps<HttpNodeType>> = ({
                 onClick={showCurlPanel}
                 className={cn(!readOnly && 'cursor-pointer hover:bg-gray-50', 'flex items-center h-6 space-x-1 px-2 rounded-md ')}
               >
-                {!readOnly && <FileArrow01 className='w-3 h-3 text-gray-500' />}
+                {!readOnly && <RiArrowUpCircleLine className='w-3 h-3 text-gray-500' />}
                 <div className='text-xs font-medium text-gray-500'>
                   {t(`${i18nPrefix}.curl.title`)}
                 </div>
@@ -141,22 +145,6 @@ const Panel: FC<NodePanelProps<HttpNodeType>> = ({
         </Field>
       </div>
       <Split />
-      <Timeout
-        nodeId={id}
-        readonly={readOnly}
-        payload={inputs.timeout}
-        onChange={setTimeout}
-      />
-      {(isShowAuthorization && !readOnly) && (
-        <AuthorizationModal
-          nodeId={id}
-          isShow
-          onHide={hideAuthorization}
-          payload={inputs.authorization}
-          onChange={setAuthorization}
-        />
-      )}
-      <Split />
       <div className=''>
         <OutputVars>
           <>
@@ -183,6 +171,22 @@ const Panel: FC<NodePanelProps<HttpNodeType>> = ({
           </>
         </OutputVars>
       </div>
+      <Split />
+      <Timeout
+        nodeId={id}
+        readonly={readOnly}
+        payload={inputs.timeout}
+        onChange={setTimeout}
+      />
+      {(isShowAuthorization && !readOnly) && (
+        <AuthorizationModal
+          nodeId={id}
+          isShow
+          onHide={hideAuthorization}
+          payload={inputs.authorization}
+          onChange={setAuthorization}
+        />
+      )}
       {isShowSingleRun && (
         <BeforeRunForm
           nodeName={inputs.title}

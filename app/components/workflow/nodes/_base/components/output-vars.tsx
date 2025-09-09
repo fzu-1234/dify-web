@@ -30,6 +30,7 @@ type VarItemProps = {
     type: string
     description: string
   }[]
+  nodeType?: string
 }
 
 export const VarItem: FC<VarItemProps> = ({
@@ -37,12 +38,20 @@ export const VarItem: FC<VarItemProps> = ({
   type,
   description,
   subItems,
+  nodeType,
 }) => {
   return (
     <div className='py-1'>
       <div className='flex leading-[18px] items-center'>
         <div className='code-sm-semibold text-text-secondary'>{name}</div>
-        <div className='ml-2 system-xs-regular text-text-tertiary'>{type}</div>
+        {type && !(
+          (nodeType === 'document-extractor' && (type.includes('File') || type.includes('Array'))) ||
+          (nodeType === 'iteration' && type.includes('Array')) ||
+          (nodeType === 'list-operator' && type.includes('Array')) ||
+          (nodeType === 'variable-assigner')
+        ) && (
+          <div className='ml-2 system-xs-regular text-text-tertiary'>{type}</div>
+        )}
       </div>
       <div className='mt-0.5 system-xs-regular text-text-tertiary'>
         {description}

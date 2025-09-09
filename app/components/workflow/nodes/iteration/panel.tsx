@@ -75,9 +75,6 @@ const Panel: FC<NodePanelProps<IterationNodeType>> = ({
       <div className='px-4 pb-4 space-y-4'>
         <Field
           title={t(`${i18nPrefix}.input`)}
-          operations={(
-            <div className='flex items-center h-[18px] px-1 border border-divider-deep rounded-[5px] system-2xs-medium-uppercase text-text-tertiary capitalize'>Array</div>
-          )}
         >
           <VarReferencePicker
             readonly={readOnly}
@@ -93,9 +90,6 @@ const Panel: FC<NodePanelProps<IterationNodeType>> = ({
       <div className='mt-2 px-4 pb-4 space-y-4'>
         <Field
           title={t(`${i18nPrefix}.output`)}
-          operations={(
-            <div className='flex items-center h-[18px] px-1 border border-divider-deep rounded-[5px] system-2xs-medium-uppercase text-text-tertiary capitalize'>Array</div>
-          )}
         >
           <VarReferencePicker
             readonly={readOnly}

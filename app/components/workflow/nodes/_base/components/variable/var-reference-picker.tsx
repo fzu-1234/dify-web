@@ -293,7 +293,7 @@ const VarReferencePicker: FC<Props> = ({
                       showChecked
                     />
                   </div>
-                  : (!hasValue && <div className='ml-1.5 mr-1'>
+                  : (!hasValue && false && <div className='ml-1.5 mr-1'>
                     <Variable02 className={`w-4 h-4 ${readonly ? 'text-components-input-text-disabled' : 'text-components-input-text-placeholder'}`} />
                   </div>)}
                 {isConstant
@@ -376,13 +376,13 @@ const VarReferencePicker: FC<Props> = ({
               />
             )}
 
-            {!hasValue && typePlaceHolder && (
+            {/* {!hasValue && typePlaceHolder && (
               <Badge
                 className='absolute right-2 top-1.5'
                 text={typePlaceHolder}
                 uppercase={false}
               />
-            )}
+            )} */}
           </>
         </WrapElem>
         <PortalToFollowElemContent style={{

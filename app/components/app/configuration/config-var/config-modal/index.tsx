@@ -17,6 +17,7 @@ import type { InputVar, MoreInfo, UploadFileSetting } from '@/app/components/wor
 import Modal from '@/app/components/base/modal'
 import { ChangeType, InputVarType, SupportUploadFileTypes } from '@/app/components/workflow/types'
 import FileUploadSetting from '@/app/components/workflow/nodes/_base/components/file-upload-setting'
+// import FileUploadSettingMultiSelect from '@/app/components/workflow/nodes/_base/components/file-upload-setting-multi-select'
 import Checkbox from '@/app/components/base/checkbox'
 import { DEFAULT_FILE_UPLOAD_SETTING } from '@/app/components/workflow/constants'
 import { DEFAULT_VALUE_MAX_LEN } from '@/config'
@@ -212,7 +213,6 @@ const ConfigModal: FC<IConfigModalProps> = ({
               placeholder={t('appDebug.variableConfig.inputPlaceholder')!}
             />
           </Field>
-
           {isStringInput && (
             <Field title={t('appDebug.variableConfig.maxLength')}>
               <ConfigString maxLength={type === InputVarType.textInput ? TEXT_MAX_LENGTH : Infinity} modelId={modelConfig.model_id} value={max_length} onChange={handlePayloadChange('max_length')} />

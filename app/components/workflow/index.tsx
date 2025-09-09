@@ -118,7 +118,6 @@ const Workflow: FC<WorkflowProps> = memo(({
   edges: originalEdges,
   viewport,
 }) => {
-//  console.log('原始的节点', originalNodes);
   const workflowContainerRef = useRef<HTMLDivElement>(null)
   const workflowStore = useWorkflowStore()
   const reactflow = useReactFlow()
@@ -299,7 +298,7 @@ const Workflow: FC<WorkflowProps> = memo(({
       <CandidateNode />
       <Header />
       <Panel />
-      {false && <FunctionButton/>}
+      <FunctionButton/>
       <Operator handleRedo={handleHistoryForward} handleUndo={handleHistoryBack} />
       {
         showFeaturesPanel && <Features />
@@ -405,7 +404,6 @@ const WorkflowWrap = memo(() => {
 
     return []
   }, [data])
-  // console.log('节点数据',data, nodesData);
   const edgesData = useMemo(() => {
     if (data)
       return initialEdges(data.graph.edges, data.graph.nodes)

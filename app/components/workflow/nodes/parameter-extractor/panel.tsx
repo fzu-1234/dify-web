@@ -118,9 +118,9 @@ const Panel: FC<NodePanelProps<ParameterExtractorNodeType>> = ({
             !readOnly
               ? (
                 <div className='flex items-center space-x-1'>
-                  {!readOnly && (
+                  {/* {!readOnly && (
                     <ImportFromTool onImport={handleImportFromTool} />
-                  )}
+                  )} */}
                   {!readOnly && (<div className='w-px h-3 bg-gray-200'></div>)}
                   <AddExtractParameter type='add' onSave={addExtractParameter} />
                 </div>
@@ -159,9 +159,8 @@ const Panel: FC<NodePanelProps<ParameterExtractorNodeType>> = ({
           availableNodes={availableNodesWithParent}
         />
       </div>
-      <FieldCollapse title={t(`${i18nPrefix}.advancedSetting`)}>
+      {/* <FieldCollapse title={t(`${i18nPrefix}.advancedSetting`)}>
         <>
-          {/* Memory */}
           {isChatMode && (
             <div className='mt-4'>
               <MemoryConfig
@@ -181,7 +180,7 @@ const Panel: FC<NodePanelProps<ParameterExtractorNodeType>> = ({
             </div>
           )}
         </>
-      </FieldCollapse>
+      </FieldCollapse> */}
       {inputs.parameters?.length > 0 && (<>
         <Split />
         <div>

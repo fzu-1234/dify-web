@@ -108,11 +108,6 @@ If you are not familiar with writing tests, here is some code to refer to:
 
 
 
-
-## Documentation
-
-Visit <https://docs.dify.ai/getting-started/readme> to view the full documentation.
-
 ## Community
 
 The Dify community can be found on [Discord community](https://discord.gg/5AEfbxcd9k), where you can ask questions, voice ideas, and share your projects.

@@ -6,7 +6,6 @@ import produce from 'immer'
 import { useTranslation } from 'react-i18next'
 import type { UploadFileSetting } from '../../../types'
 import { SupportUploadFileTypes } from '../../../types'
-import OptionCard from './option-card'
 import FileTypeItem from './file-type-item'
 import InputNumberWithSlider from './input-number-with-slider'
 import Field from '@/app/components/app/configuration/config-var/config-modal/field'
@@ -14,6 +13,7 @@ import { TransferMethod } from '@/types/app'
 import { fetchFileUploadConfig } from '@/service/common'
 import { useFileSizeLimit } from '@/app/components/base/file-uploader/hooks'
 import { formatFileSize } from '@/utils/format'
+import Checkbox from '@/app/components/base/checkbox' // 导入复选框组件
 
 type Props = {
   payload: UploadFileSetting
@@ -52,7 +52,6 @@ const FileUploadSetting: FC<Props> = ({
       if (type === SupportUploadFileTypes.custom) {
         if (!draft.allowed_file_types.includes(SupportUploadFileTypes.custom))
           draft.allowed_file_types = [SupportUploadFileTypes.custom]
-
         else
           draft.allowed_file_types = draft.allowed_file_types.filter(v => v !== type)
       }
@@ -67,16 +66,19 @@ const FileUploadSetting: FC<Props> = ({
     onChange(newPayload)
   }, [onChange, payload])
 
+  // 修改后的上传方式处理函数
   const handleUploadMethodChange = useCallback((method: TransferMethod) => {
-    return () => {
-      const newPayload = produce(payload, (draft) => {
-        if (method === TransferMethod.all)
-          draft.allowed_file_upload_methods = [TransferMethod.local_file, TransferMethod.remote_url]
-        else
-          draft.allowed_file_upload_methods = [method]
-      })
-      onChange(newPayload)
-    }
+    const newPayload = produce(payload, (draft) => {
+      const index = draft.allowed_file_upload_methods.indexOf(method)
+      if (index > -1) {
+        // 如果已选中，则取消选中
+        draft.allowed_file_upload_methods.splice(index, 1)
+      } else {
+        // 如果未选中，则添加选中
+        draft.allowed_file_upload_methods.push(method)
+      }
+    })
+    onChange(newPayload)
   }, [onChange, payload])
 
   const handleCustomFileTypesChange = useCallback((customFileTypes: string[]) => {
@@ -126,22 +128,22 @@ const FileUploadSetting: FC<Props> = ({
         title={t('appDebug.variableConfig.uploadFileTypes')}
         className='mt-4'
       >
-        <div className='grid grid-cols-3 gap-2'>
-          <OptionCard
-            title={t('appDebug.variableConfig.localUpload')}
-            selected={allowed_file_upload_methods.length === 1 && allowed_file_upload_methods.includes(TransferMethod.local_file)}
-            onSelect={handleUploadMethodChange(TransferMethod.local_file)}
-          />
-          <OptionCard
-            title="URL"
-            selected={allowed_file_upload_methods.length === 1 && allowed_file_upload_methods.includes(TransferMethod.remote_url)}
-            onSelect={handleUploadMethodChange(TransferMethod.remote_url)}
-          />
-          <OptionCard
-            title={t('appDebug.variableConfig.both')}
-            selected={allowed_file_upload_methods.includes(TransferMethod.local_file) && allowed_file_upload_methods.includes(TransferMethod.remote_url)}
-            onSelect={handleUploadMethodChange(TransferMethod.all)}
-          />
+        {/* 改为复选框形式 */}
+        <div className='flex flex-row space-x-4'>
+          <div className='flex w-1/2'>
+            <Checkbox
+              checked={allowed_file_upload_methods.includes(TransferMethod.local_file)}
+              onCheck={() => handleUploadMethodChange(TransferMethod.local_file)}
+            />
+            <span className='ml-2 text-sm text-gray-700'>{t('appDebug.variableConfig.localUpload')}</span>
+          </div>
+          <div className='flex w-1/2'>
+            <Checkbox
+              checked={allowed_file_upload_methods.includes(TransferMethod.remote_url)}
+              onCheck={() => handleUploadMethodChange(TransferMethod.remote_url)}
+            />
+            <span className='ml-2 text-sm text-gray-700'>URL</span>
+          </div>
         </div>
       </Field>
       {isMultiple && (

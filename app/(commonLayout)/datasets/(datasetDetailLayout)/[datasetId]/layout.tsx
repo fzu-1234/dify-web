@@ -126,8 +126,8 @@ const ExtraInfo = ({ isMobile, relatedApps, expand }: IExtraInfoProps) => {
               className='inline-flex items-center text-xs text-text-accent mt-2 cursor-pointer'
               href={
                 locale === LanguagesSupported[1]
-                  ? 'https://docs.dify.ai/v/zh-hans/guides/knowledge-base/integrate-knowledge-within-application'
-                  : 'https://docs.dify.ai/guides/knowledge-base/integrate-knowledge-within-application'
+                  ? ''
+                  : ''
               }
               target='_blank' rel='noopener noreferrer'
             >

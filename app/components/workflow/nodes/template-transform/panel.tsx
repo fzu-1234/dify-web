@@ -78,18 +78,18 @@ const Panel: FC<NodePanelProps<TemplateTransformNodeType>> = ({
           title={
             <div className='uppercase'>{t(`${i18nPrefix}.code`)}</div>
           }
-          headerRight={
-            <div className='flex items-center'>
-              <a
-                className='flex items-center space-x-0.5 h-[18px] text-xs font-normal text-gray-500'
-                href="https://jinja.palletsprojects.com/en/3.1.x/templates/"
-                target='_blank'>
-                <span>{t(`${i18nPrefix}.codeSupportTip`)}</span>
-                <RiQuestionLine className='w-3 h-3' />
-              </a>
-              <div className='mx-1.5 w-px h-3 bg-gray-200'></div>
-            </div>
-          }
+          // headerRight={
+          //   <div className='flex items-center'>
+          //     <a
+          //       className='flex items-center space-x-0.5 h-[18px] text-xs font-normal text-gray-500'
+          //       href="https://jinja.palletsprojects.com/en/3.1.x/templates/"
+          //       target='_blank'>
+          //       <span>{t(`${i18nPrefix}.codeSupportTip`)}</span>
+          //       <RiQuestionLine className='w-3 h-3' />
+          //     </a>
+          //     <div className='mx-1.5 w-px h-3 bg-gray-200'></div>
+          //   </div>
+          // }
           value={inputs.template}
           onChange={handleCodeChange}
         />

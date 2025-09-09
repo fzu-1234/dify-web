@@ -680,3 +680,18 @@ button:focus-within {
 @import '../components/base/modal/index.css';
 
 @tailwind utilities;
+.bg-components-panel-bg .sticky.top-0.bg-workflow-kr-block-bg,
+.bg-components-panel-bg .sticky.top-0.bg-workflow-llm-block-bg,
+.bg-components-panel-bg .sticky.top-0.bg-workflow-workflow-block-bg,
+.bg-components-panel-bg .sticky.top-0.bg-workflow-normal-block-bg,
+.bg-components-panel-bg .sticky.top-0.bg-workflow-tool-block-bg {
+  border: none;
+  background-color: white;
+}
+.bg-components-panel-bg .sticky.top-0.bg-workflow-kr-block-bg input,
+.bg-components-panel-bg .sticky.top-0.bg-workflow-llm-block-bg input,
+.bg-components-panel-bg .sticky.top-0.bg-workflow-tool-block-bg input,
+.bg-components-panel-bg .sticky.top-0.bg-workflow-workflow-block-bg input,
+.bg-components-panel-bg .sticky.top-0.bg-workflow-normal-block-bg input {
+  background-color: transparent;
+}

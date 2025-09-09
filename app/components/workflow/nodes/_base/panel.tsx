@@ -45,6 +45,7 @@ import {
 } from '@/app/components/workflow/utils'
 import Tooltip from '@/app/components/base/tooltip'
 import type { Node } from '@/app/components/workflow/types'
+import { BlockEnum } from '@/app/components/workflow/types'
 import { useStore as useAppStore } from '@/app/components/app/store'
 import { useStore } from '@/app/components/workflow/store'
 
@@ -103,9 +104,9 @@ const BasePanel: FC<BasePanelProps> = ({
     saveStateToHistory(WorkflowHistoryEvent.NodeDescriptionChange)
   }, [handleNodeDataUpdateWithSyncDraft, id, saveStateToHistory])
   // console.log('节点数据',data);
-  if (data.type !== 'knowledge-retrieval') {
-    return null
-  }
+  // if (data.type !== 'llm' && data.type !== 'knowledge-retrieval') {
+  //   return null
+  // }
   return (
     <div className={cn(
       'relative mr-2 h-full',
@@ -123,7 +124,14 @@ const BasePanel: FC<BasePanelProps> = ({
           width: `${panelWidth}px`,
         }}
       >
-        <div className='sticky top-0 bg-components-panel-bg border-b-[0.5px] border-black/5 z-10'>
+        <div className={cn(
+          'sticky top-0 bg-components-panel-bg border-b-[0.5px] border-black/5 z-10',
+          data.type === BlockEnum.LLM && 'bg-workflow-llm-block-bg',
+          data.type === BlockEnum.KnowledgeRetrieval && 'bg-workflow-kr-block-bg',
+          (data.type === BlockEnum.Tool && (data.provider_type === 'api' || data.provider_type === 'builtin')) && 'bg-workflow-tool-block-bg',
+          (data.type === BlockEnum.Tool && data.provider_type === 'workflow') && 'bg-workflow-workflow-block-bg',
+          data.type !== BlockEnum.LLM && data.type !== BlockEnum.KnowledgeRetrieval && data.type !== BlockEnum.Tool && 'bg-workflow-normal-block-bg'
+        )}>
           <div className='flex items-center px-4 pt-4 pb-1'>
             <BlockIcon
               className='shrink-0 mr-1'

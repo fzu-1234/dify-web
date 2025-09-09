@@ -119,12 +119,12 @@ const ChatVariablePanel = () => {
         'relative flex flex-col w-[420px] bg-components-panel-bg-alt rounded-l-2xl h-full border border-components-panel-border',
       )}
     >
-      <div className='shrink-0 flex items-center justify-between p-4 pb-0 text-text-primary system-xl-semibold'>
+       <div className='shrink-0 flex items-center justify-between p-4 pb-0 text-text-primary system-xl-semibold'>
         {t('workflow.chatVariable.panelTitle')}
         <div className='flex items-center gap-1'>
-          <ActionButton state={showTip ? ActionButtonState.Active : undefined} onClick={() => setShowTip(!showTip)}>
+          {/* <ActionButton state={showTip ? ActionButtonState.Active : undefined} onClick={() => setShowTip(!showTip)}>
             <RiBookReadLine className='w-4 h-4' />
-          </ActionButton>
+          </ActionButton> */}
           <div
             className='flex items-center justify-center w-6 h-6 cursor-pointer'
             onClick={() => setShowChatVariablePanel(false)}
@@ -133,7 +133,7 @@ const ChatVariablePanel = () => {
           </div>
         </div>
       </div>
-      {showTip && (
+      {/*{showTip && (
         <div className='shrink-0 px-3 pt-2.5 pb-2'>
           <div className='relative p-3 radius-2xl bg-background-section-burn'>
             <div className='inline-block py-[3px] px-[5px] rounded-[5px] border border-divider-deep text-text-tertiary system-2xs-medium-uppercase'>TIPS</div>
@@ -169,7 +169,7 @@ const ChatVariablePanel = () => {
             <div className='absolute z-10 top-[-4px] right-[38px] w-3 h-3 bg-background-section-burn rotate-45'/>
           </div>
         </div>
-      )}
+      )} */}
       <div className='shrink-0 px-4 pt-2 pb-3'>
         <VariableModalTrigger
           open={showVariableModal}

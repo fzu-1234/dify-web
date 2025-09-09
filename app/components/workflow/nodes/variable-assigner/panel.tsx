@@ -39,6 +39,48 @@ const Panel: FC<NodePanelProps<VariableAssignerNodeType>> = ({
 
   return (
     <div className='mt-2'>
+      <div className={cn('px-4 pt-4', isEnableGroup ? 'pb-4' : 'pb-2')}>
+        <Field
+          title={t(`${i18nPrefix}.aggregationGroup`)}
+          tooltip={t(`${i18nPrefix}.aggregationGroupTip`)!}
+          operations={
+            <Switch
+              defaultValue={isEnableGroup}
+              onChange={handleGroupEnabledChange}
+              size='md'
+              disabled={readOnly}
+            />
+          }
+        />
+      </div>
+      {isEnableGroup && (
+        <>
+          <Split />
+          <div className='px-4 pt-4 pb-2'>
+            <OutputVars>
+              <>
+                {inputs.advanced_settings?.groups.map((item, index) => (
+                  <VarItem
+                    key={index}
+                    name={`${item.group_name}.output`}
+                    type={item.output_type}
+                    description={t(`${i18nPrefix}.outputVars.varDescribe`, {
+                      groupName: item.group_name,
+                    })}
+                    nodeType='variable-assigner'
+                  />
+                ))}
+              </>
+            </OutputVars>
+          </div>
+        </>
+      )}
+      <RemoveEffectVarConfirm
+        isShow={isShowRemoveVarConfirm}
+        onCancel={hideRemoveVarConfirm}
+        onConfirm={onRemoveVarConfirm}
+      />
+      <Split />
       <div className='px-4 pb-4 space-y-4'>
         {!isEnableGroup
           ? (
@@ -81,47 +123,6 @@ const Panel: FC<NodePanelProps<VariableAssignerNodeType>> = ({
             />
           </div>)}
       </div>
-      <Split />
-      <div className={cn('px-4 pt-4', isEnableGroup ? 'pb-4' : 'pb-2')}>
-        <Field
-          title={t(`${i18nPrefix}.aggregationGroup`)}
-          tooltip={t(`${i18nPrefix}.aggregationGroupTip`)!}
-          operations={
-            <Switch
-              defaultValue={isEnableGroup}
-              onChange={handleGroupEnabledChange}
-              size='md'
-              disabled={readOnly}
-            />
-          }
-        />
-      </div>
-      {isEnableGroup && (
-        <>
-          <Split />
-          <div className='px-4 pt-4 pb-2'>
-            <OutputVars>
-              <>
-                {inputs.advanced_settings?.groups.map((item, index) => (
-                  <VarItem
-                    key={index}
-                    name={`${item.group_name}.output`}
-                    type={item.output_type}
-                    description={t(`${i18nPrefix}.outputVars.varDescribe`, {
-                      groupName: item.group_name,
-                    })}
-                  />
-                ))}
-              </>
-            </OutputVars>
-          </div>
-        </>
-      )}
-      <RemoveEffectVarConfirm
-        isShow={isShowRemoveVarConfirm}
-        onCancel={hideRemoveVarConfirm}
-        onConfirm={onRemoveVarConfirm}
-      />
     </div>
   )
 }
