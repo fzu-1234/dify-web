@@ -98,6 +98,9 @@ const SelectDataSet: FC<ISelectDataSetProps> = ({
       className='w-[400px]'
       title={t('appDebug.feature.dataSet.selectTitle')}
     >
+      <div className='text-sm  font-medium text-gray-700' style={{position: 'absolute', top: '25px', right: '20px'}}>
+        {selected.length > 0 && `${selected.length} ${t('appDebug.feature.dataSet.selected')}`}
+      </div>
       {!loaded && (
         <div className='flex h-[200px]'>
           <Loading type='area' />
@@ -157,9 +160,9 @@ const SelectDataSet: FC<ISelectDataSetProps> = ({
       )}
       {loaded && (
         <div className='flex justify-between items-center mt-8'>
-          <div className='text-sm  font-medium text-gray-700'>
+          {/* <div className='text-sm  font-medium text-gray-700'>
             {selected.length > 0 && `${selected.length} ${t('appDebug.feature.dataSet.selected')}`}
-          </div>
+          </div> */}
           <div className='flex space-x-2'>
             <Button onClick={onClose}>{t('common.operation.cancel')}</Button>
             <Button variant='primary' onClick={handleSelect} disabled={hasNoData}>{t('common.operation.add')}</Button>

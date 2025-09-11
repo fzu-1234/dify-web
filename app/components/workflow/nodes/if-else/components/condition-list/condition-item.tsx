@@ -4,7 +4,7 @@ import {
   useState,
 } from 'react'
 import { useTranslation } from 'react-i18next'
-import { RiDeleteBinLine } from '@remixicon/react'
+import { RiDeleteBin4Fill } from '@remixicon/react'
 import produce from 'immer'
 import type { VarType as NumberVarType } from '../../../tool/types'
 import type {
@@ -327,7 +327,7 @@ const ConditionItem = ({
         onMouseLeave={() => setIsHovered(false)}
         onClick={doRemoveCondition}
       >
-        <RiDeleteBinLine className='w-4 h-4' />
+        <RiDeleteBin4Fill className='w-4 h-4' />
       </div>
     </div>
   )

@@ -127,21 +127,21 @@ const Panel: FC<NodePanelProps<KnowledgeRetrievalNodeType>> = ({
                   type: 'string',
                   description: t(`${i18nPrefix}.outputVars.title`),
                 },
-                {
-                  name: 'url',
-                  type: 'string',
-                  description: t(`${i18nPrefix}.outputVars.url`),
-                },
-                {
-                  name: 'icon',
-                  type: 'string',
-                  description: t(`${i18nPrefix}.outputVars.icon`),
-                },
-                {
-                  name: 'metadata',
-                  type: 'object',
-                  description: t(`${i18nPrefix}.outputVars.metadata`),
-                },
+                // {
+                //   name: 'url',
+                //   type: 'string',
+                //   description: t(`${i18nPrefix}.outputVars.url`),
+                // },
+                // {
+                //   name: 'icon',
+                //   type: 'string',
+                //   description: t(`${i18nPrefix}.outputVars.icon`),
+                // },
+                // {
+                //   name: 'metadata',
+                //   type: 'object',
+                //   description: t(`${i18nPrefix}.outputVars.metadata`),
+                // },
               ]}
             />
 

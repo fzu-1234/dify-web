@@ -70,7 +70,7 @@ export const VarItem: FC<VarItemProps> = ({
           (nodeType === 'list-operator' && type.includes('Array')) ||
           (nodeType === 'variable-assigner')
         ) && (
-          <div className={cn('ml-2 system-xs-regular text-text-tertiary', nodeType === 'llm' && 'text-text-secondary')}>{type}</div>
+          <div className={cn('ml-2 system-xs-regular text-text-tertiary', nodeType === 'llm' && 'text-text-secondary')}>{type} <span className='ml-1'>{description}</span></div>
         )}
       </div>
       <div className={cn('mt-0.5 system-xs-regular text-text-tertiary', nodeType === 'llm' && 'hidden')}>

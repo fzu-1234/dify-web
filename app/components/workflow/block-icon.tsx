@@ -23,6 +23,7 @@ import {
   Note,
 } from '@/app/components/base/icons/src/vender/workflow'
 import AppIcon from '@/app/components/base/app-icon'
+import { RiPlayCircleLine } from '@remixicon/react'
 
 import { AUTH_WAY, PUBLIC_PATH } from '@/config'
 
@@ -39,7 +40,7 @@ const ICON_CONTAINER_CLASSNAME_SIZE_MAP: Record<string, string> = {
 }
 const getIcon = (type: BlockEnum, className: string) => {
   return {
-    [BlockEnum.Start]: <Home className={className} />,
+    [BlockEnum.Start]: <RiPlayCircleLine className={className} />,
     [BlockEnum.LLM]: <Llm className={className} />,
     [BlockEnum.Code]: <Code className={className} />,
     [BlockEnum.End]: <End className={className} />,

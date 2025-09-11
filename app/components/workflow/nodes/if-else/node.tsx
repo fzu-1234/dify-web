@@ -49,9 +49,9 @@ const IfElseNode: FC<NodeProps<IfElseNodeType>> = (props) => {
             <div className='relative flex items-center h-6 px-1'>
               <div className='flex items-center justify-between w-full'>
                 <div className='text-[10px] font-semibold text-text-tertiary'>
-                  {casesLength > 1 && `CASE ${index + 1}`}
+                  {casesLength > 1 && `情况 ${index + 1}`}
                 </div>
-                <div className='text-[12px] font-semibold text-text-secondary'>{index === 0 ? 'IF' : 'ELIF'}</div>
+                <div className='text-[12px] font-semibold text-text-secondary'>{index === 0 ? '如果' : '否则'}</div>
               </div>
               <NodeSourceHandle
                 {...props}
@@ -80,7 +80,9 @@ const IfElseNode: FC<NodeProps<IfElseNodeType>> = (props) => {
                       )
                       : conditionNotSet}
                   {i !== caseItem.conditions.length - 1 && (
-                    <div className='absolute z-10 right-1 bottom-[-10px] leading-4 text-[10px] font-medium text-text-accent uppercase'>{t(`${i18nPrefix}.${caseItem.logical_operator}`)}</div>
+                    <div className='absolute z-10 right-1 bottom-[-10px] leading-4 text-[10px] font-medium text-text-accent uppercase'>
+                      {t(`${i18nPrefix}.${caseItem.logical_operator}`)==='and'?'且':'或'}
+                    </div>
                   )}
                 </div>
               ))}
@@ -89,7 +91,7 @@ const IfElseNode: FC<NodeProps<IfElseNodeType>> = (props) => {
         ))
       }
       <div className='relative flex items-center h-6 px-1'>
-        <div className='w-full text-xs font-semibold text-right text-text-secondary'>ELSE</div>
+        <div className='w-full text-xs font-semibold text-right text-text-secondary'>否则</div>
         <NodeSourceHandle
           {...props}
           handleId='false'

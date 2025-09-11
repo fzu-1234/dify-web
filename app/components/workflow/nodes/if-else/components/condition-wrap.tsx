@@ -112,11 +112,11 @@ const ConditionWrap: FC<Props> = ({
                       casesLength === 1 ? 'top-2.5' : 'top-1',
                     )}>
                       {
-                        index === 0 ? 'IF' : 'ELIF'
+                        index === 0 ? '如果' : '否则'
                       }
                       {
                         casesLength > 1 && (
-                          <div className='text-[10px] text-text-tertiary font-medium'>CASE {index + 1}</div>
+                          <div className='text-[10px] text-text-tertiary font-medium'>情况 {index + 1}</div>
                         )
                       }
                     </div>

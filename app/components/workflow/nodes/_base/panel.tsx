@@ -189,23 +189,23 @@ const BasePanel: FC<BasePanelProps> = ({
         <div>
           {cloneElement(children, { id, data })}
         </div>
-        {false && <Split /> }
-        {
-          hasRetryNode(data.type) && false && (
+        <Split />
+        {/* {
+          hasRetryNode(data.type) && (
             <RetryOnPanel
               id={id}
               data={data}
             />
           )
-        }
-        {
-          hasErrorHandleNode(data.type) && false && (
+        } */}
+        {/* {
+          hasErrorHandleNode(data.type) && (
             <ErrorHandleOnPanel
               id={id}
               data={data}
             />
           )
-        }
+        } */}
         {/* {
           !!availableNextBlocks.length && (
             <div className='p-4 border-t-[0.5px] border-t-black/5'>

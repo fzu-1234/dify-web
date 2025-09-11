@@ -70,7 +70,7 @@ const Panel: FC<NodePanelProps<IfElseNodeType>> = ({
           disabled={readOnly}
         >
           <RiAddCircleLine className='mr-1 w-4 h-4' />
-          添加分支
+          添加新的分支逻辑
         </Button>
       </div>
       <div className='my-2 mx-3 h-[1px] bg-divider-subtle'></div>
