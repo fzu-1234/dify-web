@@ -5,8 +5,11 @@ import {
 import { useTranslation } from 'react-i18next'
 import {
   RiCursorLine,
+  RiArrowLeftUpBoxLine,
   RiFunctionAddLine,
+  RiLayoutLine,
   RiHand,
+  RiArrowUpLongLine,
   RiStickyNoteAddLine,
 } from '@remixicon/react'
 import {
@@ -67,7 +70,7 @@ const Control = () => {
           )}
           onClick={handleModePointer}
         >
-          <RiCursorLine className='w-4 h-4' />
+          <RiArrowLeftUpBoxLine className='w-4 h-4' />
         </div>
       </TipPopup>
       <TipPopup title={t('workflow.common.handMode')} shortcuts={['h']}>
@@ -79,7 +82,7 @@ const Control = () => {
           )}
           onClick={handleModeHand}
         >
-          <RiHand className='w-4 h-4' />
+          <RiArrowUpLongLine className='w-4 h-4' />
         </div>
       </TipPopup>
       <Divider type='vertical' className='h-3.5 mx-0.5' />
@@ -91,7 +94,7 @@ const Control = () => {
           )}
           onClick={handleLayout}
         >
-          <RiFunctionAddLine className='w-4 h-4' />
+          <RiLayoutLine className='w-4 h-4' />
         </div>
       </TipPopup>
     </div>

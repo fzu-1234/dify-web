@@ -3,7 +3,9 @@ import { memo, useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import {
   RiArrowGoBackLine,
+  RiArrowLeftLine,
   RiArrowGoForwardFill,
+  RiArrowRightLine,
 } from '@remixicon/react'
 import TipPopup from '../operator/tip-popup'
 import { useWorkflowHistoryStore } from '../workflow-history-store'
@@ -42,7 +44,7 @@ const UndoRedo: FC<UndoRedoProps> = ({ handleUndo, handleRedo }) => {
               && 'hover:bg-transparent text-text-disabled hover:text-text-disabled cursor-not-allowed')}
           onClick={() => !nodesReadOnly && !buttonsDisabled.undo && handleUndo()}
         >
-          <RiArrowGoBackLine className='h-4 w-4' />
+          <RiArrowLeftLine className='h-4 w-4' />
         </div>
       </TipPopup >
       <TipPopup title={t('workflow.common.redo')!} shortcuts={['ctrl', 'y']}>
@@ -55,7 +57,7 @@ const UndoRedo: FC<UndoRedoProps> = ({ handleUndo, handleRedo }) => {
             )}
           onClick={() => !nodesReadOnly && !buttonsDisabled.redo && handleRedo()}
         >
-          <RiArrowGoForwardFill className='h-4 w-4' />
+          <RiArrowRightLine className='h-4 w-4' />
         </div>
       </TipPopup>
       {/* <Divider type='vertical' className="h-3.5 mx-0.5" /> */}

@@ -133,7 +133,7 @@ export default function AppSelector({ isMobile }: IAppSelector) {
                         <ArrowUpRight className='hidden w-[14px] h-[14px] text-text-tertiary group-hover:flex' />
                       </a>}
                     </Menu.Item>}
-                    <Menu.Item>
+                    {/* <Menu.Item>
                       {({ active }) => <Link
                         className={classNames(itemClassName, 'group justify-between',
                           active && 'bg-state-base-hover',
@@ -143,7 +143,7 @@ export default function AppSelector({ isMobile }: IAppSelector) {
                         <div>{t('common.userProfile.communityFeedback')}</div>
                         <ArrowUpRight className='hidden w-[14px] h-[14px] text-text-tertiary group-hover:flex' />
                       </Link>}
-                    </Menu.Item>
+                    </Menu.Item> */}
                     <Menu.Item>
                       {({ active }) => <Link
                         className={classNames(itemClassName, 'group justify-between',
@@ -168,7 +168,7 @@ export default function AppSelector({ isMobile }: IAppSelector) {
                         <ArrowUpRight className='hidden w-[14px] h-[14px] text-text-tertiary group-hover:flex' />
                       </Link>}
                     </Menu.Item>
-                    <Menu.Item>
+                    {/* <Menu.Item>
                       {({ active }) => <Link
                         className={classNames(itemClassName, 'group justify-between',
                           active && 'bg-state-base-hover',
@@ -178,7 +178,7 @@ export default function AppSelector({ isMobile }: IAppSelector) {
                         <div>{t('common.userProfile.roadmap')}</div>
                         <ArrowUpRight className='hidden w-[14px] h-[14px] text-text-tertiary group-hover:flex' />
                       </Link>}
-                    </Menu.Item>
+                    </Menu.Item> */}
                     {
                       document?.body?.getAttribute('data-public-site-about') !== 'hide' && (
                         <Menu.Item>

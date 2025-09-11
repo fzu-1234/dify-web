@@ -17,18 +17,18 @@ const EditingTitle = () => {
       {
         !!draftUpdatedAt && (
           <>
-            {t('workflow.common.autoSaved')} {formatTime(draftUpdatedAt / 1000, 'HH:mm:ss')}
+            {formatTime(draftUpdatedAt / 1000, 'HH:mm:ss')} {t('workflow.common.autoSaved')}
           </>
         )
       }
-      <span className='flex items-center mx-1'>·</span>
-      {
-        publishedAt
+      <span className='flex items-center mx-1 hidden'>·</span>
+      { false
+        && (publishedAt
           ? `${t('workflow.common.published')} ${formatTimeFromNow(publishedAt)}`
-          : t('workflow.common.unpublished')
+          : t('workflow.common.unpublished'))
       }
       {
-        isSyncingWorkflowDraft && (
+        isSyncingWorkflowDraft && false && (
           <>
             <span className='flex items-center mx-1'>·</span>
             {t('workflow.common.syncingData')}

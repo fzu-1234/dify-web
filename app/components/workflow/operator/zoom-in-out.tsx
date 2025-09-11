@@ -66,18 +66,18 @@ const ZoomInOut: FC = () => {
         key: ZoomType.zoomTo100,
         text: '100%',
       },
-      {
-        key: ZoomType.zoomTo75,
-        text: '75%',
-      },
+      // {
+      //   key: ZoomType.zoomTo75,
+      //   text: '75%',
+      // },
       {
         key: ZoomType.zoomTo50,
         text: '50%',
       },
-      {
-        key: ZoomType.zoomTo25,
-        text: '25%',
-      },
+      // {
+      //   key: ZoomType.zoomTo25,
+      //   text: '25%',
+      // },
     ],
     [
       {
@@ -136,14 +136,14 @@ const ZoomInOut: FC = () => {
           ${workflowReadOnly && '!cursor-not-allowed opacity-50'}
         `}>
           <div className={cn(
-            'flex items-center justify-between w-[98px] h-8 rounded-lg',
+            'flex items-center justify-between w-[40px] h-8 rounded-lg pl-2',
           )}>
             <TipPopup
               title={t('workflow.operator.zoomOut')}
               shortcuts={['ctrl', '-']}
             >
               <div
-                className={`flex items-center justify-center w-8 h-8 rounded-lg ${zoom <= 0.25 ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-black/5'}`}
+                className={`flex items-center justify-center w-8 h-8 rounded-lg hidden ${zoom <= 0.25 ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-black/5'}`}
                 onClick={(e) => {
                   if (zoom <= 0.25)
                     return
@@ -161,7 +161,7 @@ const ZoomInOut: FC = () => {
               shortcuts={['ctrl', '+']}
             >
               <div
-                className={`flex items-center justify-center w-8 h-8 rounded-lg ${zoom >= 2 ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-black/5'}`}
+                className={`flex items-center justify-center w-8 h-8 rounded-lg hidden ${zoom >= 2 ? 'cursor-not-allowed' : 'cursor-pointer hover:bg-black/5'}`}
                 onClick={(e) => {
                   if (zoom >= 2)
                     return
@@ -197,17 +197,17 @@ const ZoomInOut: FC = () => {
                         <span>{option.text}</span>
                         <div className='flex items-center space-x-0.5'>
                           {
-                            option.key === ZoomType.zoomToFit && (
+                            option.key === ZoomType.zoomToFit && false && (
                               <ShortcutsName keys={['ctrl', '1']} />
                             )
                           }
                           {
-                            option.key === ZoomType.zoomTo50 && (
+                            option.key === ZoomType.zoomTo50 && false && (
                               <ShortcutsName keys={['shift', '5']} />
                             )
                           }
                           {
-                            option.key === ZoomType.zoomTo100 && (
+                            option.key === ZoomType.zoomTo100 && false && (
                               <ShortcutsName keys={['shift', '1']} />
                             )
                           }

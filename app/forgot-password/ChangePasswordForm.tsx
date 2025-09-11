@@ -90,9 +90,9 @@ const ChangePasswordForm = () => {
             <h2 className="text-[32px] font-bold text-gray-900">{t('login.invalid')}</h2>
           </div>
           <div className="w-full mx-auto mt-6">
-            <Button variant='primary' className='w-full !text-sm'>
+            {/* <Button variant='primary' className='w-full !text-sm'>
               <a href="https://dify.ai">{t('login.explore')}</a>
-            </Button>
+            </Button> */}
           </div>
         </div>
       )}

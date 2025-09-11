@@ -264,14 +264,14 @@ const ProviderConfigModal: FC<Props> = ({
 
                     </div>
                     <div className='my-8 flex justify-between items-center h-8'>
-                      <a
+                      {/* <a
                         className='flex items-center space-x-1 leading-[18px] text-xs font-normal text-[#155EEF]'
                         target='_blank'
                         href={docURL[type]}
                       >
                         <span>{t(`${I18N_PREFIX}.viewDocsLink`, { key: t(`app.tracing.${type}.title`) })}</span>
                         <LinkExternal02 className='w-3 h-3' />
-                      </a>
+                      </a> */}
                       <div className='flex items-center'>
                         {isEdit && (
                           <>

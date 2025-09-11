@@ -161,7 +161,6 @@ const Debug: FC<IDebug> = ({
       const res = (!key || !key.trim()) || (!name || !name.trim()) || (required || required === undefined || required === null)
       return res
     }) // compatible with old version
-    // debugger
     requiredVars.forEach(({ key, name }) => {
       if (hasEmptyInput)
         return

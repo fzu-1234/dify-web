@@ -154,7 +154,7 @@ const Doc = ({ appDetail }: IDocProps) => {
             }
           })()
         )}
-        {appDetail?.mode === 'completion' && (
+        {appDetail?.mode === 'completion' && false && (
           (() => {
             switch (locale) {
               case LanguagesSupported[1]:

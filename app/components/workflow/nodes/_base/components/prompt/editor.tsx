@@ -3,6 +3,7 @@ import type { FC } from 'react'
 import React, { useCallback, useRef } from 'react'
 import {
   RiDeleteBinLine,
+  RiChatDeleteLine
 } from '@remixicon/react'
 import copy from 'copy-to-clipboard'
 import { useTranslation } from 'react-i18next'
@@ -68,6 +69,7 @@ type Props = {
   onEditionTypeChange?: (editionType: EditionType) => void
   varList?: Variable[]
   handleAddVariable?: (payload: any) => void
+  nodeType?: string
 }
 
 const Editor: FC<Props> = ({
@@ -96,7 +98,9 @@ const Editor: FC<Props> = ({
   handleAddVariable,
   onGenerated,
   modelConfig,
+  nodeType,
 }) => {
+  // console.log('Editor', title, nodeType)
   const { t } = useTranslation()
   const { eventEmitter } = useEventEmitterContextContext()
   const controlPromptEditorRerenderKey = useStore(s => s.controlPromptEditorRerenderKey)
@@ -129,9 +133,9 @@ const Editor: FC<Props> = ({
 
   return (
     <Wrap className={cn(className, wrapClassName)} style={wrapStyle} isInNode isExpand={isExpand}>
-      <div ref={ref} className={cn(isFocus ? s.gradientBorder : 'bg-gray-100', isExpand && 'h-full', '!rounded-[9px] p-0.5')}>
-        <div className={cn(isFocus ? 'bg-gray-50' : 'bg-gray-100', isExpand && 'h-full flex flex-col', 'rounded-lg')}>
-          <div className={cn(headerClassName, 'pt-1 pl-3 pr-2 flex justify-between items-center')}>
+      <div ref={ref} className={cn(nodeType !== 'llm' && (isFocus ? s.gradientBorder : 'bg-gray-100'), isExpand && 'h-full', '!rounded-[9px] p-0.5')}>
+        <div className={cn(nodeType !== 'llm' && (isFocus ? 'bg-gray-50' : 'bg-gray-100'), isExpand && 'h-full flex flex-col', 'rounded-lg')}>
+          <div className={cn(headerClassName, 'pt-1 pl-3 pr-2 flex justify-between items-center', nodeType === 'llm' && 'pl-0')}>
             <div className='leading-4 text-xs font-semibold text-gray-700 uppercase'>{title}</div>
             <div className='flex items-center'>
               <div className='leading-[18px] text-xs font-medium text-gray-500'>{value?.length || 0}</div>
@@ -147,7 +151,7 @@ const Editor: FC<Props> = ({
                     popupContent={
                       <div>
                         <div>{t('workflow.common.enableJinja')}</div>
-                        <a className='text-[#155EEF]' target='_blank' href='https://jinja.palletsprojects.com/en/2.10.x/'>{t('workflow.common.learnMore')}</a>
+                        {/* <a className='text-[#155EEF]' target='_blank' href='https://jinja.palletsprojects.com/en/2.10.x/'>{t('workflow.common.learnMore')}</a> */}
                       </div>
                     }
                     needsDelay
@@ -165,7 +169,7 @@ const Editor: FC<Props> = ({
                   </Tooltip>
 
                 )}
-                {!readOnly && (
+                {!readOnly && false && (
                   <Tooltip
                     popupContent={`${t('workflow.common.insertVarTip')}`}
                   >
@@ -176,7 +180,7 @@ const Editor: FC<Props> = ({
                 )}
                 {showRemove && (
                   <ActionButton onClick={onRemove}>
-                    <RiDeleteBinLine className='w-4 h-4' />
+                    <RiChatDeleteLine className='w-4 h-4' />
                   </ActionButton>
                 )}
                 {false && (!isCopied
@@ -198,10 +202,10 @@ const Editor: FC<Props> = ({
           </div>
 
           {/* Min: 80 Max: 560. Header: 24 */}
-          <div className={cn('pb-2', isExpand && 'flex flex-col grow')}>
+          <div className={cn('pb-2', isExpand && 'flex flex-col grow', nodeType === 'llm' && (isFocus ? s.gradientBorder : 'bg-gray-100 bdr rounded-lg'))}>
             {!(isSupportJinja && editionType === EditionType.jinja2)
               ? (
-                <div className={cn(isExpand ? 'grow' : 'max-h-[536px]', 'relative px-3 min-h-[56px]  overflow-y-auto')}>
+                <div className={cn(isExpand ? 'grow' : 'max-h-[536px]', 'relative px-3 min-h-[56px]  overflow-y-auto',nodeType === 'llm' && 'pt-2')}>
                   <PromptEditor
                     key={controlPromptEditorRerenderKey}
                     instanceId={instanceId}

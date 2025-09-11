@@ -3,7 +3,7 @@ import type { FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { useBoolean } from 'ahooks'
 import type { OffsetOptions, Placement } from '@floating-ui/react'
-import { RiQuestionLine } from '@remixicon/react'
+import { RiQuestionLine, RiQuestionnaireFill } from '@remixicon/react'
 import cn from '@/utils/classnames'
 import { PortalToFollowElem, PortalToFollowElemContent, PortalToFollowElemTrigger } from '@/app/components/base/portal-to-follow-elem'
 export type TooltipProps = {
@@ -91,7 +91,7 @@ const Tooltip: FC<TooltipProps> = ({
         onMouseLeave={() => triggerMethod === 'hover' && handleLeave(true)}
         asChild={asChild}
       >
-        {children || <div className={triggerClassName || 'p-[1px] w-3.5 h-3.5 shrink-0'}><RiQuestionLine className='text-text-quaternary hover:text-text-tertiary w-full h-full' /></div>}
+        {children || <div className={triggerClassName || 'p-[1px] w-3.5 h-3.5 shrink-0'}><RiQuestionnaireFill className='text-text-quaternary hover:text-text-tertiary w-full h-full' /></div>}
       </PortalToFollowElemTrigger>
       <PortalToFollowElemContent
         className="z-[9999]"
@@ -100,6 +100,7 @@ const Tooltip: FC<TooltipProps> = ({
           className={cn(
             !noDecoration && 'relative px-3 py-2 system-xs-regular text-text-tertiary bg-components-panel-bg rounded-md shadow-lg break-words',
             popupClassName,
+            'text-black text-sm',
           )}
           onMouseEnter={() => triggerMethod === 'hover' && setHoverPopup()}
           onMouseLeave={() => triggerMethod === 'hover' && handleLeave(false)}

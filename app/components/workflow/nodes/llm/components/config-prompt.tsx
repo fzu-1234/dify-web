@@ -1,6 +1,6 @@
 'use client'
 import type { FC } from 'react'
-import React, { useCallback } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import produce from 'immer'
 import { ReactSortable } from 'react-sortablejs'
@@ -124,6 +124,13 @@ const ConfigPrompt: FC<Props> = ({
     }
   }, [onChange, payload])
 
+  // 自动添加 Prompt 的逻辑
+  useEffect(() => {
+    if (Array.isArray(payload) && payload.length === 1) {
+      handleAddPrompt()
+    }
+  }, [payload, handleAddPrompt]) // 依赖项
+
   const handleCompletionPromptChange = useCallback((prompt: string) => {
     const newPrompt = produce(payload as PromptItem, (draft) => {
       draft[draft.edition_type === EditionType.jinja2 ? 'jinja2_text' : 'text'] = prompt
@@ -202,6 +209,7 @@ const ConfigPrompt: FC<Props> = ({
                           varList={varList}
                           handleAddVariable={handleAddVariable}
                           modelConfig={modelConfig}
+                          nodeType='llm'
                         />
                       </div>
                     )
@@ -209,11 +217,11 @@ const ConfigPrompt: FC<Props> = ({
                 }
               </ReactSortable>
             </div>
-            <AddButton
+            {false && <AddButton
               className='mt-2'
               text={t(`${i18nPrefix}.addMessage`)}
               onClick={handleAddPrompt}
-            />
+            />}
           </div>
         )
         : (
@@ -238,6 +246,7 @@ const ConfigPrompt: FC<Props> = ({
               handleAddVariable={handleAddVariable}
               onGenerated={handleGenerated}
               modelConfig={modelConfig}
+              nodeType='llm'
             />
           </div>
         )}

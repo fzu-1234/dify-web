@@ -18,6 +18,7 @@ type Props = {
   children?: JSX.Element | string | null
   operations?: JSX.Element
   inline?: boolean
+  type?: string
 }
 
 const Field: FC<Props> = ({
@@ -29,12 +30,14 @@ const Field: FC<Props> = ({
   operations,
   inline,
   supportFold,
+  type,
 }) => {
   const [fold, {
     toggle: toggleFold,
   }] = useBoolean(true)
+  // console.log('fileds', className, title,isSubTitle, tooltip,children,operations,inline,supportFold,)
   return (
-    <div className={cn(className, inline && 'flex justify-between items-center w-full')}>
+    <div className={cn(className, inline && 'flex justify-between items-center w-full', type === 'model' && 'flex gap-2.5')}>
       <div
         onClick={() => supportFold && toggleFold()}
         className={cn('flex justify-between items-center', supportFold && 'cursor-pointer')}>
@@ -55,7 +58,7 @@ const Field: FC<Props> = ({
           )}
         </div>
       </div>
-      {children && (!supportFold || (supportFold && !fold)) && <div className={cn(!inline && 'mt-1')}>{children}</div>}
+      {children && (!supportFold || (supportFold && !fold)) && <div className={cn(!inline && 'mt-1', type === 'model' && 'flex-1 flex gap-1.5 items-center')}>{children}</div>}
     </div>
   )
 }

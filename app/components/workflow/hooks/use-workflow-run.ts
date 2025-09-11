@@ -143,6 +143,7 @@ export const useWorkflowRun = () => {
     } = workflowContainer!
 
     const conversationId = searchParams.get('conversationId')
+    const uuid = searchParams.get('uuid')
 
     let url = ''
     if (appDetail?.mode === 'advanced-chat')
@@ -152,7 +153,7 @@ export const useWorkflowRun = () => {
       url = AUTH_WAY === 'SIGN' ? `/apps/${appDetail.id}/workflows/draft/run` : `/messages/send?appId=${appDetail.id}`
 
     if (isView)
-      url = `/app-conversation-list/listen?conversationId=${conversationId}`
+      url = `/app-conversation-list/listen?conversationId=${conversationId}&uuid=${uuid}`
 
     let prevNodeId = ''
 

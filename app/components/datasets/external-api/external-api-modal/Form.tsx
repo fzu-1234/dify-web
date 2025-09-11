@@ -55,7 +55,7 @@ const Form: FC<FormProps> = React.memo(({
             {label[i18n.language] || label.en_US}
             {required && <span className='ml-1 text-red-500'>*</span>}
           </label>
-          {variable === 'endpoint' && (
+          {variable === 'endpoint' && false && (
             <a
               href={'https://docs.dify.ai/guides/knowledge-base/external-knowledge-api-documentation' || '/'}
               target='_blank'

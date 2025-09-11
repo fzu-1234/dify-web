@@ -45,9 +45,9 @@ const VarReferencePopup: FC<Props> = ({
               title={t('workflow.variableReference.noAssignedVars') || ''}
               description={<div className='text-text-tertiary system-xs-regular'>
                 {t('workflow.variableReference.assignedVarsDescription')}
-                <a target='_blank' rel='noopener noreferrer'
+                {/* <a target='_blank' rel='noopener noreferrer'
                   className='text-text-accent-secondary'
-                  href={locale !== LanguagesSupported[1] ? 'https://docs.dify.ai/guides/workflow/variables#conversation-variables' : `https://docs.dify.ai/${locale.toLowerCase()}/guides/workflow/variables#hui-hua-bian-liang`}>{t('workflow.variableReference.conversationVars')}</a>
+                  href={locale !== LanguagesSupported[1] ? 'https://docs.dify.ai/guides/workflow/variables#conversation-variables' : `https://docs.dify.ai/${locale.toLowerCase()}/guides/workflow/variables#hui-hua-bian-liang`}>{t('workflow.variableReference.conversationVars')}</a> */}
               </div>}
             />
           ))

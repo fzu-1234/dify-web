@@ -38,6 +38,7 @@ type Props = {
   varList: Variable[]
   handleAddVariable: (payload: any) => void
   modelConfig?: ModelConfig
+  nodeType?: string
 }
 
 const roleOptions = [
@@ -78,6 +79,7 @@ const ConfigPromptItem: FC<Props> = ({
   varList,
   handleAddVariable,
   modelConfig,
+  nodeType,
 }) => {
   const { t } = useTranslation()
   const workflowStore = useWorkflowStore()
@@ -107,14 +109,17 @@ const ConfigPromptItem: FC<Props> = ({
               系统提示词
             </div>)
             : (
-              <TypeSelector
-                value={payload.role as string}
-                allOptions={roleOptions}
-                options={canNotChooseSystemRole ? roleOptionsWithoutSystemRole : roleOptions}
-                onChange={handleChatModeMessageRoleChange}
-                triggerClassName='text-xs font-semibold text-gray-700 uppercase'
-                itemClassName='text-[13px] font-medium text-gray-700'
-              />
+              (<div className='relative left-[-4px] text-xs font-semibold text-gray-700 uppercase'>
+              用户提示词
+              </div>)
+              // <TypeSelector
+              //   value={payload.role as string}
+              //   allOptions={roleOptions}
+              //   options={canNotChooseSystemRole ? roleOptionsWithoutSystemRole : roleOptions}
+              //   onChange={handleChatModeMessageRoleChange}
+              //   triggerClassName='text-xs font-semibold text-gray-700 uppercase'
+              //   itemClassName='text-[13px] font-medium text-gray-700'
+              // />
             )}
 
           <Tooltip
@@ -145,6 +150,7 @@ const ConfigPromptItem: FC<Props> = ({
       varList={varList}
       handleAddVariable={handleAddVariable}
       isSupportFileVar
+      nodeType={nodeType}
     />
   )
 }

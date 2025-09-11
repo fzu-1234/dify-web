@@ -32,7 +32,8 @@ const OPTION_MAP = {
   },
   scripts: {
     getContent: (url: string, token: string, primaryColor: string, isTestEnv?: boolean) =>
-      `<script>
+      `
+    <script>
  window.difyChatbotConfig = {
   token: '${token}'${isTestEnv
   ? `,
@@ -103,7 +104,7 @@ const Embedded = ({ siteInfo, isShow, onClose, appBaseUrl, accessToken, classNam
   }
 
   const navigateToChromeUrl = () => {
-    window.open('https://chrome.google.com/webstore/detail/dify-chatbot/ceehdapohffmjmkdcifjofadiaoeggaf', '_blank')
+    // window.open('https://chrome.google.com/webstore/detail/dify-chatbot/ceehdapohffmjmkdcifjofadiaoeggaf', '_blank')
   }
 
   useEffect(() => {

@@ -207,7 +207,7 @@ const DatasetDetailLayout: FC<IAppDetailLayoutProps> = (props) => {
     <div className='grow flex overflow-hidden'>
       {!hideSideBar && <AppSideBar
         title={datasetRes?.name || '--'}
-        icon={datasetRes?.icon || 'https://static.dify.ai/images/dataset-default-icon.png'}
+        icon={datasetRes?.icon}
         icon_background={datasetRes?.icon_background || '#F5F5F5'}
         desc={datasetRes?.description || '--'}
         isExternal={datasetRes?.provider === 'external'}

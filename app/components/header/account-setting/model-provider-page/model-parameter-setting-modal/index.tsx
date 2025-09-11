@@ -24,7 +24,7 @@ import cn from '@/utils/classnames'
 import {
   PortalToFollowElem,
   PortalToFollowElemContent,
-  PortalToFollowElemTrigger,
+  PortalToFollowElemSettingTrigger,
 } from '@/app/components/base/portal-to-follow-elem'
 import { fetchModelParameterRules } from '@/service/common'
 import Loading from '@/app/components/base/loading'
@@ -70,7 +70,7 @@ const stopParameterRule: ModelParameterRule = {
 }
 
 const PROVIDER_WITH_PRESET_TONE = ['openai', 'azure_openai']
-const ModelParameterModal: FC<ModelParameterModalProps> = ({
+const ModelParameterSettingModal: FC<ModelParameterModalProps> = ({
   classNames,
   popupClassName,
   portalToFollowElemContentClassName,
@@ -104,7 +104,36 @@ const ModelParameterModal: FC<ModelParameterModalProps> = ({
   const disabled = !isAPIKeySet || hasDeprecated || modelDisabled
 
   const parameterRules: ModelParameterRule[] = useMemo(() => {
-    return parameterRulesData?.data || []
+    // 修改文字
+    return parameterRulesData?.data?.map((rule) => {
+      if (rule.name === 'temperature') {
+        return {
+          ...rule,
+          label: {
+            ...rule.label,
+            zh_Hans: '随机性',
+          },
+          help: {
+            ...rule.help,
+            zh_Hans: '控制模型预测输出的随机性。取值范围在[0,1]，值越小，模型预测的随机结果越少，模型将变得具有确定性。值越大，模型预测的随机结果越多。',
+          },
+        }
+      }
+      if (rule.name === 'top_p') {
+        return {
+          ...rule,
+          label: {
+            ...rule.label,
+            zh_Hans: '多样性(核采样)',
+          },
+          help: {
+            ...rule.help,
+            zh_Hans: '通过核采样控制多样性，取值范围在[0,1]，表示模型在生成下一个单词时，从累计概率超过该阈值中的单词中随机选择一个。',
+          },
+        }
+      }
+      return rule
+    }) || []
   }, [parameterRulesData])
 
   const handleParamChange = (key: string, value: ParameterValue) => {
@@ -154,11 +183,11 @@ const ModelParameterModal: FC<ModelParameterModalProps> = ({
     <PortalToFollowElem
       open={open}
       onOpenChange={setOpen}
-      placement={isInWorkflow ? 'bottom-end' : 'bottom-end'}
-      offset={0}
+      placement={isInWorkflow ? 'left' : 'bottom-end'}
+      offset={4}
     >
       <div className={cn('relative', classNames)}>
-        <PortalToFollowElemTrigger
+        <PortalToFollowElemSettingTrigger
           onClick={() => {
             if (readonly)
               return
@@ -191,16 +220,16 @@ const ModelParameterModal: FC<ModelParameterModalProps> = ({
                 />
               )
           }
-        </PortalToFollowElemTrigger>
+        </PortalToFollowElemSettingTrigger>
         <PortalToFollowElemContent className={cn(portalToFollowElemContentClassName, 'z-[60]')}>
           <div className={cn(popupClassName, 'w-[496px] rounded-xl border border-gray-100 bg-white shadow-xl')}>
             <div className={cn(
               'max-h-[480px]  overflow-y-auto',
               !isInWorkflow && 'px-10 pt-6 pb-8',
               isInWorkflow && 'p-4')}>
-              <div className='flex items-center gap-2.5 h-8'>
+              <div className='flex items-center justify-between h-8 hidden'>
                 <div className={cn('font-semibold text-gray-900 shrink-0', isInWorkflow && 'text-[13px]')}>
-                  {t('common.modelProvider.modelSelect').toLocaleUpperCase()}
+                  {t('common.modelProvider.model').toLocaleUpperCase()}
                 </div>
                 <ModelSelector
                   defaultModel={(provider || modelId) ? { provider, model: modelId } : undefined}
@@ -221,7 +250,7 @@ const ModelParameterModal: FC<ModelParameterModalProps> = ({
               }
               {
                 !isLoading && !!parameterRules.length && (
-                  <div className='flex items-center justify-between mb-4 hidden'>
+                  <div className='flex items-center justify-between mb-4'>
                     <div className={cn('font-semibold text-gray-900', isInWorkflow && 'text-[13px]')}>{t('common.modelProvider.parameters')}</div>
                     {
                       PROVIDER_WITH_PRESET_TONE.includes(provider) && (
@@ -239,7 +268,7 @@ const ModelParameterModal: FC<ModelParameterModalProps> = ({
                   ].map(parameter => (
                     <ParameterItem
                       key={`${modelId}-${parameter.name}`}
-                      className='mb-4 hidden'
+                      className='mb-4'
                       parameterRule={parameter}
                       value={completionParams?.[parameter.name]}
                       onChange={v => handleParamChange(parameter.name, v)}
@@ -270,4 +299,4 @@ const ModelParameterModal: FC<ModelParameterModalProps> = ({
   )
 }
 
-export default ModelParameterModal
+export default ModelParameterSettingModal

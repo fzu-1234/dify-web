@@ -105,12 +105,12 @@ const Doc = ({ apiBaseUrl }: DocProps) => {
             </button>
           )}
       </div>
-      <article className='mx-1 px-4 sm:mx-12 pt-16 bg-white rounded-t-xl prose prose-xl'>
+      {/* <article className='mx-1 px-4 sm:mx-12 pt-16 bg-white rounded-t-xl prose prose-xl'>
         {locale !== LanguagesSupported[1]
           ? <TemplateEn apiBaseUrl={apiBaseUrl} />
           : <TemplateZh apiBaseUrl={apiBaseUrl} />
         }
-      </article>
+      </article> */}
     </div>
   )
 }

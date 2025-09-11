@@ -230,7 +230,7 @@ const SettingsModal: FC<ISettingsModalProps> = ({
           </div>
           <div className='mt-0.5 text-text-tertiary system-xs-regular'>
             <span>{t(`${prefixSettings}.modalTip`)}</span>
-            <Link href={`${locale === LanguagesSupported[1] ? '' : ''}`} target='_blank' rel='noopener noreferrer' className='text-text-accent'>{t('common.operation.learnMore')}</Link>
+            {/* <Link href={`${locale === LanguagesSupported[1] ? '' : ''}`} target='_blank' rel='noopener noreferrer' className='text-text-accent'>{t('common.operation.learnMore')}</Link> */}
           </div>
         </div>
         {/* form body */}
@@ -407,10 +407,10 @@ const SettingsModal: FC<ISettingsModalProps> = ({
               <div className='w-full'>
                 <div className={cn('py-1 text-text-secondary system-sm-semibold')}>{t(`${prefixSettings}.more.privacyPolicy`)}</div>
                 <p className={cn('pb-0.5 body-xs-regular text-text-tertiary')}>
-                  <Trans
+                  {/* <Trans
                     i18nKey={`${prefixSettings}.more.privacyPolicyTip`}
                     components={{ privacyPolicyLink: <Link href={'https://docs.dify.ai/user-agreement/privacy-policy'} target='_blank' rel='noopener noreferrer' className='text-text-accent' /> }}
-                  />
+                  /> */}
                 </p>
                 <Input
                   className='mt-1'

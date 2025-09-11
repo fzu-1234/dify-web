@@ -2,8 +2,10 @@
 import type { FC } from 'react'
 import React, { useCallback } from 'react'
 import {
-  RiCollapseDiagonalLine,
-  RiExpandDiagonalLine,
+  RiCollapseVerticalLine,
+  RiExpandVerticalLine,
+  RiCollapseDiagonal2Line,
+  RiExpandDiagonal2Line,
 } from '@remixicon/react'
 import ActionButton from '@/app/components/base/action-button'
 
@@ -20,7 +22,7 @@ const ExpandBtn: FC<Props> = ({
     onExpandChange(!isExpand)
   }, [isExpand])
 
-  const Icon = isExpand ? RiCollapseDiagonalLine : RiExpandDiagonalLine
+  const Icon = isExpand ? RiCollapseVerticalLine : RiExpandVerticalLine
   return (
     <ActionButton onClick={handleToggle}>
       <Icon className='w-4 h-4' />

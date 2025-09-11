@@ -97,7 +97,7 @@ const CustomizeModal: FC<IShareLinkProps> = ({
     <div className='w-full mt-4 px-6 py-5 border-gray-200 rounded-lg border-[0.5px]'>
       <Tag bordered={true} hideBg={true} className='text-primary-600 border-primary-600 uppercase'>{t(`${prefixCustomize}.way`)} 2</Tag>
       <p className='mt-2 text-base font-medium text-gray-800'>{t(`${prefixCustomize}.way2.name`)}</p>
-      <Button
+      {/* <Button
         className='mt-2'
         onClick={() =>
           window.open(
@@ -111,7 +111,7 @@ const CustomizeModal: FC<IShareLinkProps> = ({
       >
         <span className='text-sm text-gray-800'>{t(`${prefixCustomize}.way2.operation`)}</span>
         <ArrowTopRightOnSquareIcon className='w-4 h-4 ml-1 text-gray-800 shrink-0' />
-      </Button>
+      </Button> */}
     </div>
   </Modal>
 }

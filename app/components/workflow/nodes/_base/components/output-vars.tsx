@@ -2,6 +2,7 @@
 import type { FC } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import cn from '@/utils/classnames'
 import { FieldCollapse } from '@/app/components/workflow/nodes/_base/components/collapse'
 
 type Props = {
@@ -41,19 +42,38 @@ export const VarItem: FC<VarItemProps> = ({
   nodeType,
 }) => {
   return (
-    <div className='py-1'>
-      <div className='flex leading-[18px] items-center'>
+    <div className={cn(
+      'py-1',
+      nodeType === 'llm' && ('border-b border-gray-200'),
+    )}>
+      <div className={cn('flex leading-[18px] items-center', nodeType === 'llm' && 'justify-between')}>
         <div className='code-sm-semibold text-text-secondary'>{name}</div>
+        <div className={cn('mt-0.5 system-xs-regular text-text-tertiary hidden'
+          , nodeType === 'llm' && 'block text-text-secondary')}>
+          {description}
+          {subItems && (
+            <div className='ml-2 border-l border-gray-200 pl-2'>
+              {subItems.map((item, index) => (
+                <VarItem
+                  key={index}
+                  name={item.name}
+                  type={item.type}
+                  description={item.description}
+                />
+              ))}
+            </div>
+          )}
+        </div>
         {type && !(
           (nodeType === 'document-extractor' && (type.includes('File') || type.includes('Array'))) ||
           (nodeType === 'iteration' && type.includes('Array')) ||
           (nodeType === 'list-operator' && type.includes('Array')) ||
           (nodeType === 'variable-assigner')
         ) && (
-          <div className='ml-2 system-xs-regular text-text-tertiary'>{type}</div>
+          <div className={cn('ml-2 system-xs-regular text-text-tertiary', nodeType === 'llm' && 'text-text-secondary')}>{type}</div>
         )}
       </div>
-      <div className='mt-0.5 system-xs-regular text-text-tertiary'>
+      <div className={cn('mt-0.5 system-xs-regular text-text-tertiary', nodeType === 'llm' && 'hidden')}>
         {description}
         {subItems && (
           <div className='ml-2 border-l border-gray-200 pl-2'>

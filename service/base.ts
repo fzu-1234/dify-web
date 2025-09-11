@@ -219,6 +219,7 @@ const handleStream = (
   function read() {
     let hasError = false;
     reader?.read().then((result: any) => {
+      console.log('read',result);
       if (result.done) {
         onCompleted && onCompleted();
         return;

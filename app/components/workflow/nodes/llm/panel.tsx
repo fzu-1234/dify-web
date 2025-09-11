@@ -1,6 +1,7 @@
 import type { FC } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
+import { RiQuestionLine } from '@remixicon/react'
 import MemoryConfig from '../_base/components/memory-config'
 import VarReferencePicker from '../_base/components/variable/var-reference-picker'
 import ConfigVision from '../_base/components/config-vision'
@@ -12,6 +13,7 @@ import AddButton2 from '@/app/components/base/button/add-button'
 import Field from '@/app/components/workflow/nodes/_base/components/field'
 import Split from '@/app/components/workflow/nodes/_base/components/split'
 import ModelParameterModal from '@/app/components/header/account-setting/model-provider-page/model-parameter-modal'
+import ModelParameterSettingModal from '@/app/components/header/account-setting/model-provider-page/model-parameter-setting-modal'
 import OutputVars, { VarItem } from '@/app/components/workflow/nodes/_base/components/output-vars'
 import { InputVarType, type NodePanelProps } from '@/app/components/workflow/types'
 import BeforeRunForm from '@/app/components/workflow/nodes/_base/components/before-run-form'
@@ -76,7 +78,7 @@ const Panel: FC<NodePanelProps<LLMNodeType>> = ({
   } = useRetryDetailShowInSingleRun()
 
   const model = inputs.model
-
+  // console.log('panel-inputs', inputs)
   const singleRunForms = (() => {
     const forms: FormProps[] = []
 
@@ -131,9 +133,25 @@ const Panel: FC<NodePanelProps<LLMNodeType>> = ({
     <div className='mt-2'>
       <div className='px-4 pb-4 space-y-4'>
         <Field
-          title={t(`${i18nPrefix}.model`)}
+          title={`${t(`${i18nPrefix}.model`)}:`}
+          type='model'
         >
           <ModelParameterModal
+            classNames='flex-1'
+            popupClassName='!w-[387px]'
+            isInWorkflow
+            isAdvancedMode={true}
+            mode={model?.mode}
+            provider={model?.provider}
+            completionParams={model?.completion_params}
+            modelId={model?.name}
+            setModel={handleModelChanged}
+            onCompletionParamsChange={handleCompletionParamsChange}
+            hideDebugWithMultipleModel
+            debugWithMultipleModel={false}
+            readonly={readOnly}
+          />
+           <ModelParameterSettingModal
             popupClassName='!w-[387px]'
             isInWorkflow
             isAdvancedMode={true}
@@ -251,7 +269,7 @@ const Panel: FC<NodePanelProps<LLMNodeType>> = ({
         )}
 
         {/* Memory */}
-        {isChatMode && (
+        {isChatMode && false && (
           <>
             <Split />
             <MemoryConfig
@@ -264,7 +282,7 @@ const Panel: FC<NodePanelProps<LLMNodeType>> = ({
         )}
 
         {/* Vision: GPT4-vision and so on */}
-        <ConfigVision
+        {false && <ConfigVision
           nodeId={id}
           readOnly={readOnly}
           isVisionModel={isVisionModel}
@@ -272,7 +290,7 @@ const Panel: FC<NodePanelProps<LLMNodeType>> = ({
           onEnabledChange={handleVisionResolutionEnabledChange}
           config={inputs.vision?.configs}
           onConfigChange={handleVisionResolutionChange}
-        />
+        />}
       </div>
       <Split />
       <OutputVars>
@@ -281,10 +299,11 @@ const Panel: FC<NodePanelProps<LLMNodeType>> = ({
             name='text'
             type='string'
             description={t(`${i18nPrefix}.outputVars.output`)}
+            nodeType='llm'
           />
         </>
       </OutputVars>
-      {isShowSingleRun && (
+      {isShowSingleRun && false && (
         <BeforeRunForm
           nodeName={inputs.title}
           nodeType={inputs.type}

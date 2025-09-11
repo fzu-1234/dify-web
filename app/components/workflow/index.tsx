@@ -344,7 +344,7 @@ const Workflow: FC<WorkflowProps> = memo(({
         {/* 查看时隐藏右边弹窗 */}
         {!isView && <Panel />}
         {/* 查看时隐藏操作按钮 */}
-        {/* {!isView && <FunctionButton/>} */}
+        {/* {!isView && process.env.NODE_ENV === 'development' && <FunctionButton/>} */}
         {!isView && <Operator handleRedo={handleHistoryForward} handleUndo={handleHistoryBack} />}
         {
           showFeaturesPanel && <Features />
@@ -420,7 +420,7 @@ const Workflow: FC<WorkflowProps> = memo(({
           isValidConnection={isValidConnection}
           selectionKeyCode={null}
           selectionMode={SelectionMode.Partial}
-          selectionOnDrag={controlMode === ControlMode.Pointer && !workflowReadOnly}
+          selectionOnDrag={(controlMode === ControlMode.Pointer && !workflowReadOnly) || isView}
           minZoom={0.25}
           proOptions={{ hideAttribution: true }}
         >

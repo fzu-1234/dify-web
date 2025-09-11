@@ -43,6 +43,7 @@ import AddVariablePopupWithPosition from './components/add-variable-popup-with-p
 import cn from '@/utils/classnames'
 import BlockIcon from '@/app/components/workflow/block-icon'
 import Tooltip from '@/app/components/base/tooltip'
+import './node.scss'
 
 type BaseNodeProps = {
   children: ReactElement
@@ -115,14 +116,14 @@ const BaseNode: FC<BaseNodeProps> = ({
           data.type === BlockEnum.Iteration && 'flex flex-col w-full h-full bg-workflow-block-bg-transparent border-workflow-block-border',
           !data._runningStatus && 'hover:shadow-lg',
           showRunningBorder && '!border-state-accent-solid',
-          showRunningBorder && 'border-4',
+          showRunningBorder && 'showRunningBorder border-4',
           showSuccessBorder && '!border-state-success-solid',
           showFailedBorder && '!border-state-destructive-solid',
           showExceptionBorder && '!border-state-warning-solid',
           data._isBundled && '!shadow-lg',
         )}
         style={{
-          backgroundColor: showRunningBorder ? '#FFF59D' : '',
+          backgroundColor: showRunningBorder ? '#7cb1e3' : '',
         }}
       >
         {
@@ -183,7 +184,11 @@ const BaseNode: FC<BaseNodeProps> = ({
           data.type === BlockEnum.KnowledgeRetrieval && 'bg-workflow-kr-block-bg',
           (data.type === BlockEnum.Tool && (data.provider_type === 'api' || data.provider_type === 'builtin')) && 'bg-workflow-tool-block-bg',
           (data.type === BlockEnum.Tool && data.provider_type === 'workflow') && 'bg-workflow-workflow-block-bg',
-        )}>
+        )}
+        style={{
+          background: showRunningBorder ? '#0000' : '',
+        }}
+        >
           <BlockIcon
             className='shrink-0 mr-2'
             type={data.type}
