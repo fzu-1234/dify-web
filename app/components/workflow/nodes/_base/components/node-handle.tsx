@@ -27,6 +27,7 @@ import {
 import {
   useStore,
 } from '../../../store'
+import ToolModal from '@/app/components/app-sidebar/tool-modal'
 import cn from '@/utils/classnames'
 
 type NodeHandleProps = {
@@ -49,6 +50,8 @@ export const NodeTargetHandle = memo(({
   const connected = data._connectedTargetHandleIds?.includes(handleId)
   const { availablePrevBlocks } = useAvailableBlocks(data.type, data.isInIteration)
   const isConnectable = !!availablePrevBlocks.length
+  const [toolModalOpen, setToolModalOpen] = useState(false) // 添加状态控制弹框
+  const [toolModalType, setToolModalType] = useState<'workflow' | 'toolbox' | ''>('')
 
   const handleOpenChange = useCallback((v: boolean) => {
     setOpen(v)
@@ -59,6 +62,12 @@ export const NodeTargetHandle = memo(({
       setOpen(v => !v)
   }, [connected])
   const handleSelect = useCallback((type: BlockEnum, toolDefaultValue?: ToolDefaultValue) => {
+    // 当节点类型为 workflow,toolbox 时，显示弹框而不是创建节点
+    if (type === 'workflow' || type === 'toolbox') {
+      setToolModalType(type)
+      setToolModalOpen(true)
+      return
+    }
     handleNodeAdd(
       {
         nodeType: type,
@@ -110,6 +119,11 @@ export const NodeTargetHandle = memo(({
             />
           )
         }
+        <ToolModal open={toolModalOpen} onSelect={handleSelect}
+          onCancel={() => {
+            setToolModalOpen(false)
+            setToolModalType('')
+          }} toolType={toolModalType} />
       </Handle>
     </>
   )
@@ -133,7 +147,8 @@ export const NodeSourceHandle = memo(({
   const isConnectable = !!availableNextBlocks.length
   const isChatMode = useIsChatMode()
   const { checkParallelLimit } = useWorkflow()
-
+  const [toolModalOpen, setToolModalOpen] = useState(false) // 添加状态控制弹框
+  const [toolModalType, setToolModalType] = useState<'workflow' | 'toolbox' | ''>('')
   const connected = data._connectedSourceHandleIds?.includes(handleId)
   const handleOpenChange = useCallback((v: boolean) => {
     setOpen(v)
@@ -144,6 +159,12 @@ export const NodeSourceHandle = memo(({
       setOpen(v => !v)
   }, [checkParallelLimit, id, handleId])
   const handleSelect = useCallback((type: BlockEnum, toolDefaultValue?: ToolDefaultValue) => {
+    // 当节点类型为 workflow,toolbox 时，显示弹框而不是创建节点
+    if (type === 'workflow' || type === 'toolbox') {
+      setToolModalType(type)
+      setToolModalOpen(true)
+      return
+    }
     handleNodeAdd(
       {
         nodeType: type,
@@ -209,6 +230,11 @@ export const NodeSourceHandle = memo(({
           />
         )
       }
+      <ToolModal open={toolModalOpen} onSelect={handleSelect}
+        onCancel={() => {
+          setToolModalOpen(false)
+          setToolModalType('')
+        }} toolType={toolModalType} />
     </Handle>
   )
 })

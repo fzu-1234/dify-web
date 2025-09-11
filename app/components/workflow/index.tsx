@@ -413,10 +413,10 @@ const Workflow: FC<WorkflowProps> = memo(({
           nodesConnectable={!nodesReadOnly}
           nodesFocusable={!nodesReadOnly}
           edgesFocusable={!nodesReadOnly}
-          panOnDrag={controlMode === ControlMode.Hand && !workflowReadOnly}
-          zoomOnPinch={!workflowReadOnly}
-          zoomOnScroll={!workflowReadOnly}
-          zoomOnDoubleClick={!workflowReadOnly}
+          panOnDrag={(controlMode === ControlMode.Hand && !workflowReadOnly) || isView}
+          zoomOnPinch={!workflowReadOnly || isView}
+          zoomOnScroll={!workflowReadOnly || isView}
+          zoomOnDoubleClick={!workflowReadOnly || isView}
           isValidConnection={isValidConnection}
           selectionKeyCode={null}
           selectionMode={SelectionMode.Partial}

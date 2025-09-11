@@ -27,6 +27,7 @@ import { ITERATION_CHILDREN_Z_INDEX } from './constants'
 import CustomEdgeLinearGradientRender from './custom-edge-linear-gradient-render'
 import cn from '@/utils/classnames'
 import { ErrorHandleTypeEnum } from '@/app/components/workflow/nodes/_base/components/error-handle/types'
+import ToolModal from '@/app/components/app-sidebar/tool-modal'
 
 const CustomEdge = ({
   id,
@@ -62,7 +63,8 @@ const CustomEdge = ({
     _sourceRunningStatus,
     _targetRunningStatus,
   } = data
-
+  const [toolModalOpen, setToolModalOpen] = useState(false) // 添加状态控制弹框
+  const [toolModalType, setToolModalType] = useState<'workflow' | 'toolbox' | ''>('')
   const linearGradientId = useMemo(() => {
     if (
       (
@@ -84,6 +86,12 @@ const CustomEdge = ({
   }, [])
 
   const handleInsert = useCallback<OnSelectBlock>((nodeType, toolDefaultValue) => {
+    // 当节点类型为 workflow,toolbox 时，显示弹框而不是创建节点
+    if (nodeType === 'workflow' || nodeType === 'toolbox') {
+      setToolModalType(nodeType)
+      setToolModalOpen(true)
+      return
+    }
     handleNodeAdd(
       {
         nodeType,
@@ -161,6 +169,11 @@ const CustomEdge = ({
             triggerClassName={() => 'hover:scale-150 transition-all'}
           />
         </div>
+        <ToolModal open={toolModalOpen} onSelect={handleInsert}
+          onCancel={() => {
+            setToolModalOpen(false)
+            setToolModalType('')
+          }} toolType={toolModalType} />
       </EdgeLabelRenderer>
     </>
   )

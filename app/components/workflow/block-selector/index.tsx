@@ -128,7 +128,7 @@ const NodeSelector: FC<NodeSelectorProps> = ({
       <PortalToFollowElemContent className='z-[1000]'>
         <div className={
           classNames(`rounded-lg border-[0.5px] backdrop-blur-[5px]
-          border-components-panel-border bg-components-panel-bg-blur shadow-lg`, popupClassName)}>
+          border-components-panel-border bg-components-panel-bg-blur shadow-lg w-[220px]`, popupClassName)}>
           <div className='shrink-0 text-[16px] border-b border-divider-burn font-semibold py-2 pl-4'>
             {t('workflow.common.block')}
           </div>
