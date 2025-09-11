@@ -27,6 +27,7 @@ import ReactFlow, {
 import type {
   Viewport,
 } from 'reactflow'
+import { useSearchParams } from 'next/navigation'
 import 'reactflow/dist/style.css'
 import './style.css'
 import type {
@@ -51,6 +52,7 @@ import {
   useWorkflow,
   useWorkflowInit,
   useWorkflowReadOnly,
+  useWorkflowRun,
   useWorkflowUpdate,
 } from './hooks'
 import Header from './header'
@@ -88,8 +90,10 @@ import {
   WORKFLOW_DATA_UPDATE,
 } from './constants'
 import { WorkflowHistoryProvider } from './workflow-history-store'
+import { fetchNow } from './fetchChatWorkflow'
 import Loading from '@/app/components/base/loading'
 import { FeaturesProvider } from '@/app/components/base/features'
+
 import type { Features as FeaturesData } from '@/app/components/base/features/types'
 import { useFeaturesStore } from '@/app/components/base/features/hooks'
 import { useEventEmitterContextContext } from '@/context/event-emitter'
@@ -140,8 +144,8 @@ const Workflow: FC<WorkflowProps> = memo(({
     handleSyncWorkflowDraft,
     syncWorkflowDraftWhenPageClose,
   } = useNodesSyncDraft()
-  const { workflowReadOnly } = useWorkflowReadOnly()
-  const { nodesReadOnly } = useNodesReadOnly()
+  const { workflowReadOnly, getWorkflowReadOnly } = useWorkflowReadOnly()
+  const { nodesReadOnly, isView } = useNodesReadOnly()
 
   const [secretEnvList, setSecretEnvList] = useState<EnvironmentVariable[]>([])
 
@@ -175,6 +179,41 @@ const Workflow: FC<WorkflowProps> = memo(({
 
     return () => {
       setAutoFreeze(true)
+    }
+  }, [])
+  const { handleRun } = useWorkflowRun()
+  let getting = false
+  const searchParams = useSearchParams()
+  const conversationId = searchParams.get('conversationId')
+
+  function timeoutFn() {
+    if (!getting) {
+      getting = true
+      setTimeout(() => {
+        listenFn()
+      }, 10000)
+    }
+  }
+
+  function listenFn() {
+    fetchNow().then((res: any) => {
+      if (res && res.includes(conversationId))
+        !getWorkflowReadOnly() && handleRun({}, { timeoutFn })
+
+      else
+        timeoutFn()
+    }).finally(() => {
+      getting = false
+    })
+  }
+
+  useEffect(() => {
+    let timer: any
+    if (isView && !getWorkflowReadOnly())
+      listenFn()
+
+    return () => {
+      clearInterval(timer)
     }
   }, [])
 
@@ -267,7 +306,6 @@ const Workflow: FC<WorkflowProps> = memo(({
       handleSyncWorkflowDraft()
     },
   })
-
   useShortcuts()
 
   const store = useStoreApi()
@@ -280,112 +318,120 @@ const Workflow: FC<WorkflowProps> = memo(({
   }
   const [expand, setExpand] = useState(true)
 
+  const hasSidebarPadding = expand ? 'pl-[216px]' : 'pl-[72px]'
+  const paddingLeft = isView ? 'pl-0' : hasSidebarPadding
+
   return (
-    <div className={`w-full relative h-full overflow-x-auto ${expand ? 'pl-[216px]' : 'pl-[72px]'}`}>
-      <div className='h-full absolute z-1 left-0'>
+    <div className={`w-full relative h-full overflow-x-auto ${paddingLeft}`}>
+      {/* 查看时隐藏侧边栏 */}
+      {!isView && <div className='h-full absolute z-1 left-0'>
         <AppSideBar changeExpand={setExpand}/>
       </div>
-    <div
-      id='workflow-container'
-      className={`
+      }
+      <div
+        id='workflow-container'
+        className={`
         relative w-full min-w-[960px] h-full 
         ${workflowReadOnly && 'workflow-panel-animation'}
         ${nodeAnimation && 'workflow-node-animation'}
       `}
-      ref={workflowContainerRef}
-    >
-      <SyncingDataModal />
-      <CandidateNode />
-      <Header />
-      <Panel />
-      <FunctionButton/>
-      <Operator handleRedo={handleHistoryForward} handleUndo={handleHistoryBack} />
-      {
-        showFeaturesPanel && <Features />
-      }
-      <PanelContextmenu />
-      <NodeContextmenu />
-      <HelpLine />
-      {
-        !!showConfirm && (
-          <Confirm
-            isShow
-            onCancel={() => setShowConfirm(undefined)}
-            onConfirm={showConfirm.onConfirm}
-            title={showConfirm.title}
-            content={showConfirm.desc}
-          />
-        )
-      }
-      {
-        showImportDSLModal && (
-          <UpdateDSLModal
-            onCancel={() => setShowImportDSLModal(false)}
-            onBackup={exportCheck}
-            onImport={handlePaneContextmenuCancel}
-          />
-        )
-      }
-      {
-        secretEnvList.length > 0 && (
-          <DSLExportConfirmModal
-            envList={secretEnvList}
-            onConfirm={handleExportDSL}
-            onClose={() => setSecretEnvList([])}
-          />
-        )
-      }
-      <LimitTips />
-      <ReactFlow
-        nodeTypes={nodeTypes}
-        edgeTypes={edgeTypes}
-        nodes={nodes}
-        edges={edges}
-        onNodeDragStart={handleNodeDragStart}
-        onNodeDrag={handleNodeDrag}
-        onNodeDragStop={handleNodeDragStop}
-        onNodeMouseEnter={handleNodeEnter}
-        onNodeMouseLeave={handleNodeLeave}
-        onNodeClick={handleNodeClick}
-        onNodeContextMenu={handleNodeContextMenu}
-        onConnect={handleNodeConnect}
-        onConnectStart={handleNodeConnectStart}
-        onConnectEnd={handleNodeConnectEnd}
-        onEdgeMouseEnter={handleEdgeEnter}
-        onEdgeMouseLeave={handleEdgeLeave}
-        onEdgesChange={handleEdgesChange}
-        onSelectionStart={handleSelectionStart}
-        onSelectionChange={handleSelectionChange}
-        onSelectionDrag={handleSelectionDrag}
-        onPaneContextMenu={handlePaneContextMenu}
-        connectionLineComponent={CustomConnectionLine}
-        connectionLineContainerStyle={{ zIndex: ITERATION_CHILDREN_Z_INDEX }}
-        defaultViewport={viewport}
-        multiSelectionKeyCode={null}
-        deleteKeyCode={null}
-        nodesDraggable={!nodesReadOnly}
-        nodesConnectable={!nodesReadOnly}
-        nodesFocusable={!nodesReadOnly}
-        edgesFocusable={!nodesReadOnly}
-        panOnDrag={controlMode === ControlMode.Hand && !workflowReadOnly}
-        zoomOnPinch={!workflowReadOnly}
-        zoomOnScroll={!workflowReadOnly}
-        zoomOnDoubleClick={!workflowReadOnly}
-        isValidConnection={isValidConnection}
-        selectionKeyCode={null}
-        selectionMode={SelectionMode.Partial}
-        selectionOnDrag={controlMode === ControlMode.Pointer && !workflowReadOnly}
-        minZoom={0.25}
-        proOptions={{ hideAttribution: true }}
+        ref={workflowContainerRef}
       >
-        <Background
-          gap={[14, 14]}
-          size={2}
-          className="bg-workflow-canvas-workflow-bg"
-          color='var(--color-workflow-canvas-workflow-dot-color)'
-        />
-      </ReactFlow>
-    </div>
+        <SyncingDataModal />
+        <CandidateNode />
+        {/* 查看时隐藏头部 */}
+        {!isView && <Header />}
+        {/* 查看时隐藏右边弹窗 */}
+        {!isView && <Panel />}
+        {/* 查看时隐藏操作按钮 */}
+        {/* {!isView && <FunctionButton/>} */}
+        {!isView && <Operator handleRedo={handleHistoryForward} handleUndo={handleHistoryBack} />}
+        {
+          showFeaturesPanel && <Features />
+        }
+        <PanelContextmenu />
+        <NodeContextmenu />
+        <HelpLine />
+        {
+          !!showConfirm && (
+            <Confirm
+              isShow
+              onCancel={() => setShowConfirm(undefined)}
+              onConfirm={showConfirm.onConfirm}
+              title={showConfirm.title}
+              content={showConfirm.desc}
+            />
+          )
+        }
+        {
+          showImportDSLModal && (
+            <UpdateDSLModal
+              onCancel={() => setShowImportDSLModal(false)}
+              onBackup={exportCheck}
+              onImport={handlePaneContextmenuCancel}
+            />
+          )
+        }
+        {
+          secretEnvList.length > 0 && (
+            <DSLExportConfirmModal
+              envList={secretEnvList}
+              onConfirm={handleExportDSL}
+              onClose={() => setSecretEnvList([])}
+            />
+          )
+        }
+        <LimitTips />
+        <ReactFlow
+          nodeTypes={nodeTypes}
+          edgeTypes={edgeTypes}
+          nodes={nodes}
+          edges={edges}
+          onNodeDragStart={handleNodeDragStart}
+          onNodeDrag={handleNodeDrag}
+          onNodeDragStop={handleNodeDragStop}
+          onNodeMouseEnter={handleNodeEnter}
+          onNodeMouseLeave={handleNodeLeave}
+          onNodeClick={handleNodeClick}
+          onNodeContextMenu={handleNodeContextMenu}
+          onConnect={handleNodeConnect}
+          onConnectStart={handleNodeConnectStart}
+          onConnectEnd={handleNodeConnectEnd}
+          onEdgeMouseEnter={handleEdgeEnter}
+          onEdgeMouseLeave={handleEdgeLeave}
+          onEdgesChange={handleEdgesChange}
+          onSelectionStart={handleSelectionStart}
+          onSelectionChange={handleSelectionChange}
+          onSelectionDrag={handleSelectionDrag}
+          onPaneContextMenu={handlePaneContextMenu}
+          connectionLineComponent={CustomConnectionLine}
+          connectionLineContainerStyle={{ zIndex: ITERATION_CHILDREN_Z_INDEX }}
+          defaultViewport={viewport}
+          multiSelectionKeyCode={null}
+          deleteKeyCode={null}
+          nodesDraggable={!nodesReadOnly}
+          nodesConnectable={!nodesReadOnly}
+          nodesFocusable={!nodesReadOnly}
+          edgesFocusable={!nodesReadOnly}
+          panOnDrag={controlMode === ControlMode.Hand && !workflowReadOnly}
+          zoomOnPinch={!workflowReadOnly}
+          zoomOnScroll={!workflowReadOnly}
+          zoomOnDoubleClick={!workflowReadOnly}
+          isValidConnection={isValidConnection}
+          selectionKeyCode={null}
+          selectionMode={SelectionMode.Partial}
+          selectionOnDrag={controlMode === ControlMode.Pointer && !workflowReadOnly}
+          minZoom={0.25}
+          proOptions={{ hideAttribution: true }}
+        >
+          <Background
+            gap={[14, 14]}
+            size={2}
+            className="bg-workflow-canvas-workflow-bg"
+            color='var(--color-workflow-canvas-workflow-dot-color)'
+          />
+        </ReactFlow>
+      </div>
     </div>
   )
 })

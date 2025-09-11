@@ -16,6 +16,7 @@ import {
 import type {
   Connection,
 } from 'reactflow'
+import { useSearchParams } from 'next/navigation'
 import type {
   Edge,
   Node,
@@ -566,6 +567,7 @@ export const useWorkflowReadOnly = () => {
   const workflowRunningData = useStore(s => s.workflowRunningData)
 
   const getWorkflowReadOnly = useCallback(() => {
+    console.log('getWorkflowReadOnly',workflowStore.getState().workflowRunningData?.result.status)
     return workflowStore.getState().workflowRunningData?.result.status === WorkflowRunningStatus.Running
   }, [workflowStore])
 
@@ -579,6 +581,8 @@ export const useNodesReadOnly = () => {
   const workflowRunningData = useStore(s => s.workflowRunningData)
   const historyWorkflowData = useStore(s => s.historyWorkflowData)
   const isRestoring = useStore(s => s.isRestoring)
+  const isView = useSearchParams().get('pageType') === 'view'
+  // const isView = false
 
   const getNodesReadOnly = useCallback(() => {
     const {
@@ -587,11 +591,12 @@ export const useNodesReadOnly = () => {
       isRestoring,
     } = workflowStore.getState()
 
-    return workflowRunningData?.result.status === WorkflowRunningStatus.Running || historyWorkflowData || isRestoring
+    return workflowRunningData?.result.status === WorkflowRunningStatus.Running || historyWorkflowData || isRestoring || isView
   }, [workflowStore])
 
   return {
-    nodesReadOnly: !!(workflowRunningData?.result.status === WorkflowRunningStatus.Running || historyWorkflowData || isRestoring),
+    isView,
+    nodesReadOnly: !!(workflowRunningData?.result.status === WorkflowRunningStatus.Running || historyWorkflowData || isRestoring) || isView,
     getNodesReadOnly,
   }
 }

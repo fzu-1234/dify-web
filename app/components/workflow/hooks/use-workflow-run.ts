@@ -5,7 +5,7 @@ import {
 } from 'reactflow'
 import produce from 'immer'
 import { v4 as uuidV4 } from 'uuid'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { useWorkflowStore } from '../store'
 import { useNodesSyncDraft } from '../hooks'
 import {
@@ -36,6 +36,7 @@ export const useWorkflowRun = () => {
   const { doSyncWorkflowDraft } = useNodesSyncDraft()
   const { handleUpdateWorkflowCanvas } = useWorkflowUpdate()
   const pathname = usePathname()
+  const searchParams = useSearchParams()
 
   const handleBackupDraft = useCallback(() => {
     const {
@@ -96,6 +97,20 @@ export const useWorkflowRun = () => {
       getNodes,
       setNodes,
     } = store.getState()
+
+    const {
+      setWorkflowRunningData,
+    } = workflowStore.getState()
+    const isView = searchParams.get('pageType') === 'view'
+
+    setWorkflowRunningData({
+      result: {
+        status: WorkflowRunningStatus.Running,
+      },
+      tracing: [],
+      resultText: '',
+    })
+
     const newNodes = produce(getNodes(), (draft) => {
       draft.forEach((node) => {
         node.data.selected = false
@@ -115,6 +130,7 @@ export const useWorkflowRun = () => {
       onIterationFinish,
       onNodeRetry,
       onError,
+      timeoutFn,
       ...restCallback
     } = callback || {}
     workflowStore.setState({ historyWorkflowData: undefined })
@@ -126,6 +142,8 @@ export const useWorkflowRun = () => {
       clientHeight,
     } = workflowContainer!
 
+    const conversationId = searchParams.get('conversationId')
+
     let url = ''
     if (appDetail?.mode === 'advanced-chat')
       url = AUTH_WAY === 'SIGN' ? `/apps/${appDetail.id}/advanced-chat/workflows/draft/run` : `/messages/send?appId=${appDetail.id}`
@@ -133,18 +151,10 @@ export const useWorkflowRun = () => {
     if (appDetail?.mode === 'workflow')
       url = AUTH_WAY === 'SIGN' ? `/apps/${appDetail.id}/workflows/draft/run` : `/messages/send?appId=${appDetail.id}`
 
-    let prevNodeId = ''
+    if (isView)
+      url = `/app-conversation-list/listen?conversationId=${conversationId}`
 
-    const {
-      setWorkflowRunningData,
-    } = workflowStore.getState()
-    setWorkflowRunningData({
-      result: {
-        status: WorkflowRunningStatus.Running,
-      },
-      tracing: [],
-      resultText: '',
-    })
+    let prevNodeId = ''
 
     let ttsUrl = ''
     let ttsIsPublic = false
@@ -164,7 +174,7 @@ export const useWorkflowRun = () => {
     ssePost(
       url,
       {
-        body: params,
+        body: isView ? null : params,
       },
       {
         onWorkflowStarted: (params) => {
@@ -180,6 +190,16 @@ export const useWorkflowRun = () => {
             edges,
             setEdges,
           } = store.getState()
+          if (isView) {
+            setWorkflowRunningData({
+              result: {
+                status: WorkflowRunningStatus.Running,
+              },
+              tracing: [],
+              resultText: '',
+            })
+          }
+
           setIterParallelLogMap(new Map())
           setWorkflowRunningData(produce(workflowRunningData!, (draft) => {
             draft.task_id = task_id
@@ -237,6 +257,7 @@ export const useWorkflowRun = () => {
 
           if (onWorkflowFinished)
             onWorkflowFinished(params)
+          timeoutFn && timeoutFn()
         },
         onError: (params) => {
           const {
@@ -253,6 +274,7 @@ export const useWorkflowRun = () => {
 
           if (onError)
             onError(params)
+          timeoutFn && timeoutFn()
         },
         onNodeStarted: (params) => {
           const { data } = params
@@ -742,6 +764,16 @@ export const useWorkflowRun = () => {
         onTTSEnd: (messageId: string, audio: string, audioType?: string) => {
           player.playAudioWithAudio(audio, false)
         },
+        onCompleted: isView
+          ? () => {
+            setWorkflowRunningData({
+              result: {
+                status: WorkflowRunningStatus.Succeeded,
+              },
+            })
+            timeoutFn && timeoutFn()
+          }
+          : callback?.onCompleted,
         ...restCallback,
       },
     )

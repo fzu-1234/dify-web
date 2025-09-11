@@ -517,6 +517,7 @@ html[data-theme="light"] {
   --color-state-accent-active: #155AEF14;
   --color-state-accent-hover-alt: #D1E0FF;
   --color-state-accent-solid: #296DFF;
+  /* --color-state-accent-solid: yellow; */
   --color-state-accent-active-alt: #155AEF24;
 
   --color-state-destructive-hover: #FEF0F0;

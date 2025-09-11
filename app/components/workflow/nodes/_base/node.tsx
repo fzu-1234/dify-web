@@ -115,11 +115,15 @@ const BaseNode: FC<BaseNodeProps> = ({
           data.type === BlockEnum.Iteration && 'flex flex-col w-full h-full bg-workflow-block-bg-transparent border-workflow-block-border',
           !data._runningStatus && 'hover:shadow-lg',
           showRunningBorder && '!border-state-accent-solid',
+          showRunningBorder && 'border-4',
           showSuccessBorder && '!border-state-success-solid',
           showFailedBorder && '!border-state-destructive-solid',
           showExceptionBorder && '!border-state-warning-solid',
           data._isBundled && '!shadow-lg',
         )}
+        style={{
+          backgroundColor: showRunningBorder ? '#FFF59D' : '',
+        }}
       >
         {
           data._inParallelHovering && (
@@ -219,22 +223,22 @@ const BaseNode: FC<BaseNodeProps> = ({
           }
           {
             (data._runningStatus === NodeRunningStatus.Running || data._singleRunningStatus === NodeRunningStatus.Running) && (
-              <RiLoader2Line className='w-3.5 h-3.5 text-text-accent animate-spin' />
+              <RiLoader2Line className='w-7 h-7 text-text-accent animate-spin' />
             )
           }
           {
             data._runningStatus === NodeRunningStatus.Succeeded && (
-              <RiCheckboxCircleFill className='w-3.5 h-3.5 text-text-success' />
+              <RiCheckboxCircleFill className='w-7 h-7 text-text-success' />
             )
           }
           {
             data._runningStatus === NodeRunningStatus.Failed && (
-              <RiErrorWarningFill className='w-3.5 h-3.5 text-text-destructive' />
+              <RiErrorWarningFill className='w-7 h-7 text-text-destructive' />
             )
           }
           {
             data._runningStatus === NodeRunningStatus.Exception && (
-              <RiAlertFill className='w-3.5 h-3.5 text-text-warning-secondary' />
+              <RiAlertFill className='w-7 h-7 text-text-warning-secondary' />
             )
           }
         </div>

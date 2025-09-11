@@ -138,6 +138,7 @@ export type IOtherOptions = {
   onTTSChunk?: IOnTTSChunk;
   onTTSEnd?: IOnTTSEnd;
   onTextReplace?: IOnTextReplace;
+  timeoutFn?: () => void;
 };
 
 type ResponseError = {
