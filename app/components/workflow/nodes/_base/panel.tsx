@@ -119,19 +119,19 @@ const BasePanel: FC<BasePanelProps> = ({
       </div>
       <div
         ref={containerRef}
-        className={cn('h-full bg-components-panel-bg shadow-lg border-[2px] border-components-panel-border border-workflow-normal-block-border rounded-2xl', showSingleRunPanel ? 'overflow-hidden' : 'overflow-y-auto',
+        className={cn('h-full bg-components-panel-bg shadow-lg border-[2px] border-components-panel-border rounded-2xl', showSingleRunPanel ? 'overflow-hidden' : 'overflow-y-auto',
           data.type === BlockEnum.LLM && 'border-workflow-llm-block-border',
           data.type === BlockEnum.KnowledgeRetrieval && 'border-workflow-kr-block-border',
           (data.type === BlockEnum.Tool && (data.provider_type === 'api' || data.provider_type === 'builtin')) && 'border-workflow-tool-block-border',
           (data.type === BlockEnum.Tool && data.provider_type === 'workflow') && 'border-workflow-workflow-block-border',
-          data.type !== BlockEnum.LLM && data.type !== BlockEnum.KnowledgeRetrieval && data.type !== BlockEnum.Tool && 'bg-workflow-normal-block-bg'
+          data.type !== BlockEnum.LLM && data.type !== BlockEnum.KnowledgeRetrieval && data.type !== BlockEnum.Tool && 'border-workflow-normal-block-border',
         )}
         style={{
           width: `${panelWidth}px`,
         }}
       >
         <div className={cn(
-          'sticky top-0 bg-components-panel-bg border-b-[0.5px] border-black/5 z-10 bg-workflow-normal-block-bg',
+          'sticky top-0 bg-components-panel-bg border-b-[0.5px] border-black/5 z-10',
           data.type === BlockEnum.LLM && 'bg-workflow-llm-block-bg',
           data.type === BlockEnum.KnowledgeRetrieval && 'bg-workflow-kr-block-bg',
           (data.type === BlockEnum.Tool && (data.provider_type === 'api' || data.provider_type === 'builtin')) && 'bg-workflow-tool-block-bg',
