@@ -22,3 +22,9 @@
 }
 
 #workflow-container .react-flow {}
+
+.custom-output-table .ant-table-tbody > tr > td,
+.custom-output-table .ant-table-thead>tr>th {
+  padding: 5px 10px; /* 自定义内边距 */
+  /* border-bottom: 1px solid #f0f0f0; */
+}

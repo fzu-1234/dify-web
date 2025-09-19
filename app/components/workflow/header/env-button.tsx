@@ -19,7 +19,7 @@ const EnvButton = ({ disabled }: { disabled: boolean }) => {
   return (
     <Button className='' disabled={disabled} onClick={handleClick}>
       <Env className='w-4 h-4 text-components-button-secondary-text mr-1' />
-      {t('workflow.env.envPanelTitle')}
+      {t('workflow.env.envPanelSetting')}
     </Button>
   )
 }

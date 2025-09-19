@@ -136,14 +136,14 @@ const Editor: FC<Props> = ({
       <div ref={ref} className={cn(nodeType !== 'llm' && (isFocus ? s.gradientBorder : 'bg-gray-100'), isExpand && 'h-full', '!rounded-[9px] p-0.5')}>
         <div className={cn(nodeType !== 'llm' && (isFocus ? 'bg-gray-50' : 'bg-gray-100'), isExpand && 'h-full flex flex-col', 'rounded-lg')}>
           <div className={cn(headerClassName, 'pt-1 pl-3 pr-2 flex justify-between items-center', nodeType === 'llm' && 'pl-0')}>
-            <div className='leading-4 text-xs font-semibold text-gray-700 uppercase'>{title}</div>
-            <div className='flex items-center'>
-              <div className='leading-[18px] text-xs font-medium text-gray-500'>{value?.length || 0}</div>
+            <div className={cn('leading-4 text-xs font-semibold text-gray-700 uppercase', nodeType === 'question-classifier' && 'hidden')}>{title}</div>
+            <div className={cn('flex items-center', nodeType === 'question-classifier' && 'ml-auto')}>
+              <div className='leading-[18px] text-xs font-medium text-gray-500 hidden'>{value?.length || 0}</div>
               {isSupportPromptGenerator && (
                 <PromptGeneratorBtn className='ml-[5px]' onGenerated={onGenerated} modelConfig={modelConfig} />
               )}
 
-              <div className='w-px h-3 ml-2 mr-2 bg-gray-200'></div>
+              <div className='w-px h-3 ml-2 mr-2 bg-gray-200 hidden'></div>
               {/* Operations */}
               <div className='flex items-center space-x-[2px]'>
                 {isSupportJinja && false && (

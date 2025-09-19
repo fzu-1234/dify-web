@@ -116,12 +116,12 @@ const ChatVariablePanel = () => {
   return (
     <div
       className={cn(
-        'relative flex flex-col w-[420px] bg-components-panel-bg-alt rounded-l-2xl h-full border border-components-panel-border',
+        'relative flex flex-col w-full bg-components-panel-bg-alt rounded-l-2xl border-components-panel-border',
       )}
     >
-       <div className='shrink-0 flex items-center justify-between p-4 pb-0 text-text-primary system-xl-semibold'>
+      <div className='shrink-0 flex items-center justify-between p-4 pb-0 text-text-primary system-xl-semibold'>
         {t('workflow.chatVariable.panelTitle')}
-        <div className='flex items-center gap-1'>
+        <div className='flex items-center gap-1 hidden'>
           {/* <ActionButton state={showTip ? ActionButtonState.Active : undefined} onClick={() => setShowTip(!showTip)}>
             <RiBookReadLine className='w-4 h-4' />
           </ActionButton> */}

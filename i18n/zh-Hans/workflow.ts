@@ -113,6 +113,7 @@ const translation = {
   },
   env: {
     envPanelTitle: '环境变量',
+    envPanelSetting: '变量设置',
     envDescription: '',
     envPanelButton: '添加环境变量',
     modal: {
@@ -136,7 +137,7 @@ const translation = {
     panelTitle: '会话变量',
     panelDescription: '会话变量用于存储 LLM 需要的上下文信息，如用户偏好、对话历史等。它是可读写的。',
     docLink: '查看文档了解更多。',
-    button: '添加变量',
+    button: '添加会话变量',
     modal: {
       title: '添加会话变量',
       editTitle: '编辑会话变量',
@@ -279,7 +280,7 @@ const translation = {
   variableReference: {
     noAvailableVars: '没有可用变量',
     noVarsForOperation: '当前选择的操作没有可用的变量进行赋值。',
-    noAssignedVars: '没有可用的赋值变量',
+    noAssignedVars: '没有可用变量，请到会话变量中设置',
     assignedVarsDescription: '',
     conversationVars: '',
   },
@@ -467,11 +468,11 @@ const translation = {
       timeout: {
         title: '超时设置',
         connectLabel: '连接超时',
-        connectPlaceholder: '输入连接超时（以秒为单位）',
+        connectPlaceholder: '输入连接超时（秒）',
         readLabel: '读取超时',
-        readPlaceholder: '输入读取超时（以秒为单位）',
+        readPlaceholder: '输入读取超时（秒）',
         writeLabel: '写入超时',
-        writePlaceholder: '输入写入超时（以秒为单位）',
+        writePlaceholder: '输入写入超时（秒）',
       },
       curl: {
         title: '导入cURL',
@@ -604,11 +605,12 @@ const translation = {
       outputVars: {
         className: '分类名称',
       },
-      class: '分类',
+      class: '主题',
+      subClass: '主题',
       classNamePlaceholder: '输入你的分类名称',
       advancedSetting: '分类提示词',
       topicName: '主题内容',
-      topicPlaceholder: '在这里输入你的主题内容',
+      topicPlaceholder: '输入您的主题内容',
       addClass: '添加分类',
       instruction: '提示词',
       instructionTip: '你可以输入额外的附加指令，帮助问题分类器更好的理解如何分类',
@@ -641,7 +643,7 @@ const translation = {
     iteration: {
       deleteTitle: '删除迭代节点？',
       deleteDesc: '删除迭代节点将删除所有子节点',
-      input: '输入',
+      input: '输入变量',
       output: '输出变量',
       iteration_one: '{{count}}个迭代',
       iteration_other: '{{count}}个迭代',

@@ -23,6 +23,7 @@ const VarReferencePopup: FC<Props> = ({
   itemWidth,
   isSupportFileVar = true,
 }) => {
+  // console.log('VarReferencePopup', vars, popupFor, onChange, itemWidth, isSupportFileVar)
   const { t } = useTranslation()
   const { locale } = useContext(I18n)
   // max-h-[300px] overflow-y-auto todo: use portal to handle long list

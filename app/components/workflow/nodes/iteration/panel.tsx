@@ -102,7 +102,7 @@ const Panel: FC<NodePanelProps<IterationNodeType>> = ({
           />
         </Field>
       </div>
-      <div className='px-4 pb-2'>
+      <div className='px-4 pb-2 hidden'>
         <Field title={t(`${i18nPrefix}.parallelMode`)} tooltip={<div className='w-[230px]'>{t(`${i18nPrefix}.parallelPanelDesc`)}</div>} inline>
           <Switch defaultValue={inputs.is_parallel} onChange={changeParallel} />
         </Field>
@@ -124,9 +124,9 @@ const Panel: FC<NodePanelProps<IterationNodeType>> = ({
           </Field>
         </div>)
       }
-      <Split />
+      <Split className='hidden'/>
 
-      <div className='px-4 py-2'>
+      <div className='px-4 py-2 hidden'>
         <Field title={t(`${i18nPrefix}.errorResponseMethod`)} >
           <Select items={responseMethod} defaultValue={inputs.error_handle_mode} onSelect={changeErrorResponseMode} allowSearch={false} />
         </Field>

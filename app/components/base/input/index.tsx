@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react'
 import React from 'react'
 import { useTranslation } from 'react-i18next'
-import { RiCloseCircleFill, RiErrorWarningLine, RiSearchLine } from '@remixicon/react'
+import { RiCloseCircleFill, RiErrorWarningLine, RiSearchLine, RiSearchEyeLine } from '@remixicon/react'
 import { type VariantProps, cva } from 'class-variance-authority'
 import cn from '@/utils/classnames'
 
@@ -50,11 +50,11 @@ const Input = ({
   const { t } = useTranslation()
   return (
     <div className={cn('relative w-full', wrapperClassName)}>
-      {showLeftIcon && <RiSearchLine className={cn('absolute left-2 top-1/2 -translate-y-1/2 w-4 h-4 text-components-input-text-placeholder')} />}
+      {showLeftIcon && <RiSearchEyeLine className={cn('absolute left-2 top-1/2 -translate-y-1/2 w-4 h-4 text-components-input-text-placeholder')} />}
       <input
         style={styleCss}
         className={cn(
-          'w-full py-[7px] bg-components-input-bg-normal border text-components-input-text-filled hover:bg-components-input-bg-hover hover:border-components-input-border-hover focus:bg-components-input-bg-active focus:border-components-input-border-active focus:shadow-xs placeholder:text-components-input-text-placeholder appearance-none outline-none caret-primary-600',
+          'w-full py-[7px] bg-components-input-bg-normal border text-components-input-text-filled hover:bg-components-input-bg-hover hover:border-components-input-border-hover focus:shadow-xs placeholder:text-components-input-text-placeholder appearance-none outline-none caret-primary-600',
           inputVariants({ size }),
           showLeftIcon && 'pl-[26px]',
           showLeftIcon && size === 'large' && 'pl-7',

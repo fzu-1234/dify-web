@@ -60,7 +60,6 @@ const Base: FC<Props> = ({
     setIsExpand,
     editorExpandHeight,
   } = useToggleExpend({ ref, hasFooter: false, isInNode })
-
   const editorContentMinHeight = minHeight - 28
   const [editorContentHeight, setEditorContentHeight] = useState(editorContentMinHeight)
 
@@ -75,7 +74,7 @@ const Base: FC<Props> = ({
 
   return (
     <Wrap className={cn(wrapClassName)} style={wrapStyle} isInNode={isInNode} isExpand={isExpand}>
-      <div ref={ref} className={cn(className, isExpand && 'h-full', 'rounded-lg border', isFocus ? 'bg-components-input-bg-normal border-transparent' : 'bg-components-input-bg-hover border-components-input-border-hover overflow-hidden')}>
+      <div ref={ref} className={cn(className, isExpand && 'h-full', 'rounded-lg border', isFocus ? 'bg-components-input-bg-normal ' : 'bg-components-input-bg-hover border-components-input-border-hover overflow-hidden')}>
         <div className='flex justify-between items-center h-7 pt-1 pl-3 pr-2'>
           <div className='system-xs-semibold-uppercase text-text-secondary'>{title}</div>
           <div className='flex items-center' onClick={(e) => {
@@ -107,7 +106,7 @@ const Base: FC<Props> = ({
           height={isExpand ? editorExpandHeight : editorContentHeight}
           minHeight={editorContentMinHeight}
           onHeightChange={setEditorContentHeight}
-          hideResize={isExpand}
+          hideResize={true}
         >
           <div className='h-full pb-2'>
             {children}

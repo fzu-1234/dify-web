@@ -296,7 +296,8 @@ export function $splitNodeContainingQuery(match: MenuTextMatch): TextNode | null
 }
 
 export function textToEditorState(text: string) {
-  const paragraph = text ? text.split('\n') : ['']
+  // 判断是否是字符串
+  const paragraph = (text && typeof text === 'string') ? text.split('\n') : ['']
 
   return JSON.stringify({
     root: {

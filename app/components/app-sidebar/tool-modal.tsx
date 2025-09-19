@@ -133,7 +133,7 @@ const ToolModal: React.FC<ToolModalProps> = ({ open, onCancel, toolType, onSelec
       return provider
     })
   }, [toolType, buildInTools, customTools, workflowTools])
-  console.log('toolList', tools)
+  // console.log('toolList', tools)
   return (
     <Modal
       title={getTitle()}

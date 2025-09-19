@@ -64,6 +64,7 @@ const Panel: FC<NodePanelProps<DocExtractorNodeType>> = ({
       <div className='px-4 pb-4 space-y-4'>
         <Field
           title={t(`${i18nPrefix}.inputVar`)}
+          tooltip={t(`${i18nPrefix}.supportFileTypes`, { types: supportTypesShowNames })}
         >
           <>
             <VarReferencePicker
@@ -75,7 +76,7 @@ const Panel: FC<NodePanelProps<DocExtractorNodeType>> = ({
               filterVar={filterVar}
               typePlaceHolder='File | Array[File]'
             />
-            <div className='mt-1 py-0.5 text-text-tertiary body-xs-regular'>
+            <div className='mt-1 py-0.5 text-text-tertiary body-xs-regular hidden'>
               {t(`${i18nPrefix}.supportFileTypes`, { types: supportTypesShowNames })}
               {/* <a className='text-text-accent' href={link} target='_blank'>{t(`${i18nPrefix}.learnMore`)}</a> */}
             </div>

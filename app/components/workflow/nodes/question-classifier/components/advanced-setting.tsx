@@ -66,6 +66,7 @@ const AdvancedSetting: FC<Props> = ({
         hasSetBlockStatus={hasSetBlockStatus}
         nodesOutputVars={nodesOutputVars}
         availableNodes={availableNodes}
+        nodeType='question-classifier'
       />
       {!hideMemorySetting && (
         <MemoryConfig

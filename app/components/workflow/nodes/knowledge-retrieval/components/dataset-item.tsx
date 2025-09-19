@@ -78,7 +78,7 @@ const DatasetItem: FC<Props> = ({
       {!readonly && (
         <div className='hidden group-hover/dataset-item:flex shrink-0 ml-2  items-center space-x-1'>
           {
-            editable && <ActionButton
+            editable && false && <ActionButton
               onClick={(e) => {
                 e.stopPropagation()
                 showSettingsModal()

@@ -146,7 +146,7 @@ const Panel: FC<NodePanelProps<HttpNodeType>> = ({
       </div>
       <Split />
       <div className=''>
-        <OutputVars>
+        <OutputVars nodeType='http'>
           <>
             <VarItem
               name='body'

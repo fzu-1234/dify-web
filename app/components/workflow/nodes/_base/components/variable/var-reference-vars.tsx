@@ -112,8 +112,8 @@ const Item: FC<ItemProps> = ({
         >
           <div className='flex items-center w-0 grow'>
             {/* {!isEnv && !isChatVar && <Variable02 className={cn('shrink-0 w-3.5 h-3.5 text-text-accent', isException && 'text-text-warning')} />} */}
-            {isEnv && <Env className='shrink-0 w-3.5 h-3.5 text-util-colors-violet-violet-600' />}
-            {isChatVar && <BubbleX className='w-3.5 h-3.5 text-util-colors-teal-teal-700' />}
+            {isEnv && false && <Env className='shrink-0 w-3.5 h-3.5 text-util-colors-violet-violet-600' />}
+            {isChatVar && false && <BubbleX className='w-3.5 h-3.5 text-util-colors-teal-teal-700' />}
             {!isEnv && !isChatVar && (
               <div title={itemData.variable} className='ml-1 w-0 grow truncate text-text-secondary system-sm-medium'>{itemData.variable}</div>
             )}
@@ -271,6 +271,7 @@ const VarReferenceVars: FC<Props> = ({
       vars,
     }
   })
+  // console.log('VarReferenceVars', filteredVars, hideSearch, searchBoxClassName, searchText)
 
   return (
     <>

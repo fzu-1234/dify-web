@@ -196,26 +196,21 @@ const Workflow: FC<WorkflowProps> = memo(({
   }
 
   function listenFn() {
+    if (!isView)
+      return null
     fetchNow().then((res: any) => {
-      if (res && res.includes(conversationId))
-        !getWorkflowReadOnly() && handleRun({}, { timeoutFn })
-
-      else
+      if (res && res.includes(conversationId)) {
+        getting = false
+        handleRun({}, { onCompleted: timeoutFn })
+      }
+      else {
+        getting = false
         timeoutFn()
+      }
     }).finally(() => {
       getting = false
     })
   }
-
-  useEffect(() => {
-    let timer: any
-    if (isView && !getWorkflowReadOnly())
-      listenFn()
-
-    return () => {
-      clearInterval(timer)
-    }
-  }, [])
 
   useEffect(() => {
     return () => {
@@ -344,7 +339,7 @@ const Workflow: FC<WorkflowProps> = memo(({
         {/* 查看时隐藏右边弹窗 */}
         {!isView && <Panel />}
         {/* 查看时隐藏操作按钮 */}
-        {/* {!isView && process.env.NODE_ENV === 'development' && <FunctionButton/>} */}
+        {!isView && <FunctionButton/>}
         {!isView && <Operator handleRedo={handleHistoryForward} handleUndo={handleHistoryBack} />}
         {
           showFeaturesPanel && <Features />
@@ -404,6 +399,7 @@ const Workflow: FC<WorkflowProps> = memo(({
           onSelectionChange={handleSelectionChange}
           onSelectionDrag={handleSelectionDrag}
           onPaneContextMenu={handlePaneContextMenu}
+          onInit={listenFn}
           connectionLineComponent={CustomConnectionLine}
           connectionLineContainerStyle={{ zIndex: ITERATION_CHILDREN_Z_INDEX }}
           defaultViewport={viewport}

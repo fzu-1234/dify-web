@@ -69,7 +69,7 @@ const ClassList: FC<Props> = ({
           )
         })
       }
-      {!readonly && (
+      {false && !readonly && (
         <AddButton
           onClick={handleAddClass}
           text={t(`${i18nPrefix}.addClass`)}

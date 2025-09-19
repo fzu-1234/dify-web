@@ -10,6 +10,7 @@ type CollapseProps = {
   children: JSX.Element
   collapsed?: boolean
   onCollapse?: (collapsed: boolean) => void
+  type?: string
 }
 const Collapse = ({
   disabled,
@@ -17,6 +18,7 @@ const Collapse = ({
   children,
   collapsed,
   onCollapse,
+  type,
 }: CollapseProps) => {
   const [collapsedLocal, setCollapsedLocal] = useState(true)
   const collapsedMerged = collapsed !== undefined ? collapsed : collapsedLocal
@@ -32,7 +34,7 @@ const Collapse = ({
           }
         }}
       >
-        <div className='shrink-0 w-4 h-4'>
+        {(type !== 'question-classifier' && type !== 'http') && <div className='shrink-0 w-4 h-4'>
           {
             !disabled && (
               <RiArrowDropRightLine
@@ -43,7 +45,7 @@ const Collapse = ({
               />
             )
           }
-        </div>
+        </div>}
         {trigger}
       </div>
       {

@@ -46,7 +46,7 @@ const ContextBlockComponent: FC<ContextBlockComponentProps> = ({
       ${open ? 'bg-[#EBE9FE]' : 'bg-[#F4F3FF]'}
       ${isSelected && '!border-[#9B8AFB]'}
     `} ref={ref}>
-      <File05 className='mr-1 w-[14px] h-[14px]' />
+      <File05 className='mr-1 w-[14px] h-[14px] hidden' />
       <div className='mr-1 text-xs font-medium'>{t('common.promptEditor.context.item.title')}</div>
       {!canNotAddContext && (
         <PortalToFollowElem

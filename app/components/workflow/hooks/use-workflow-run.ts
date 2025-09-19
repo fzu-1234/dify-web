@@ -100,16 +100,31 @@ export const useWorkflowRun = () => {
 
     const {
       setWorkflowRunningData,
+      workflowRunningData,
     } = workflowStore.getState()
     const isView = searchParams.get('pageType') === 'view'
 
-    setWorkflowRunningData({
-      result: {
-        status: WorkflowRunningStatus.Running,
-      },
-      tracing: [],
-      resultText: '',
-    })
+    if (isView) {
+      if (!workflowRunningData?.tracing?.length) {
+        console.log('workflowRunningData', workflowRunningData)
+        setWorkflowRunningData({
+          result: {
+            status: WorkflowRunningStatus.Running,
+          },
+          tracing: [],
+          resultText: '',
+        })
+      }
+    }
+    else {
+      setWorkflowRunningData({
+        result: {
+          status: WorkflowRunningStatus.Running,
+        },
+        tracing: [],
+        resultText: '',
+      })
+    }
 
     const newNodes = produce(getNodes(), (draft) => {
       draft.forEach((node) => {
@@ -117,7 +132,7 @@ export const useWorkflowRun = () => {
         node.data._runningStatus = undefined
       })
     })
-    setNodes(newNodes)
+    !isView && setNodes(newNodes)
     await doSyncWorkflowDraft()
 
     const {
@@ -130,7 +145,6 @@ export const useWorkflowRun = () => {
       onIterationFinish,
       onNodeRetry,
       onError,
-      timeoutFn,
       ...restCallback
     } = callback || {}
     workflowStore.setState({ historyWorkflowData: undefined })
@@ -258,7 +272,6 @@ export const useWorkflowRun = () => {
 
           if (onWorkflowFinished)
             onWorkflowFinished(params)
-          timeoutFn && timeoutFn()
         },
         onError: (params) => {
           const {
@@ -275,7 +288,6 @@ export const useWorkflowRun = () => {
 
           if (onError)
             onError(params)
-          timeoutFn && timeoutFn()
         },
         onNodeStarted: (params) => {
           const { data } = params
@@ -772,7 +784,8 @@ export const useWorkflowRun = () => {
                 status: WorkflowRunningStatus.Succeeded,
               },
             })
-            timeoutFn && timeoutFn()
+
+            callback?.onCompleted && callback?.onCompleted()
           }
           : callback?.onCompleted,
         ...restCallback,

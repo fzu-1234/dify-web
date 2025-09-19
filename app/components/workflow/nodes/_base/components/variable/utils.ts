@@ -399,7 +399,7 @@ export const toNodeOutputVars = (
   const ENV_NODE = {
     id: 'env',
     data: {
-      title: 'ENVIRONMENT',
+      title: '环境变量',
       type: 'env',
       envList: environmentVariables,
     },
@@ -408,7 +408,7 @@ export const toNodeOutputVars = (
   const CHAT_VAR_NODE = {
     id: 'conversation',
     data: {
-      title: 'CONVERSATION',
+      title: '会话变量',
       type: 'conversation',
       chatVarList: conversationVariables,
     },

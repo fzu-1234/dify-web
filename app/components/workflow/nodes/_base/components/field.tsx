@@ -6,6 +6,7 @@ import {
 } from '@remixicon/react'
 import { useBoolean } from 'ahooks'
 import type { DefaultTFuncReturn } from 'i18next'
+import AddButton from '@/app/components/workflow/nodes/_base/components/add-button'
 import cn from '@/utils/classnames'
 import Tooltip from '@/app/components/base/tooltip'
 
@@ -19,6 +20,8 @@ type Props = {
   operations?: JSX.Element
   inline?: boolean
   type?: string
+  readonly?: boolean
+  handleAddClass?: () => void
 }
 
 const Field: FC<Props> = ({
@@ -31,6 +34,8 @@ const Field: FC<Props> = ({
   inline,
   supportFold,
   type,
+  readonly,
+  handleAddClass,
 }) => {
   const [fold, {
     toggle: toggleFold,
@@ -51,6 +56,13 @@ const Field: FC<Props> = ({
             />
           )}
         </div>
+        {type === 'question-classifier' && !readonly && (
+          <AddButton
+            onClick={() => handleAddClass && handleAddClass()}
+            text={''}
+            className='bg-transparent w-auto ml-auto'
+          />
+        )}
         <div className='flex'>
           {operations && <div>{operations}</div>}
           {supportFold && (

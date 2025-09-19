@@ -158,15 +158,15 @@ const Header: FC = () => {
         normal && (
           <div className='flex items-center gap-2'>
             {/* <GlobalVariableButton disabled={nodesReadOnly} /> */}
-            {isChatMode && <ChatVariableButton disabled={nodesReadOnly} />}
+            {isChatMode && false && <ChatVariableButton disabled={nodesReadOnly} />}
             <EnvButton disabled={nodesReadOnly} />
             <Divider type='vertical' className='h-3.5 mx-auto' />
             <Button className='text-components-button-secondary-text' onClick={handleShowFeatures}>
               <RiFunctionLine className='w-4 h-4 mr-1 text-components-button-secondary-text' />
               {t('workflow.common.features')}
             </Button>
-             <RunAndHistory />
-           { AUTH_WAY === 'SIGN' && <AppPublisher
+            <RunAndHistory />
+            { AUTH_WAY === 'SIGN' && <AppPublisher
               {...{
                 publishedAt,
                 draftUpdatedAt,

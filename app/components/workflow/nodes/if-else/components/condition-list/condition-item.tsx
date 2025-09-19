@@ -225,7 +225,7 @@ const ConditionItem = ({
                     item
                       ? <div className='flex justify-start cursor-pointer'>
                         <div className='inline-flex max-w-full px-1.5 items-center h-6 rounded-md border-[0.5px] border-components-panel-border-subtle bg-components-badge-white-to-dark shadow-xs text-text-accent'>
-                          <Variable02 className='shrink-0 w-3.5 h-3.5 text-text-accent' />
+                          <Variable02 className='shrink-0 w-3.5 h-3.5 text-text-accent hidden' />
                           <div className='ml-0.5 truncate system-xs-medium'>{item?.name}</div>
                         </div>
                       </div>

@@ -85,7 +85,7 @@ const WorkflowVariableBlockComponent = ({
       {!isEnv && !isChatVar && (
         <div className='flex items-center'>
           {
-            node?.type && (
+            node?.type && false && (
               <div className='p-[1px]'>
                 <VarBlockIcon
                   className='!text-text-secondary'
@@ -96,13 +96,13 @@ const WorkflowVariableBlockComponent = ({
           }
           <div className='shrink-0 mx-0.5 max-w-[60px] text-xs font-medium text-text-secondary truncate' title={node?.title} style={{
           }}>{node?.title}</div>
-          <Line3 className='mr-0.5 text-divider-deep'></Line3>
+          <Line3 className='mr-0.5 text-divider-deep hidden'></Line3>
         </div>
       )}
       <div className='flex items-center text-text-accent'>
-        {!isEnv && !isChatVar && <Variable02 className={cn('shrink-0 w-3.5 h-3.5', isException && 'text-text-warning')} />}
-        {isEnv && <Env className='shrink-0 w-3.5 h-3.5 text-util-colors-violet-violet-600' />}
-        {isChatVar && <BubbleX className='w-3.5 h-3.5 text-util-colors-teal-teal-700' />}
+        {!isEnv && !isChatVar && false && <Variable02 className={cn('shrink-0 w-3.5 h-3.5', isException && 'text-text-warning')} />}
+        {isEnv && false && <Env className='shrink-0 w-3.5 h-3.5 text-util-colors-violet-violet-600' />}
+        {isChatVar && false && <BubbleX className='w-3.5 h-3.5 text-util-colors-teal-teal-700' />}
         <div className={cn(
           'shrink-0 ml-0.5 text-xs font-medium truncate',
           isEnv && 'text-util-colors-violet-violet-600',

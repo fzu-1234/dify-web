@@ -26,12 +26,13 @@ const InputField: FC<{
   max: number
 }> = ({ title, description, placeholder, value, onChange, readOnly, min, max }) => {
   return (
-    <div className="space-y-1">
+    <div className="space-y-1 flex items-center gap-1.5">
       <div className="flex items-center h-[18px] space-x-2">
         <span className="text-[13px] font-medium text-gray-900">{title}</span>
-        <span className="text-xs font-normal text-gray-500">{description}</span>
+        <span className="text-xs font-normal text-gray-500 hidden">{description}</span>
       </div>
       <Input
+        wrapperClassName='flex-1'
         type='number'
         value={value}
         onChange={(e) => {
@@ -52,7 +53,7 @@ const Timeout: FC<Props> = ({ readonly, payload, onChange }) => {
   const { connect, read, write, max_connect_timeout, max_read_timeout, max_write_timeout } = payload ?? {}
 
   return (
-    <FieldCollapse title={t(`${i18nPrefix}.timeout.title`)}>
+    <FieldCollapse title={t(`${i18nPrefix}.timeout.title`)} type='http'>
       <div className='mt-2 space-y-1'>
         <div className="space-y-3">
           <InputField

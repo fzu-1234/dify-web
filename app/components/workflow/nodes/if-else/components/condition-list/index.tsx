@@ -1,4 +1,4 @@
-import { RiLoopLeftLine } from '@remixicon/react'
+import { RiLoopLeftLine, RiInfinityLine } from '@remixicon/react'
 import { useCallback, useMemo } from 'react'
 import {
   type CaseItem,
@@ -98,7 +98,7 @@ const ConditionList = ({
               onClick={doToggleConditionLogicalOperator}
             >
               {logical_operator.toUpperCase()==='AND'?'且':logical_operator.toUpperCase()==='OR'?'或':logical_operator.toUpperCase()==='AND'}
-              <RiLoopLeftLine className='ml-0.5 w-3 h-3' />
+              <RiInfinityLine className='ml-0.5 w-3 h-3' />
             </div>
           </div>
         )

@@ -1,6 +1,7 @@
 import type { FC } from 'react'
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
+import produce from 'immer'
 import VarReferencePicker from '../_base/components/variable/var-reference-picker'
 import ConfigVision from '../_base/components/config-vision'
 import useConfig from './use-config'
@@ -9,6 +10,7 @@ import AdvancedSetting from './components/advanced-setting'
 import type { QuestionClassifierNodeType } from './types'
 import Field from '@/app/components/workflow/nodes/_base/components/field'
 import ModelParameterModal from '@/app/components/header/account-setting/model-provider-page/model-parameter-modal'
+import ModelParameterSettingModal from '@/app/components/header/account-setting/model-provider-page/model-parameter-setting-modal'
 import { InputVarType, type NodePanelProps } from '@/app/components/workflow/types'
 import BeforeRunForm from '@/app/components/workflow/nodes/_base/components/before-run-form'
 import ResultPanel from '@/app/components/workflow/run/result-panel'
@@ -55,13 +57,22 @@ const Panel: FC<NodePanelProps<QuestionClassifierNodeType>> = ({
 
   const model = inputs.model
 
+  const handleAddClass = useCallback(() => {
+    const newList = produce(inputs.classes, (draft) => {
+      draft.push({ id: `${Date.now()}`, name: '' })
+    })
+    handleTopicsChange(newList)
+  }, [inputs.classes, handleTopicsChange])
+
   return (
     <div className='pt-2'>
       <div className='px-4 space-y-4'>
         <Field
-          title={t(`${i18nPrefix}.model`)}
+          title={`${t(`${i18nPrefix}.model`)}:`}
+          type='model'
         >
           <ModelParameterModal
+            classNames='flex-1'
             popupClassName='!w-[387px]'
             isInWorkflow
             isAdvancedMode={true}
@@ -74,6 +85,20 @@ const Panel: FC<NodePanelProps<QuestionClassifierNodeType>> = ({
             hideDebugWithMultipleModel
             debugWithMultipleModel={false}
             readonly={readOnly}
+          />
+          <ModelParameterSettingModal
+            popupClassName='!w-[387px]'
+            isInWorkflow
+            isAdvancedMode={true}
+            provider={model?.provider}
+            mode={model?.mode}
+            modelId={model?.name}
+            setModel={handleModelChanged}
+            onCompletionParamsChange={handleCompletionParamsChange}
+            hideDebugWithMultipleModel
+            debugWithMultipleModel={false}
+            readonly={readOnly}
+            completionParams={model?.completion_params}
           />
         </Field>
         <Field
@@ -89,7 +114,7 @@ const Panel: FC<NodePanelProps<QuestionClassifierNodeType>> = ({
           />
         </Field>
         <Split />
-        <ConfigVision
+        {false && <ConfigVision
           nodeId={id}
           readOnly={readOnly}
           isVisionModel={isVisionModel}
@@ -97,9 +122,30 @@ const Panel: FC<NodePanelProps<QuestionClassifierNodeType>> = ({
           onEnabledChange={handleVisionResolutionEnabledChange}
           config={inputs.vision?.configs}
           onConfigChange={handleVisionResolutionChange}
-        />
+        />}
+        <FieldCollapse
+          title={t(`${i18nPrefix}.advancedSetting`)}
+          type='question-classifier'
+        >
+          <AdvancedSetting
+            hideMemorySetting={!isChatMode}
+            instruction={inputs.instruction}
+            onInstructionChange={handleInstructionChange}
+            memory={inputs.memory}
+            onMemoryChange={handleMemoryChange}
+            readonly={readOnly}
+            isChatApp={isChatMode}
+            isChatModel={isChatModel}
+            hasSetBlockStatus={hasSetBlockStatus}
+            nodesOutputVars={availableVars}
+            availableNodes={availableNodesWithParent}
+          />
+        </FieldCollapse>
         <Field
           title={t(`${i18nPrefix}.class`)}
+          type='question-classifier'
+          readonly={readOnly}
+          handleAddClass={handleAddClass}
         >
           <ClassList
             id={id}
@@ -110,23 +156,6 @@ const Panel: FC<NodePanelProps<QuestionClassifierNodeType>> = ({
         </Field>
         <Split />
       </div>
-      <FieldCollapse
-        title={t(`${i18nPrefix}.advancedSetting`)}
-      >
-        <AdvancedSetting
-          hideMemorySetting={!isChatMode}
-          instruction={inputs.instruction}
-          onInstructionChange={handleInstructionChange}
-          memory={inputs.memory}
-          onMemoryChange={handleMemoryChange}
-          readonly={readOnly}
-          isChatApp={isChatMode}
-          isChatModel={isChatModel}
-          hasSetBlockStatus={hasSetBlockStatus}
-          nodesOutputVars={availableVars}
-          availableNodes={availableNodesWithParent}
-        />
-      </FieldCollapse>
       <Split />
       <div>
         <OutputVars>

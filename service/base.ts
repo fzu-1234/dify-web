@@ -138,7 +138,6 @@ export type IOtherOptions = {
   onTTSChunk?: IOnTTSChunk;
   onTTSEnd?: IOnTTSEnd;
   onTextReplace?: IOnTextReplace;
-  timeoutFn?: () => void;
 };
 
 type ResponseError = {
@@ -649,6 +648,7 @@ export const ssePost = (
         res,
         (str: string, isFirstMessage: boolean, moreInfo: IOnDataMoreInfo) => {
           if (moreInfo.errorMessage) {
+            const isListen = url.split('?')[0] === '/app-conversation-list/listen'
             onError?.(moreInfo.errorMessage, moreInfo.errorCode);
             // TypeError: Cannot assign to read only property ... will happen in page leave, so it should be ignored.
             if (
@@ -658,7 +658,7 @@ export const ssePost = (
                 "TypeError: Cannot assign to read only property"
               )
             )
-              Toast.notify({ type: "error", message: moreInfo.errorMessage });
+              !isListen && Toast.notify({ type: "error", message: moreInfo.errorMessage });
             return;
           }
           onData?.(str, isFirstMessage, moreInfo);
@@ -684,7 +684,7 @@ export const ssePost = (
         onTextReplace
       );
     })
-    .catch((e) => {
+    .catch((e) => {  
       if (
         e.toString() !== "AbortError: The user aborted a request." &&
         !e

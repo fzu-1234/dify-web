@@ -104,9 +104,9 @@ const BasePanel: FC<BasePanelProps> = ({
     saveStateToHistory(WorkflowHistoryEvent.NodeDescriptionChange)
   }, [handleNodeDataUpdateWithSyncDraft, id, saveStateToHistory])
   // console.log('节点数据',data);
-  if (data.type !== 'knowledge-retrieval') {
-    return null
-  }
+  // if (data.type !== 'knowledge-retrieval') {
+  //   return null
+  // }
   return (
     <div className={cn(
       'relative mr-2 h-full',

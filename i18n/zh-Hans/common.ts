@@ -535,7 +535,7 @@ const translation = {
     placeholder: '在这里写你的提示词，输入\'{\' 插入变量、输入\'/\' 插入提示内容块',
     context: {
       item: {
-        title: '上下文',
+        title: '输入',
         desc: '插入上下文模板',
       },
       modal: {

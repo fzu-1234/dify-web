@@ -91,6 +91,7 @@ const VarReferencePicker: FC<Props> = ({
   minWidth,
   popupFor,
 }) => {
+  // console.log('VarReferencePicker', { nodeId, readonly, isShowNodeName, value, isSupportConstantValue, defaultVarKindType, onlyLeafNodeVar, filterVar, availableNodes: passedInAvailableNodes, isAddBtnTrigger, schema, valueTypePlaceHolder, isInTable, typePlaceHolder, isSupportFileVar, placeholder, minWidth, popupFor })
   const { t } = useTranslation()
   const store = useStoreApi()
   const {
@@ -314,6 +315,19 @@ const VarReferencePicker: FC<Props> = ({
                       }}
                       className='grow h-full'
                     >
+                      {/* {!isConstant && (
+                        <input
+                          type="text"
+                          value={searchText}
+                          onChange={(e) => {
+                            setSearchText(e.target.value)
+                            if (!open)
+                              setOpen(true)
+                          }}
+                          placeholder={hasValue ? varName : (placeholder ?? t('workflow.common.setVarValuePlaceholder'))}
+                          className="w-full h-full bg-transparent border-0 outline-none text-text-secondary system-sm-regular"
+                        />
+                      )} */}
                       <div ref={isSupportConstantValue ? triggerRef : null} className={cn('h-full', isSupportConstantValue && 'flex items-center pl-1 py-1 rounded-lg bg-gray-100')}>
                         <Tooltip popupContent={!isValidVar && hasValue && t('workflow.errorMsg.invalidVariable')}>
                           <div className={cn('h-full items-center px-1.5 rounded-[5px]', hasValue ? 'bg-white inline-flex' : 'flex')}>
@@ -321,8 +335,8 @@ const VarReferencePicker: FC<Props> = ({
                               ? (
                                 <>
                                   {isShowNodeName && !isEnv && !isChatVar && (
-                                    <div className='flex items-center'>
-                                      <div className='px-[1px] h-3'>
+                                    <div className='flex items-center mr-10'>
+                                      <div className='px-[1px] h-3 hidden'>
                                         {outputVarNode?.type && <VarBlockIcon
                                           className='!text-gray-900'
                                           type={outputVarNode.type}
@@ -331,20 +345,20 @@ const VarReferencePicker: FC<Props> = ({
                                       <div className='mx-0.5 text-xs font-medium text-gray-700 truncate' title={outputVarNode?.title} style={{
                                         maxWidth: maxNodeNameWidth,
                                       }}>{outputVarNode?.title}</div>
-                                      <Line3 className='mr-0.5'></Line3>
+                                      <Line3 className='mr-0.5 hidden'></Line3>
                                     </div>
                                   )}
-                                  <div className='flex items-center text-primary-600'>
-                                    {!hasValue && <Variable02 className='w-3.5 h-3.5' />}
-                                    {isEnv && <Env className='w-3.5 h-3.5 text-util-colors-violet-violet-600' />}
-                                    {isChatVar && <BubbleX className='w-3.5 h-3.5 text-util-colors-teal-teal-700' />}
+                                  <div className='ml-0.5 capitalize truncate text-text-tertiary text-center system-xs-regular' title={type} style={{
+                                    maxWidth: maxTypeWidth,
+                                  }}>({type})</div>
+                                  <div className='flex items-center'>
+                                    {!hasValue && false && <Variable02 className='w-3.5 h-3.5' />}
+                                    {isEnv && false && <Env className='w-3.5 h-3.5 text-util-colors-violet-violet-600' />}
+                                    {isChatVar && false && <BubbleX className='w-3.5 h-3.5 text-util-colors-teal-teal-700' />}
                                     <div className={cn('ml-0.5 text-xs font-medium truncate', isEnv && '!text-text-secondary', isChatVar && 'text-util-colors-teal-teal-700', isException && 'text-text-warning')} title={varName} style={{
                                       maxWidth: maxVarNameWidth,
                                     }}>{varName}</div>
                                   </div>
-                                  <div className='ml-0.5 capitalize truncate text-text-tertiary text-center system-xs-regular' title={type} style={{
-                                    maxWidth: maxTypeWidth,
-                                  }}>{type}</div>
                                   {!isValidVar && <RiErrorWarningFill className='ml-0.5 w-3 h-3 text-[#D92D20]' />}
                                 </>
                               )
@@ -352,7 +366,6 @@ const VarReferencePicker: FC<Props> = ({
                           </div>
                         </Tooltip>
                       </div>
-
                     </VarPickerWrap>
                   )}
                 {(hasValue && !readonly && !isInTable) && (<div

@@ -142,7 +142,7 @@ export const NodeSourceHandle = memo(({
   const notInitialWorkflow = useStore(s => s.notInitialWorkflow)
   const [open, setOpen] = useState(false)
   const { handleNodeAdd } = useNodesInteractions()
-  const { getNodesReadOnly } = useNodesReadOnly()
+  const { getNodesReadOnly, isView } = useNodesReadOnly()
   const { availableNextBlocks } = useAvailableBlocks(data.type, data.isInIteration)
   const isConnectable = !!availableNextBlocks.length
   const isChatMode = useIsChatMode()
@@ -200,7 +200,7 @@ export const NodeSourceHandle = memo(({
       isConnectable={isConnectable}
       onClick={handleHandleClick}
     >
-      <div className='hidden group-hover/handle:block absolute left-1/2 -top-1 -translate-y-full -translate-x-1/2 p-1.5 border-[0.5px] border-components-panel-border bg-components-tooltip-bg rounded-lg shadow-lg'>
+      <div style={{ display: isView ? 'none' : '' }} className='hidden group-hover/handle:block absolute left-1/2 -top-1 -translate-y-full -translate-x-1/2 p-1.5 border-[0.5px] border-components-panel-border bg-components-tooltip-bg rounded-lg shadow-lg'>
         <div className='system-xs-regular text-text-tertiary'>
           <div className=' whitespace-nowrap'>
             <span className='system-xs-medium text-text-secondary'>{t('workflow.common.parallelTip.click.title')}</span>

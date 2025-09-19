@@ -114,8 +114,8 @@ const AppDetailLayout: FC<IAppDetailLayoutProps> = (props) => {
     fetchAppDetail({ url: '/apps', id: appId }).then((res) => {
       setAppDetailRes(res)
     }).catch((e: any) => {
-      if (e.status === 404)
-        router.replace('/apps')
+      // if (e.status === 404)
+        // router.replace('/apps')
     }).finally(() => {
       setIsLoadingAppDetail(false)
     })
