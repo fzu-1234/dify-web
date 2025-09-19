@@ -30,7 +30,7 @@ const OutputVars: FC<Props> = ({
     if (!React.isValidElement(child))
       return []
     // 检查是否为VarItem组件
-    if ((child.type as any).name === 'VarItem')
+    if ((child.type as any).displayName === 'VarItem' || (child.type as any).name === 'VarItem' || child.type.toString() === 'VarItem')
       return [child.props]
     // 检查是否为Fragment
     if (child.type === Fragment || (child.type && child.type.toString() === 'Symbol(react.fragment)')) {
@@ -152,4 +152,5 @@ export const VarItem: FC<VarItemProps> = ({
     </div>
   )
 }
+VarItem.displayName = 'VarItem'
 export default React.memo(OutputVars)
