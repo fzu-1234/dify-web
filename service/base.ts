@@ -504,7 +504,35 @@ export const upload = (
     ...defaultOptions,
     ...options,
     headers: { ...defaultOptions.headers, ...options.headers },
-  };
+  }
+  if (AUTH_WAY === 'FUNUO') { // FUNUO鉴权
+    // 请求加上随机数
+    options.params = {
+      ...options.params,
+      _t: new Date().getTime(),
+    }
+
+    const axiosOptions = {
+      baseURL: urlPrefix,
+      url: (url ? `${url}` : '/files/upload') + (searchParams || ''),
+      method: options.method || 'POST',
+    }
+    // 设置请求头Request-Url
+    const requestUrl = getRequestUrl(axiosOptions)
+    if (options.headers)
+      options.headers['Request-Url'] = requestUrl
+    else
+      options.headers = { 'Request-Url': requestUrl }
+    options.method = options.method || 'POST'
+    // url
+    options.url = (url ? `${urlPrefix}${url}` : `${urlPrefix}/files/upload`) + (searchParams || '')
+    // 设置Authorization头
+    if (getLsToken()) {
+      const authorization = getAuthHeader(axiosOptions)
+      if (authorization)
+        options.headers.Authorization = authorization
+    }
+  }
   return new Promise((resolve, reject) => {
     const xhr = options.xhr;
     xhr.open(options.method, options.url);
@@ -515,7 +543,7 @@ export const upload = (
     xhr.responseType = "json";
     xhr.onreadystatechange = function () {
       if (xhr.readyState === 4) {
-        if (xhr.status === 201) resolve(xhr.response);
+        if (xhr.status === 201 || xhr.status === 200) resolve(xhr.response);
         else reject(xhr);
       }
     };
