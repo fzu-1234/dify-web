@@ -42,6 +42,7 @@ const PromptGeneratorBtn: FC<Props> = ({
           onFinished={handleAutomaticRes}
           model={modelConfig as Model}
           isInLLMNode
+          sourceType='sysPrompt'
         />
       )}
     </div>

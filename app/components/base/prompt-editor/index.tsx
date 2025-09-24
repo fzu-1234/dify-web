@@ -80,6 +80,7 @@ export type PromptEditorProps = {
   externalToolBlock?: ExternalToolBlockType
   workflowVariableBlock?: WorkflowVariableBlockType
   isSupportFileVar?: boolean
+  sourceType?: string
 }
 
 const PromptEditor: FC<PromptEditorProps> = ({
@@ -101,6 +102,7 @@ const PromptEditor: FC<PromptEditorProps> = ({
   externalToolBlock,
   workflowVariableBlock,
   isSupportFileVar,
+  sourceType,
 }) => {
   const { eventEmitter } = useEventEmitterContextContext()
   const initialConfig = {
@@ -150,7 +152,7 @@ const PromptEditor: FC<PromptEditorProps> = ({
       <div className='relative min-h-5'>
         <RichTextPlugin
           contentEditable={<ContentEditable className={`${className} outline-none ${compact ? 'leading-5 text-[13px]' : 'leading-6 text-sm'} text-text-secondary`} style={style || {}} />}
-          placeholder={<Placeholder value={placeholder} className={cn('truncate', placeholderClassName)} compact={compact} />}
+          placeholder={sourceType === 'sysPrompt' ? null : <Placeholder value={placeholder} className={cn('truncate', placeholderClassName)} compact={compact} />}
           ErrorBoundary={LexicalErrorBoundary}
         />
         {false && <ComponentPickerBlock

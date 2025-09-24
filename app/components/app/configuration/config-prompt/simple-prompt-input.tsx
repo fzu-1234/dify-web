@@ -39,6 +39,7 @@ export type ISimplePromptInput = {
   gradientBorder?: boolean
   editorHeight?: number
   noResize?: boolean
+  sourceType?: string
 }
 
 const Prompt: FC<ISimplePromptInput> = ({
@@ -51,6 +52,7 @@ const Prompt: FC<ISimplePromptInput> = ({
   gradientBorder,
   editorHeight: initEditorHeight,
   noResize,
+  sourceType,
 }) => {
   const { t } = useTranslation()
   const media = useBreakpoints()
@@ -211,6 +213,7 @@ const Prompt: FC<ISimplePromptInput> = ({
               })),
               onAddContext: showSelectDataSet,
             }}
+            sourceType={sourceType}
             variableBlock={{
               show: true,
               variables: modelConfig.configs.prompt_variables.filter(item => item.type !== 'api').map(item => ({

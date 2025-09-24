@@ -24,6 +24,7 @@ export type IPromptProps = {
   editorHeight?: number
   noResize?: boolean
   onChange?: (prompt: string, promptVariables: PromptVariable[]) => void
+  sourceType?: string
 }
 
 const Prompt: FC<IPromptProps> = ({
@@ -36,6 +37,7 @@ const Prompt: FC<IPromptProps> = ({
   editorHeight,
   noResize,
   onChange,
+  sourceType,
 }) => {
   const { t } = useTranslation()
 
@@ -111,6 +113,7 @@ const Prompt: FC<IPromptProps> = ({
         gradientBorder={gradientBorder}
         editorHeight={editorHeight}
         noResize={noResize}
+        sourceType={sourceType}
       />
     )
   }

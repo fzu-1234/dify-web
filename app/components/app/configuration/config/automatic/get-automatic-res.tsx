@@ -45,6 +45,7 @@ export type IGetAutomaticResProps = {
   onClose: () => void
   onFinished: (res: AutomaticRes) => void
   isInLLMNode?: boolean
+  sourceType?: string
 }
 
 const TryLabel: FC<{
@@ -70,6 +71,7 @@ const GetAutomaticRes: FC<IGetAutomaticResProps> = ({
   onClose,
   isInLLMNode,
   onFinished,
+  sourceType,
 }) => {
   const { t } = useTranslation()
   const {
@@ -280,6 +282,7 @@ const GetAutomaticRes: FC<IGetAutomaticResProps> = ({
                 gradientBorder
                 editorHeight={isInLLMNode ? 524 : 0}
                 noResize={isInLLMNode}
+                sourceType={sourceType}
               />
               {!isInLLMNode && (
                 <>
