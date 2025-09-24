@@ -57,7 +57,7 @@ const Panel: FC<NodePanelProps<StartNodeType>> = ({
             <div className='mt-1 space-y-1'>
               <Split className='my-2' />
               {
-                isChatMode && (
+                isChatMode && false && (
                   <VarItem
                     readonly
                     payload={{
@@ -71,7 +71,7 @@ const Panel: FC<NodePanelProps<StartNodeType>> = ({
                   />)
               }
 
-              <VarItem
+              {false && <VarItem
                 readonly
                 showLegacyBadge={!isChatMode}
                 payload={{
@@ -82,9 +82,9 @@ const Panel: FC<NodePanelProps<StartNodeType>> = ({
                     Array[File]
                   </div>
                 }
-              />
+              />}
               {
-                isChatMode && (
+                isChatMode && false && (
                   <>
                     <VarItem
                       readonly
@@ -111,7 +111,7 @@ const Panel: FC<NodePanelProps<StartNodeType>> = ({
                   </>
                 )
               }
-              <VarItem
+              {false && <VarItem
                 readonly
                 payload={{
                   variable: 'sys.user_id',
@@ -121,8 +121,8 @@ const Panel: FC<NodePanelProps<StartNodeType>> = ({
                     String
                   </div>
                 }
-              />
-              <VarItem
+              />}
+              {false && <VarItem
                 readonly
                 payload={{
                   variable: 'sys.app_id',
@@ -132,8 +132,8 @@ const Panel: FC<NodePanelProps<StartNodeType>> = ({
                     String
                   </div>
                 }
-              />
-              <VarItem
+              />}
+              {false && <VarItem
                 readonly
                 payload={{
                   variable: 'sys.workflow_id',
@@ -143,8 +143,8 @@ const Panel: FC<NodePanelProps<StartNodeType>> = ({
                     String
                   </div>
                 }
-              />
-              <VarItem
+              />}
+              {false && <VarItem
                 readonly
                 payload={{
                   variable: 'sys.workflow_run_id',
@@ -154,7 +154,7 @@ const Panel: FC<NodePanelProps<StartNodeType>> = ({
                     String
                   </div>
                 }
-              />
+              />}
             </div>
 
           </>

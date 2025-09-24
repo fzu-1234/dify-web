@@ -153,7 +153,7 @@ const PromptEditor: FC<PromptEditorProps> = ({
           placeholder={<Placeholder value={placeholder} className={cn('truncate', placeholderClassName)} compact={compact} />}
           ErrorBoundary={LexicalErrorBoundary}
         />
-        <ComponentPickerBlock
+        {false && <ComponentPickerBlock
           triggerString='/'
           contextBlock={contextBlock}
           historyBlock={historyBlock}
@@ -162,7 +162,7 @@ const PromptEditor: FC<PromptEditorProps> = ({
           externalToolBlock={externalToolBlock}
           workflowVariableBlock={workflowVariableBlock}
           isSupportFileVar={isSupportFileVar}
-        />
+        />}
         <ComponentPickerBlock
           triggerString='{'
           contextBlock={contextBlock}

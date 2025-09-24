@@ -115,7 +115,7 @@ const ToolModal: React.FC<ToolModalProps> = ({ open, onCancel, toolType, onSelec
   const tools = useMemo(() => {
     let mergedTools: ToolWithProvider[] = []
     if (toolType === 'toolbox')
-      mergedTools = [...buildInTools, ...customTools]
+      mergedTools = [...customTools]
     else if (toolType === 'workflow')
       mergedTools = workflowTools
     // 为子工具添加父级引用
@@ -132,7 +132,7 @@ const ToolModal: React.FC<ToolModalProps> = ({ open, onCancel, toolType, onSelec
       }
       return provider
     })
-  }, [toolType, buildInTools, customTools, workflowTools])
+  }, [toolType, customTools, workflowTools])
   // console.log('toolList', tools)
   return (
     <Modal

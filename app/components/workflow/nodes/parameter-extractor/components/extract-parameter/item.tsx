@@ -27,7 +27,7 @@ const Item: FC<Props> = ({
     <div className='relative px-2.5 py-2 rounded-lg bg-white border-[0.5px] border-gray-200 hover:shadow-xs group'>
       <div className='flex justify-between'>
         <div className='flex items-center'>
-          <Variable02 className='w-3.5 h-3.5 text-primary-500' />
+          <Variable02 className='w-3.5 h-3.5 text-primary-500 hidden' />
           <div className='ml-1 text-[13px] font-medium text-gray-900'>{payload.name}</div>
           <div className='ml-2 text-xs font-normal text-gray-500 capitalize'>{payload.type}</div>
         </div>

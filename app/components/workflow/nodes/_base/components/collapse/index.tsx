@@ -34,7 +34,7 @@ const Collapse = ({
           }
         }}
       >
-        {(type !== 'question-classifier' && type !== 'http') && <div className='shrink-0 w-4 h-4'>
+        {false && <div className='shrink-0 w-4 h-4'>
           {
             !disabled && (
               <RiArrowDropRightLine

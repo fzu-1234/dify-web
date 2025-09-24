@@ -30,7 +30,7 @@ const VarPanel: FC<Props> = ({
         className={cn('flex items-center gap-1 px-3 pt-2.5 pb-2 border-b border-divider-subtle text-text-secondary cursor-pointer', isCollapse && 'pb-2.5 border-0')}
         onClick={toggleCollapse}
       >
-        <Variable02 className='w-4 h-4' />
+        <Variable02 className='w-4 h-4 hidden' />
         <div className='grow system-md-medium'>{t('appLog.detail.variables')}</div>
         {
           isCollapse

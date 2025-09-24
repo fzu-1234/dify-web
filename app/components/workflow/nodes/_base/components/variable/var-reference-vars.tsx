@@ -248,7 +248,8 @@ const VarReferenceVars: FC<Props> = ({
   const [searchText, setSearchText] = useState('')
 
   const filteredVars = vars.filter((v) => {
-    const children = v.vars.filter(v => checkKeys([v.variable], false).isValid || v.variable.startsWith('sys.') || v.variable.startsWith('env.') || v.variable.startsWith('conversation.'))
+    // 输入列表中去掉sys.开头的系统变量
+    const children = v.vars.filter(v => checkKeys([v.variable], false).isValid || v.variable.startsWith('env.') || v.variable.startsWith('conversation.'))
     return children.length > 0
   }).filter((node) => {
     if (!searchText)
@@ -259,7 +260,8 @@ const VarReferenceVars: FC<Props> = ({
     })
     return children.length > 0
   }).map((node) => {
-    let vars = node.vars.filter(v => checkKeys([v.variable], false).isValid || v.variable.startsWith('sys.') || v.variable.startsWith('env.') || v.variable.startsWith('conversation.'))
+    // 输入列表中去掉sys.开头的系统变量
+    let vars = node.vars.filter(v => checkKeys([v.variable], false).isValid || v.variable.startsWith('env.') || v.variable.startsWith('conversation.'))
     if (searchText) {
       const searchTextLower = searchText.toLowerCase()
       if (!node.title.toLowerCase().includes(searchTextLower))

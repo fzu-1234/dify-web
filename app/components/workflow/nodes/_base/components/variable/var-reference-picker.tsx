@@ -295,7 +295,7 @@ const VarReferencePicker: FC<Props> = ({
                     />
                   </div>
                   : (!hasValue && false && <div className='ml-1.5 mr-1'>
-                    <Variable02 className={`w-4 h-4 ${readonly ? 'text-components-input-text-disabled' : 'text-components-input-text-placeholder'}`} />
+                    <Variable02 className={`w-4 h-4 hidden ${readonly ? 'text-components-input-text-disabled' : 'text-components-input-text-placeholder'}`} />
                   </div>)}
                 {isConstant
                   ? (

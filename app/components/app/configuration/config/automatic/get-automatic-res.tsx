@@ -194,11 +194,24 @@ const GetAutomaticRes: FC<IGetAutomaticResProps> = ({
     >
       <div className='flex h-[680px] flex-wrap'>
         <div className='w-[570px] shrink-0 p-6 h-full overflow-y-auto border-r border-gray-100'>
-          <div className='mb-8'>
+          <div className='mb-8 relative'>
             <div className={`leading-[28px] text-lg font-bold ${s.textGradient}`}>{t('appDebug.generate.title')}</div>
-            <div className='mt-1 text-[13px] font-normal text-gray-500'>{t('appDebug.generate.description')}</div>
+            <div className='absolute top-1/4 right-0'>
+              <ModelIcon
+                className='shrink-0 mr-1.5 '
+                provider={currentProvider}
+                modelName={currentModel?.model}
+              />
+              <ModelName
+                className='grow'
+                modelItem={currentModel!}
+                showMode
+                showFeatures
+              />
+            </div>
+            <div className='mt-1 text-[13px] font-normal text-gray-500 hidden'>{t('appDebug.generate.description')}</div>
           </div>
-          <div className='flex items-center mb-8'>
+          <div className='flex items-center mb-8 hidden'>
             <ModelIcon
               className='shrink-0 mr-1.5 '
               provider={currentProvider}
@@ -211,7 +224,7 @@ const GetAutomaticRes: FC<IGetAutomaticResProps> = ({
               showFeatures
             />
           </div>
-          <div >
+          <div className='hidden'>
             <div className='flex items-center'>
               <div className='mr-3 shrink-0 leading-[18px] text-xs font-semibold text-gray-500 uppercase'>{t('appDebug.generate.tryIt')}</div>
               <div className='grow h-px' style={{
@@ -232,7 +245,7 @@ const GetAutomaticRes: FC<IGetAutomaticResProps> = ({
           {/* inputs */}
           <div className='mt-6'>
             <div className='text-[0px]'>
-              <div className='mb-2 leading-5 text-sm font-medium text-gray-900'>{t('appDebug.generate.instruction')}</div>
+              <div className='mb-2 leading-5 text-sm font-medium text-gray-900 hidden'>{t('appDebug.generate.instruction')}</div>
               <Textarea
                 className="h-[200px] resize-none"
                 placeholder={t('appDebug.generate.instructionPlaceHolder') as string}
@@ -254,7 +267,7 @@ const GetAutomaticRes: FC<IGetAutomaticResProps> = ({
           </div>
         </div>
 
-        {(!isLoading && res) && (
+        {(!isLoading) && (
           <div className='w-0 grow p-6 pb-0 h-full'>
             <div className='shrink-0 mb-3 leading-[160%] text-base font-semibold text-gray-800'>{t('appDebug.generate.resTitle')}</div>
             <div className={cn('max-h-[555px] overflow-y-auto', !isInLLMNode && 'pb-2')}>
@@ -301,16 +314,16 @@ const GetAutomaticRes: FC<IGetAutomaticResProps> = ({
               )}
             </div>
 
-            <div className='flex justify-end py-4 bg-white'>
+            <div className='flex justify-end py-4 bg-white' >
               <Button onClick={onClose}>{t('common.operation.cancel')}</Button>
-              <Button variant='primary' className='ml-2' onClick={() => {
+              <Button variant='primary' className='ml-2' disabled={!res} onClick={() => {
                 setShowConfirmOverwrite(true)
               }}>{t('appDebug.generate.apply')}</Button>
             </div>
           </div>
         )}
         {isLoading && renderLoading}
-        {isShowAutoPromptResPlaceholder() && renderNoData}
+        {isShowAutoPromptResPlaceholder() && false && renderNoData}
         {showConfirmOverwrite && (
           <Confirm
             title={t('appDebug.generate.overwriteTitle')}

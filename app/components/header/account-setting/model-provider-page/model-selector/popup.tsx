@@ -53,7 +53,7 @@ const Popup: FC<PopupProps> = ({
           />
           <input
             className='block grow h-[18px] text-[13px] appearance-none outline-none bg-transparent'
-            placeholder='Search model'
+            placeholder='搜索模型'
             value={searchText}
             onChange={e => setSearchText(e.target.value)}
           />

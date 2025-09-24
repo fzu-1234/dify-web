@@ -532,7 +532,7 @@ const translation = {
     inputPlaceholder: '和机器人聊天',
   },
   promptEditor: {
-    placeholder: '在这里写你的提示词，输入\'{\' 插入变量、输入\'/\' 插入提示内容块',
+    placeholder: '请输入提示词内容，输入“{”可插入知识库或变量',
     context: {
       item: {
         title: '输入',

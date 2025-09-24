@@ -174,7 +174,7 @@ const Editor: FC<Props> = ({
                     popupContent={`${t('workflow.common.insertVarTip')}`}
                   >
                     <ActionButton onClick={handleInsertVariable}>
-                      <Variable02 className='w-4 h-4' />
+                      <Variable02 className='w-4 h-4 hidden' />
                     </ActionButton>
                   </Tooltip>
                 )}

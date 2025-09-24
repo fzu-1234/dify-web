@@ -193,7 +193,7 @@ const Prompt: FC<ISimplePromptInput> = ({
           hideResize={noResize}
           footer={(
             <div className='pl-4 pb-2 flex bg-white rounded-b-xl'>
-              <div className="h-[18px] leading-[18px] px-1 rounded-md bg-gray-100 text-xs text-gray-500">{promptTemplate.length}</div>
+              <div className="h-[18px] leading-[18px] px-1 rounded-md text-xs text-gray-500"></div>
             </div>
           )}
         >

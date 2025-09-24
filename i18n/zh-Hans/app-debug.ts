@@ -244,7 +244,7 @@ const translation = {
     description: '提示词生成器使用配置的模型来优化提示词，以获得更高的质量和更好的结构。请写出清晰详细的说明。',
     tryIt: '试一试',
     instruction: '指令',
-    instructionPlaceHolder: '写下清晰、具体的说明。',
+    instructionPlaceHolder: '请输入，需要生成提示器的思路。',
     generate: '生成',
     resTitle: '生成的提示词',
     noDataLine1: '在左侧描述您的用例，',

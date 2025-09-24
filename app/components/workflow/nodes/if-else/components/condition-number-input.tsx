@@ -127,7 +127,7 @@ const ConditionNumberInput = ({
                 {
                   !value && (
                     <div className='flex items-center p-1 h-6 text-components-input-text-placeholder text-[13px]'>
-                      <Variable02 className='shrink-0 mr-1 w-4 h-4' />
+                      <Variable02 className='shrink-0 mr-1 w-4 h-4 hidden' />
                       <div className='w-0 grow truncate'>{t('workflow.nodes.ifElse.selectVariable')}</div>
                     </div>
                   )

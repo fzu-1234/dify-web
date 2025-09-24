@@ -393,7 +393,7 @@ const translation = {
     llm: {
       model: '模型',
       variables: '变量',
-      context: '输入变量',
+      context: '知识库',
       contextTooltip: '您可以导入知识库作为输入变量',
       notSetContextInPromptTip: '要启用输入变量功能，请在提示中填写输入变量。',
       prompt: '提示词',

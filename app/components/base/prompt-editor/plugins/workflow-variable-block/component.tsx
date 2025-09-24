@@ -82,7 +82,7 @@ const WorkflowVariableBlockComponent = ({
       )}
       ref={ref}
     >
-      {!isEnv && !isChatVar && (
+      {!isEnv && !isChatVar && false && (
         <div className='flex items-center'>
           {
             node?.type && false && (
@@ -99,16 +99,16 @@ const WorkflowVariableBlockComponent = ({
           <Line3 className='mr-0.5 text-divider-deep hidden'></Line3>
         </div>
       )}
-      <div className='flex items-center text-text-accent'>
+      <div className='flex items-center text-text-accent text-blue-600'>
         {!isEnv && !isChatVar && false && <Variable02 className={cn('shrink-0 w-3.5 h-3.5', isException && 'text-text-warning')} />}
         {isEnv && false && <Env className='shrink-0 w-3.5 h-3.5 text-util-colors-violet-violet-600' />}
         {isChatVar && false && <BubbleX className='w-3.5 h-3.5 text-util-colors-teal-teal-700' />}
         <div className={cn(
-          'shrink-0 ml-0.5 text-xs font-medium truncate',
-          isEnv && 'text-util-colors-violet-violet-600',
-          isChatVar && 'text-util-colors-teal-teal-700',
+          'shrink-0 ml-0.5 text-xs font-semibold truncate italic',
+          isEnv && false && 'text-util-colors-violet-violet-600',
+          isChatVar && false && 'text-util-colors-teal-teal-700',
           isException && 'text-text-warning',
-        )} title={varName}>{varName}</div>
+        )} title={varName}>{`{{ ${varName} }}`}</div>
         {
           !node && !isEnv && !isChatVar && (
             <RiErrorWarningFill className='ml-0.5 w-3 h-3 text-text-destructive' />

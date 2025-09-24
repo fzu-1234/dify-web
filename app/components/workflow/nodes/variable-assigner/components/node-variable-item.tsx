@@ -52,7 +52,7 @@ const NodeVariableItem = ({
         </div>
       )}
       <div className='flex items-center text-primary-600 w-full'>
-        {!isEnv && !isChatVar && <Variable02 className={cn('shrink-0 w-3.5 h-3.5 text-primary-500', isException && 'text-text-warning')} />}
+        {!isEnv && !isChatVar && false && <Variable02 className={cn('shrink-0 w-3.5 h-3.5 text-primary-500', isException && 'text-text-warning')} />}
         {isEnv && <Env className='shrink-0 w-3.5 h-3.5 text-util-colors-violet-violet-600' />}
         {!isChatVar && <div className={cn('max-w-[75px] truncate ml-0.5 system-xs-medium overflow-hidden text-ellipsis', isEnv && 'text-gray-900', isException && 'text-text-warning')} title={varName}>{varName}</div>}
         {isChatVar

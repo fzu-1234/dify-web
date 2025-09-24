@@ -27,7 +27,7 @@ const EnvItem = ({
     )}>
       <div className='flex items-center justify-between'>
         <div className='grow flex gap-1 items-center'>
-          <Env className='w-4 h-4 text-util-colors-violet-violet-600' />
+          <Env className='w-4 h-4 text-util-colors-violet-violet-600 hidden' />
           <div className='text-text-primary system-sm-medium'>{env.name}</div>
           <div className='text-text-tertiary system-xs-medium'>{capitalize(env.value_type)}</div>
           {env.value_type === 'secret' && <RiLock2Line className='w-3 h-3 text-text-tertiary' />}

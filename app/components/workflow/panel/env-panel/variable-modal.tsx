@@ -7,7 +7,9 @@ import Button from '@/app/components/base/button'
 import Input from '@/app/components/base/input'
 import Tooltip from '@/app/components/base/tooltip'
 import { ToastContext } from '@/app/components/base/toast'
+import VariableTypeSelector from '@/app/components/workflow/panel/chat-variable-panel/components/variable-type-select'
 import { useStore } from '@/app/components/workflow/store'
+import { ChatVarType } from '@/app/components/workflow/panel/chat-variable-panel/type'
 import type { EnvironmentVariable } from '@/app/components/workflow/types'
 import cn from '@/utils/classnames'
 import { checkKeys } from '@/utils/var'
@@ -58,6 +60,22 @@ const VariableModal = ({
     onClose()
   }
 
+  // 下拉选中事件
+  const handleTypeChange = (v: any) => {
+    // setValue(undefined)
+    if (v === ChatVarType.Number) {
+      if (!(/^[0-9]$/).test(value))
+        setValue('')
+    }
+    setType(v)
+  }
+
+  const typeList = [
+    ChatVarType.String,
+    ChatVarType.Number,
+    ChatVarType.Secret,
+  ]
+
   useEffect(() => {
     if (env) {
       setType(env.value_type)
@@ -82,42 +100,10 @@ const VariableModal = ({
         </div>
       </div>
       <div className='px-4 py-2'>
-        {/* type */}
-        <div className='mb-4'>
-          <div className='mb-1 h-6 flex items-center text-text-secondary system-sm-semibold'>{t('workflow.env.modal.type')}</div>
-          <div className='flex gap-2'>
-            <div className={cn(
-              'w-[106px] flex items-center justify-center p-2 radius-md bg-components-option-card-option-bg border border-components-option-card-option-border text-text-secondary system-sm-regular cursor-pointer hover:shadow-xs hover:bg-components-option-card-option-bg-hover hover:border-components-option-card-option-border-hover',
-              type === 'string' && 'text-text-primary system-sm-medium border-[1.5px] shadow-xs bg-components-option-card-option-selected-bg border-components-option-card-option-selected-border hover:border-components-option-card-option-selected-border',
-            )} onClick={() => setType('string')}>String</div>
-            <div className={cn(
-              'w-[106px] flex items-center justify-center p-2 radius-md bg-components-option-card-option-bg border border-components-option-card-option-border text-text-secondary system-sm-regular cursor-pointer hover:shadow-xs hover:bg-components-option-card-option-bg-hover hover:border-components-option-card-option-border-hover',
-              type === 'number' && 'text-text-primary font-medium border-[1.5px] shadow-xs bg-components-option-card-option-selected-bg border-components-option-card-option-selected-border hover:border-components-option-card-option-selected-border',
-            )} onClick={() => {
-              setType('number')
-              if (!(/^[0-9]$/).test(value))
-                setValue('')
-            }}>Number</div>
-            <div className={cn(
-              'w-[106px] flex items-center justify-center p-2 radius-md bg-components-option-card-option-bg border border-components-option-card-option-border text-text-secondary system-sm-regular cursor-pointer hover:shadow-xs hover:bg-components-option-card-option-bg-hover hover:border-components-option-card-option-border-hover',
-              type === 'secret' && 'text-text-primary font-medium border-[1.5px] shadow-xs bg-components-option-card-option-selected-bg border-components-option-card-option-selected-border hover:border-components-option-card-option-selected-border',
-            )} onClick={() => setType('secret')}>
-              <span>Secret</span>
-              <Tooltip
-                popupContent={
-                  <div className='w-[240px]'>
-                    {t('workflow.env.modal.secretTip')}
-                  </div>
-                }
-                triggerClassName='ml-0.5 w-3.5 h-3.5'
-              />
-            </div>
-          </div>
-        </div>
         {/* name */}
-        <div className='mb-4'>
+        <div className='mb-4 flex items-center gap-2.5'>
           <div className='mb-1 h-6 flex items-center text-text-secondary system-sm-semibold'>{t('workflow.env.modal.name')}</div>
-          <div className='flex'>
+          <div className='flex flex-1'>
             <Input
               placeholder={t('workflow.env.modal.namePlaceholder') || ''}
               value={name}
@@ -127,10 +113,50 @@ const VariableModal = ({
             />
           </div>
         </div>
+        {/* type */}
+        <div className='mb-4 flex items-center gap-2.5'>
+          <div className='mb-1 h-6 flex items-center text-text-secondary system-sm-semibold'>{t('workflow.env.modal.type')}</div>
+          <div className='flex flex-1'>
+            <VariableTypeSelector
+              value={type}
+              list={typeList}
+              onSelect={handleTypeChange}
+              popupClassName='w-[290px]'
+            />
+          </div>
+          <div className='flex gap-2 hidden'>
+            <div className={cn(
+              'w-[106px] flex items-center justify-center p-2 radius-md bg-components-option-card-option-bg border border-components-option-card-option-border text-text-secondary system-sm-regular cursor-pointer hover:shadow-xs hover:bg-components-option-card-option-bg-hover hover:border-components-option-card-option-border-hover',
+              type === 'string' && 'text-text-primary system-sm-medium border-[1.5px] shadow-xs bg-components-option-card-option-selected-bg border-components-option-card-option-selected-border hover:border-components-option-card-option-selected-border',
+            )} onClick={() => setType('string')}>字符串</div>
+            <div className={cn(
+              'w-[106px] flex items-center justify-center p-2 radius-md bg-components-option-card-option-bg border border-components-option-card-option-border text-text-secondary system-sm-regular cursor-pointer hover:shadow-xs hover:bg-components-option-card-option-bg-hover hover:border-components-option-card-option-border-hover',
+              type === 'number' && 'text-text-primary font-medium border-[1.5px] shadow-xs bg-components-option-card-option-selected-bg border-components-option-card-option-selected-border hover:border-components-option-card-option-selected-border',
+            )} onClick={() => {
+              setType('number')
+              if (!(/^[0-9]$/).test(value))
+                setValue('')
+            }}>数字</div>
+            <div className={cn(
+              'w-[106px] flex items-center justify-center p-2 radius-md bg-components-option-card-option-bg border border-components-option-card-option-border text-text-secondary system-sm-regular cursor-pointer hover:shadow-xs hover:bg-components-option-card-option-bg-hover hover:border-components-option-card-option-border-hover',
+              type === 'secret' && 'text-text-primary font-medium border-[1.5px] shadow-xs bg-components-option-card-option-selected-bg border-components-option-card-option-selected-border hover:border-components-option-card-option-selected-border',
+            )} onClick={() => setType('secret')}>
+              <span>敏感信息</span>
+              {false && <Tooltip
+                popupContent={
+                  <div className='w-[240px]'>
+                    {t('workflow.env.modal.secretTip')}
+                  </div>
+                }
+                triggerClassName='ml-0.5 w-3.5 h-3.5'
+              />}
+            </div>
+          </div>
+        </div>
         {/* value */}
-        <div className=''>
-          <div className='mb-1 h-6 flex items-center text-text-secondary system-sm-semibold'>{t('workflow.env.modal.value')}</div>
-          <div className='flex'>
+        <div className='flex items-center gap-2.5'>
+          <div className='mb-1 h-6 flex items-center text-text-secondary system-sm-semibold w-[26px] justify-end'>{t('workflow.env.modal.value')}</div>
+          <div className='flex flex-1'>
             <Input
               placeholder={t('workflow.env.modal.valuePlaceholder') || ''}
               value={value}

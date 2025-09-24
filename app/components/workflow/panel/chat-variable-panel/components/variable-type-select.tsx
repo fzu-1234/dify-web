@@ -25,6 +25,27 @@ const VariableTypeSelector = ({
 }: Props) => {
   const [open, setOpen] = useState(false)
 
+  // type转化对应中文
+  const formatTypeName = (type: string) => {
+    switch (type) {
+      case 'string':
+        return '字符串'
+      case 'number':
+        return '数字'
+      case 'secret':
+        return '敏感信息'
+      case 'object':
+        return '对象'
+      case 'array[number]':
+        return '数字数组'
+      case 'array[string]':
+        return '文本数组'
+      case 'array[object]':
+        return '对象数组'
+      default:
+        return '字符串'
+    }
+  }
   return (
     <PortalToFollowElem
       open={open}
@@ -33,7 +54,7 @@ const VariableTypeSelector = ({
     >
       <PortalToFollowElemTrigger className='w-full' onClick={() => setOpen(v => !v)}>
         <div className={cn(
-          'flex items-center w-full px-2 cursor-pointer',
+          'flex items-center w-full px-2 cursor-pointer border',
           !inCell && 'py-1 bg-components-input-bg-normal hover:bg-state-base-hover-alt radius-md',
           inCell && 'py-0.5 hover:bg-state-base-hover',
           open && !inCell && 'bg-state-base-hover-alt hover:bg-state-base-hover-alt',
@@ -42,7 +63,7 @@ const VariableTypeSelector = ({
           <div className={cn(
             'grow p-1 system-sm-regular text-components-input-text-filled truncate',
             inCell && 'system-xs-regular text-text-secondary',
-          )}>{value}</div>
+          )}>{formatTypeName(value)}</div>
           <RiArrowDownSLine className='ml-0.5 w-4 h-4 text-text-quaternary' />
         </div>
       </PortalToFollowElemTrigger>
@@ -53,7 +74,7 @@ const VariableTypeSelector = ({
               onSelect(item)
               setOpen(false)
             }}>
-              <div className='grow system-md-regular text-text-secondary truncate'>{item}</div>
+              <div className='grow system-md-regular text-text-secondary truncate'>{formatTypeName(item)}</div>
               {value === item && <RiCheckLine className='w-4 h-4 text-text-accent' />}
             </div>
           ))}

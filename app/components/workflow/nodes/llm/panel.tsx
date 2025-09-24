@@ -170,7 +170,7 @@ const Panel: FC<NodePanelProps<LLMNodeType>> = ({
         {/* knowledge */}
         <Field
           title={t(`${i18nPrefix}.context`)}
-          tooltip={t(`${i18nPrefix}.contextTooltip`)!}
+          // tooltip={t(`${i18nPrefix}.contextTooltip`)!}
         >
           <>
             <VarReferencePicker
@@ -181,7 +181,7 @@ const Panel: FC<NodePanelProps<LLMNodeType>> = ({
               onChange={handleContextVarChange}
               filterVar={filterVar}
             />
-            {shouldShowContextTip && (
+            {shouldShowContextTip && false && (
               <div className='leading-[18px] text-xs font-normal text-[#DC6803]'>{t(`${i18nPrefix}.notSetContextInPromptTip`)}</div>
             )}
           </>

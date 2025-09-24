@@ -12,15 +12,15 @@ const FieldCollapse = ({
   type,
 }: FieldCollapseProps) => {
   return (
-    <div className={cn(type === 'question-classifier' ? '' : 'py-4', type === 'http' && 'px-4')}>
+    <div className={cn(type === 'question-classifier' ? '' : 'py-4', type !== 'question-classifier' && 'px-4')}>
       <Collapse
         type={type}
         trigger={
           <div className='flex items-center h-6 system-sm-semibold-uppercase text-text-secondary cursor-pointer'>{title}</div>
         }
-        collapsed={(type === 'question-classifier' || type === 'http') ? false : undefined}
+        collapsed={false}
       >
-        <div className={(type === 'question-classifier' || type === 'http') ? '' : 'px-4'}>
+        <div className={(type === 'question-classifier' || type === 'http') ? '' : ''}>
           {children}
         </div>
       </Collapse>

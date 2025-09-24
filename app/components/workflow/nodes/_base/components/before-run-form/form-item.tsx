@@ -79,7 +79,7 @@ const FormItem: FC<Props> = ({
             </div>
           )}
           <div className='flex items-center text-primary-600'>
-            {!isChatVar && <Variable02 className='w-3.5 h-3.5' />}
+            {!isChatVar && false && <Variable02 className='w-3.5 h-3.5' />}
             {isChatVar && <BubbleX className='w-3.5 h-3.5 text-util-colors-teal-teal-700' />}
             <div className={cn('ml-0.5 text-xs font-medium max-w-[150px] truncate', isChatVar && 'text-text-secondary')} title={variable} >
               {variable}

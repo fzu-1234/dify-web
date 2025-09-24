@@ -24,7 +24,7 @@ const VariableItem = ({
     )}>
       <div className='flex items-center justify-between'>
         <div className='grow flex gap-1 items-center'>
-          <BubbleX className='w-4 h-4 text-util-colors-teal-teal-700' />
+          <BubbleX className='w-4 h-4 text-util-colors-teal-teal-700 hidden' />
           <div className='text-text-primary system-sm-medium'>{item.name}</div>
           <div className='text-text-tertiary system-xs-medium'>{capitalize(item.value_type)}</div>
         </div>

@@ -67,7 +67,7 @@ const Node: FC<NodeProps<WorkflowNodeType>> = ({
                 </>
               )}
               <div className='flex items-center text-primary-600'>
-                {!isEnv && !isChatVar && <Variable02 className='shrink-0 w-3.5 h-3.5 text-primary-500' />}
+                {!isEnv && !isChatVar && false && <Variable02 className='shrink-0 w-3.5 h-3.5 text-primary-500' />}
                 {isEnv && <Env className='shrink-0 w-3.5 h-3.5 text-util-colors-violet-violet-600' />}
                 {isChatVar && <BubbleX className='w-3.5 h-3.5 text-util-colors-teal-teal-700' />}
 

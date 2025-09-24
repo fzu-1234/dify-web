@@ -29,7 +29,7 @@ const SubVariablePicker: FC<Props> = ({
     return (
       <div className='flex items-center h-6 justify-between'>
         <div className='flex items-center h-full'>
-          <Variable02 className='mr-[5px] w-3.5 h-3.5 text-text-accent' />
+          <Variable02 className='mr-[5px] w-3.5 h-3.5 text-text-accent hidden' />
           <span className='text-text-secondary system-sm-medium'>{item.name}</span>
         </div>
         <span className='text-text-tertiary system-xs-regular'>{item.type}</span>
@@ -56,12 +56,12 @@ const SubVariablePicker: FC<Props> = ({
             {item
               ? <div className='flex justify-start cursor-pointer'>
                 <div className='inline-flex max-w-full px-1.5 items-center h-6 rounded-md border-[0.5px] border-components-panel-border-subtle bg-components-badge-white-to-dark shadow-xs text-text-accent'>
-                  <Variable02 className='shrink-0 w-3.5 h-3.5 text-text-accent' />
+                  <Variable02 className='shrink-0 w-3.5 h-3.5 text-text-accent hidden' />
                   <div className='ml-0.5 truncate system-xs-medium'>{item?.name}</div>
                 </div>
               </div>
               : <div className='pl-1 flex text-components-input-text-placeholder system-sm-regular  group-hover/sub-variable-picker:text-text-tertiary'>
-                <Variable02 className='mr-1 shrink-0 w-4 h-4' />
+                <Variable02 className='mr-1 shrink-0 w-4 h-4 hidden' />
                 <span>{t('common.placeholder.select')}</span>
               </div>}
           </div>
