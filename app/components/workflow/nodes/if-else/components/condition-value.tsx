@@ -77,8 +77,8 @@ const ConditionValue = ({
   return (
     <div className='flex items-center px-1 h-6 rounded-md bg-workflow-block-parma-bg'>
       {!isEnvVar && !isChatVar && false && <Variable02 className={cn('shrink-0 mr-1 w-3.5 h-3.5 text-text-accent', isException && 'text-text-warning')} />}
-      {isEnvVar && <Env className='shrink-0 mr-1 w-3.5 h-3.5 text-util-colors-violet-violet-600' />}
-      {isChatVar && <BubbleX className='w-3.5 h-3.5 text-util-colors-teal-teal-700' />}
+      {isEnvVar && false && <Env className='shrink-0 mr-1 w-3.5 h-3.5 text-util-colors-violet-violet-600' />}
+      {isChatVar && false && <BubbleX className='w-3.5 h-3.5 text-util-colors-teal-teal-700' />}
 
       <div
         className={cn(

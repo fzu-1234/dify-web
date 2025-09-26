@@ -109,8 +109,8 @@ const PanelContextmenu = () => {
           <ShortcutsName keys={['ctrl', 'v']} />
         </div>
       </div>
-      <Divider className='m-0 hidden'/>
-      <div className='p-1 hidden'>
+      <Divider className='m-0' />
+      <div className='p-1'>
         <div
           className='flex items-center justify-between px-3 h-8 text-sm text-text-secondary rounded-lg cursor-pointer hover:bg-state-base-hover'
           onClick={() => exportCheck()}

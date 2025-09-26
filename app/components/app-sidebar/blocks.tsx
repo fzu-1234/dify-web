@@ -77,11 +77,11 @@ const Blocks = ({
                 <div>
                   <BlockIcon
                     size='md'
-                    className='mb-2'
+                    className='mb-2 hidden'
                     type={block.type}
                   />
-                  <div className='mb-1 text-sm leading-5 text-gray-900'>{block.title}</div>
-                  <div className='text-xs text-gray-700 leading-[18px]'>{nodesExtraData[block.type].about}</div>
+                  <div className='mb-1 text-sm leading-5 text-gray-900 hidden'>{block.title}</div>
+                  <div className=''>{nodesExtraData[block.type].about}</div>
                 </div>
               )}
               noArrow

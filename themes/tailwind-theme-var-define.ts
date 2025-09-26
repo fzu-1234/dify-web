@@ -19,6 +19,7 @@ const vars = {
   'components-kbd-bg-white': 'var(--color-components-kbd-bg-white)',
 
   'components-tooltip-bg': 'var(--color-components-tooltip-bg)',
+  'components-tooltip-text': 'var(--color-components-tooltip-text)',
 
   'components-button-primary-text': 'var(--color-components-button-primary-text)',
   'components-button-primary-bg': 'var(--color-components-button-primary-bg)',

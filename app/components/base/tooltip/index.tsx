@@ -100,7 +100,7 @@ const Tooltip: FC<TooltipProps> = ({
           className={cn(
             !noDecoration && 'relative px-3 py-2 system-xs-regular text-text-tertiary bg-components-panel-bg rounded-md shadow-lg break-words',
             popupClassName,
-            'text-black text-sm',
+            'text-components-tooltip-text text-sm !bg-[#363d4d] !text-[#fefefe]',
           )}
           onMouseEnter={() => triggerMethod === 'hover' && setHoverPopup()}
           onMouseLeave={() => triggerMethod === 'hover' && handleLeave(false)}

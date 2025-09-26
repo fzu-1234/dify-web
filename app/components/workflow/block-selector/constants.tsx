@@ -54,11 +54,11 @@ export const BLOCKS: Block[] = [
     type: BlockEnum.Iteration,
     title: 'Iteration',
   },
-  {
-    classification: BlockClassificationEnum.Execute,
-    type: BlockEnum.TemplateTransform,
-    title: 'Templating Transform',
-  },
+  // {
+  //   classification: BlockClassificationEnum.Execute,
+  //   type: BlockEnum.TemplateTransform,
+  //   title: 'Templating Transform',
+  // },
   {
     classification: BlockClassificationEnum.Execute,
     type: BlockEnum.DocExtractor,
@@ -74,31 +74,31 @@ export const BLOCKS: Block[] = [
     type: BlockEnum.Code,
     title: 'Code',
   },
-  {
-    classification: BlockClassificationEnum.Execute,
-    type: BlockEnum.ParameterExtractor,
-    title: 'Parameter Extractor',
-  },
+  // {
+  //   classification: BlockClassificationEnum.Execute,
+  //   type: BlockEnum.ParameterExtractor,
+  //   title: 'Parameter Extractor',
+  // },
   {
     classification: BlockClassificationEnum.Execute,
     type: BlockEnum.Assigner,
     title: 'Variable Assigner',
   },
-  {
-    classification: BlockClassificationEnum.Execute,
-    type: BlockEnum.ListFilter,
-    title: 'List Filter',
-  },
+  // {
+  //   classification: BlockClassificationEnum.Execute,
+  //   type: BlockEnum.ListFilter,
+  //   title: 'List Filter',
+  // },
   {
     classification: BlockClassificationEnum.Execute,
     type: BlockEnum.HttpRequest,
     title: 'HTTP Request',
   },
-  {
-    classification: BlockClassificationEnum.Execute,
-    type: BlockEnum.Note,
-    title: 'Note',
-  },
+  // {
+  //   classification: BlockClassificationEnum.Execute,
+  //   type: BlockEnum.Note,
+  //   title: 'Note',
+  // },
 ]
 
 export const BLOCK_CLASSIFICATIONS: string[] = [

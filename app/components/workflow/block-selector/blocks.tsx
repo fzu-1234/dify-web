@@ -68,16 +68,16 @@ const Blocks = ({
             <Tooltip
               key={block.type}
               position='right'
-              popupClassName='!p-0 !px-3 !py-2.5 w-[200px]  !leading-[18px] !text-xs !text-gray-700 !border-[0.5px] !border-black/5 !rounded-xl !shadow-lg space-x-1'
+              popupClassName='!p-0 !px-3 !py-2.5 w-[200px]  !leading-[18px] !border-[0.5px] !border-black/5 !rounded-xl !shadow-lg space-x-1'
               popupContent={(
                 <div>
                   <BlockIcon
                     size='md'
-                    className='mb-2'
+                    className='mb-2 hidden'
                     type={block.type}
                   />
-                  <div className='mb-1 system-md-medium text-text-primary'>{block.title}</div>
-                  <div className='text-text-tertiary system-xs-regular'>{nodesExtraData[block.type].about}</div>
+                  <div className='mb-1 system-md-medium text-text-primary hidden'>{block.title}</div>
+                  <div className=''>{nodesExtraData[block.type].about}</div>
                 </div>
               )}
             >

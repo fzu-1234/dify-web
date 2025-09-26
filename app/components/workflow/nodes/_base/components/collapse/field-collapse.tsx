@@ -12,7 +12,7 @@ const FieldCollapse = ({
   type,
 }: FieldCollapseProps) => {
   return (
-    <div className={cn(type === 'question-classifier' ? '' : 'py-4', type !== 'question-classifier' && 'px-4')}>
+    <div className={cn(type === 'question-classifier' ? '' : 'py-4', (type !== 'question-classifier' && type !== 'variable-assigner') && 'px-4')}>
       <Collapse
         type={type}
         trigger={

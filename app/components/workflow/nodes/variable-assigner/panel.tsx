@@ -57,7 +57,7 @@ const Panel: FC<NodePanelProps<VariableAssignerNodeType>> = ({
         <>
           <Split />
           <div className='px-4 pt-4 pb-2'>
-            <OutputVars>
+            <OutputVars nodeType='variable-assigner'>
               <>
                 {inputs.advanced_settings?.groups.map((item, index) => (
                   <VarItem

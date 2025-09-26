@@ -40,11 +40,11 @@ const Panel: FC = () => {
   return (
     <div
       tabIndex={-1}
-      className={cn('absolute top-14 right-0 bottom-2 flex z-10 outline-none')}
+      className={cn('absolute top-0 right-0 bottom-16 flex z-10 outline-none')}
       key={`${isRestoring}`}
     >
       {
-        showMessageLogModal && false && (
+        showMessageLogModal && (
           <MessageLogModal
             fixedWidth
             width={400}
