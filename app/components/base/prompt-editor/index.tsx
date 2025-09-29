@@ -146,7 +146,7 @@ const PromptEditor: FC<PromptEditorProps> = ({
       payload: historyBlock?.history,
     } as any)
   }, [eventEmitter, historyBlock?.history])
-
+  // console.log('historyBlock', value, contextBlock,queryBlock,historyBlock,variableBlock,externalToolBlock,workflowVariableBlock,isSupportFileVar,sourceType)
   return (
     <LexicalComposer initialConfig={{ ...initialConfig, editable }}>
       <div className='relative min-h-5'>

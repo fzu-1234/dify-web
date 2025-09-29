@@ -225,6 +225,29 @@ export const useWorkflowUpdate = () => {
     setViewport(viewport)
   }, [eventEmitter, reactflow])
 
+  // 定义递归替换函数
+  const replaceStartQuery = (obj: any): any => {
+    if (typeof obj === 'string') {
+      // 替换字符串中的 start_query
+      return obj.replace(/sys.query/g, 'start_query')
+    }
+    else if (Array.isArray(obj)) {
+      // 如果是数组，递归处理每个元素
+      return obj.map(item => replaceStartQuery(item))
+    }
+    else if (obj !== null && typeof obj === 'object') {
+      // 如果是对象，递归处理每个属性值
+      const newObj: any = {}
+      for (const key in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, key))
+          newObj[key] = replaceStartQuery(obj[key])
+      }
+      return newObj
+    }
+    // 其他类型（如数字、布尔值等）保持不变
+    return obj
+  }
+
   const handleRefreshWorkflowDraft = useCallback(() => {
     const {
       appId,
@@ -236,6 +259,8 @@ export const useWorkflowUpdate = () => {
     } = workflowStore.getState()
     setIsSyncingWorkflowDraft(true)
     fetchWorkflowDraft(`/apps/${appId}/workflows/draft`).then((response) => {
+      if (response.graph)
+        response.graph = replaceStartQuery(response.graph)
       handleUpdateWorkflowCanvas(response.graph as WorkflowDataUpdater)
       setSyncWorkflowDraftHash(response.hash)
       setEnvSecrets((response.environment_variables || []).filter(env => env.value_type === 'secret').reduce((acc, env) => {

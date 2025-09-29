@@ -81,7 +81,7 @@ const translation = {
     importDSL: '导入文件',
     importDSLTip: '当前草稿将被覆盖。在导入之前请导出工作流作为备份。',
     backupCurrentDraft: '备份当前草稿',
-    chooseDSL: '选择 DSL(yml) 文件',
+    chooseDSL: '选择文件',
     overwriteAndImport: '覆盖并导入',
     importFailure: '导入失败',
     importWarning: '注意',
@@ -129,7 +129,7 @@ const translation = {
     export: {
       title: '导出 Secret 类型环境变量？',
       checkbox: '导出 secret 值',
-      ignore: '导出 DSL',
+      ignore: '导出文件',
       export: '导出包含 Secret 值的 DSL',
     },
   },

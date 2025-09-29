@@ -57,9 +57,9 @@ const DebugAndPreview = () => {
         'flex flex-col w-[420px] bg-chatbot-bg rounded-l-2xl h-full border border-components-panel-border border-r-0 shadow-xl bg-[#F0F5FE]',
       )}
     >
-      <div className='shrink-0 flex items-center justify-between px-4 pt-3 pb-2 text-text-primary system-xl-semibold'>
+      <div className='shrink-0 flex items-center justify-center px-4 pt-3 pb-2 text-text-primary system-xl-semibold'>
         <div className='h-8'>{t('workflow.common.debugAndPreview').toLocaleUpperCase()}</div>
-        <div className='flex items-center gap-1'>
+        <div className='flex items-center gap-1 absolute right-4'>
           <Tooltip
             popupContent={t('common.operation.refresh')}
           >

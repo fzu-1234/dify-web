@@ -52,6 +52,7 @@ const WorkflowVariableBlockComponent = ({
   )()
   const [localWorkflowNodesMap, setLocalWorkflowNodesMap] = useState<WorkflowNodesMap>(workflowNodesMap)
   const node = localWorkflowNodesMap![variables[0]]
+  // console.log('node111', variables, node)
   const isEnv = isENV(variables)
   const isChatVar = isConversationVar(variables)
   const isException = isExceptionVariable(varName, node?.type)

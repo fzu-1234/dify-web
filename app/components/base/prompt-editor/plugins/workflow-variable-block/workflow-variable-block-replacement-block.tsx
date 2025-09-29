@@ -30,7 +30,16 @@ const WorkflowVariableBlockReplacementBlock = ({
       onInsert()
 
     const nodePathString = textNode.getTextContent().slice(3, -3)
-    return $applyNodeReplacement($createWorkflowVariableBlockNode(nodePathString.split('.'), workflowNodesMap))
+    // console.log('5555555555555555')
+    // 处理不带点分隔符的特定变量
+    if (!nodePathString.includes('.')) {
+      // 对于特定的不带点分隔符的变量，我们将其作为单个元素的数组传递
+      return $applyNodeReplacement($createWorkflowVariableBlockNode([nodePathString], workflowNodesMap))
+    }
+    else {
+      // 处理带点分隔符的变量
+      return $applyNodeReplacement($createWorkflowVariableBlockNode(nodePathString.split('.'), workflowNodesMap))
+    }
   }, [onInsert, workflowNodesMap])
 
   const getMatch = useCallback((text: string) => {

@@ -50,7 +50,7 @@ const ResultPanel: FC<ResultPanelProps> = ({
   onShowRetryDetail,
 }) => {
   const { t } = useTranslation()
-
+  // console.log('ResultPanel', inputs)
   return (
     <div className='bg-components-panel-bg py-2'>
       <div className='px-4 py-2'>
