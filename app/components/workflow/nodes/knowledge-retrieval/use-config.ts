@@ -218,7 +218,7 @@ const useConfig = (id: string, payload: KnowledgeRetrievalNodeType) => {
     const inputs = inputRef.current
     let query_variable_selector: ValueSelector = inputs.query_variable_selector
     if (isChatMode && inputs.query_variable_selector.length === 0 && startNodeId)
-      query_variable_selector = [startNodeId, 'sys.query']
+      query_variable_selector = [startNodeId, 'start_query']
 
     setInputs(produce(inputs, (draft) => {
       draft.query_variable_selector = query_variable_selector

@@ -26,6 +26,10 @@ const nodeDefault: NodeDefault<LLMNodeType> = {
     vision: {
       enabled: false,
     },
+    memory: {
+      window: { enabled: false, size: 50 },
+      query_prompt_template: '{{#start_query#}}',
+    },
   },
   getAvailablePrevNodes(isChatMode: boolean) {
     const nodes = isChatMode
@@ -59,7 +63,7 @@ const nodeDefault: NodeDefault<LLMNodeType> = {
     if (!errorMessages && !!payload.memory) {
       const isChatModel = payload.model.mode === 'chat'
       // payload.memory.query_prompt_template not pass is default: {{#sys.query#}}
-      if (isChatModel && !!payload.memory.query_prompt_template && !payload.memory.query_prompt_template.includes('{{#sys.query#}}'))
+      if (isChatModel && !!payload.memory.query_prompt_template && !payload.memory.query_prompt_template.includes('{{#start_query#}}'))
         errorMessages = t('workflow.nodes.llm.sysQueryInUser')
     }
 

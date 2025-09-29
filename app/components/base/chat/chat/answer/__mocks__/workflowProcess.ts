@@ -14,7 +14,7 @@ export const mockedWorkflowProcess = {
       index: 1,
       predecessor_node_id: null,
       inputs: {
-        'sys.query': 'hi',
+        'start_query': 'hi',
         'sys.files': [],
         'sys.conversation_id': '92ce0a3e-8f15-43d1-b31d-32716c4b10a7',
         'sys.user_id': 'fbff43f9-d5a4-4e85-b63b-d3a91d806c6f',
@@ -25,7 +25,7 @@ export const mockedWorkflowProcess = {
       },
       process_data: null,
       outputs: {
-        'sys.query': 'hi',
+        'start_query': 'hi',
         'sys.files': [],
         'sys.conversation_id': '92ce0a3e-8f15-43d1-b31d-32716c4b10a7',
         'sys.user_id': 'fbff43f9-d5a4-4e85-b63b-d3a91d806c6f',

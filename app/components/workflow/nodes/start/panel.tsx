@@ -57,11 +57,11 @@ const Panel: FC<NodePanelProps<StartNodeType>> = ({
             <div className='mt-1 space-y-1'>
               <Split className='my-2' />
               {
-                isChatMode && false && (
+                isChatMode && (
                   <VarItem
                     readonly
                     payload={{
-                      variable: 'sys.query',
+                      variable: 'start_query',
                     } as any}
                     rightContent={
                       <div className='text-xs font-normal text-gray-500'>

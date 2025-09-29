@@ -5,6 +5,7 @@ import {
 import {
   RiMicLine,
   RiSendPlane2Fill,
+  RiSendPlaneLine,
 } from '@remixicon/react'
 import type {
   EnableType,
@@ -54,7 +55,7 @@ const Operation = forwardRef<HTMLDivElement, OperationProps>(({
           }
         </div>
         <Button
-          className='ml-3 px-0 w-8'
+          className='ml-3 px-0 w-8 rounded-full'
           variant='primary'
           onClick={onSend}
           style={
@@ -65,7 +66,7 @@ const Operation = forwardRef<HTMLDivElement, OperationProps>(({
               : {}
           }
         >
-          <RiSendPlane2Fill className='w-4 h-4' />
+          <RiSendPlaneLine className='w-4 h-4' />
         </Button>
       </div>
     </div>

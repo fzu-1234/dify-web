@@ -356,7 +356,7 @@ const useConfig = (id: string, payload: LLMNodeType) => {
   const allVarStrArr = (() => {
     const arr = isChatModel ? (inputs.prompt_template as PromptItem[]).filter(item => item.edition_type !== EditionType.jinja2).map(item => item.text) : [(inputs.prompt_template as PromptItem).text]
     if (isChatMode && isChatModel && !!inputs.memory) {
-      arr.push('{{#sys.query#}}')
+      arr.push('{{#start_query#}}')
       arr.push(inputs.memory.query_prompt_template)
     }
 

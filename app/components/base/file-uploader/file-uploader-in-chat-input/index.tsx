@@ -4,6 +4,8 @@ import {
 } from 'react'
 import {
   RiAttachmentLine,
+  RiUploadLine,
+  RiFileUploadLine,
 } from '@remixicon/react'
 import FileFromLinkOrLocal from '../file-from-link-or-local'
 import ActionButton from '@/app/components/base/action-button'
@@ -23,7 +25,7 @@ const FileUploaderInChatInput = ({
         size='l'
         className={cn(open && 'bg-state-base-hover')}
       >
-        <RiAttachmentLine className='w-5 h-5' />
+        <RiFileUploadLine className='w-5 h-5' />
       </ActionButton>
     )
   }, [])

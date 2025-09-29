@@ -529,7 +529,7 @@ const translation = {
       vectorHash: '向量哈希：',
       hitScore: '召回得分：',
     },
-    inputPlaceholder: '和机器人聊天',
+    inputPlaceholder: '发送消息',
   },
   promptEditor: {
     placeholder: '请输入提示词内容，输入“{”可插入知识库或变量',

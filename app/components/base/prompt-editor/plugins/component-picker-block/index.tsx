@@ -112,7 +112,7 @@ const ComponentPicker = ({
         needRemove.remove()
     })
 
-    if (variables[1] === 'sys.query' || variables[1] === 'sys.files')
+    if (variables[1] === 'sys.query' || variables[1] === 'sys.files' || variables[1] === 'start_query')
       editor.dispatchCommand(INSERT_WORKFLOW_VARIABLE_BLOCK_COMMAND, [variables[1]])
     else
       editor.dispatchCommand(INSERT_WORKFLOW_VARIABLE_BLOCK_COMMAND, variables)

@@ -53,7 +53,7 @@ type Props = {
 
 const MEMORY_DEFAULT: Memory = {
   window: { enabled: false, size: WINDOW_SIZE_DEFAULT },
-  query_prompt_template: '{{#sys.query#}}',
+  query_prompt_template: '{{#start_query#}}',
 }
 
 const MemoryConfig: FC<Props> = ({

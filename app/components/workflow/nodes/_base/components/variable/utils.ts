@@ -100,7 +100,7 @@ const formatItem = (
       })
       if (isChatMode) {
         res.vars.push({
-          variable: 'sys.query',
+          variable: 'start_query',
           type: VarType.string,
         })
         res.vars.push({

@@ -225,7 +225,7 @@ const Panel: FC<NodePanelProps<LLMNodeType>> = ({
         )}
 
         {/* Memory put place examples. */}
-        {isChatMode && isChatModel && !!inputs.memory && (
+        {isChatMode && isChatModel && !!inputs.memory && false && (
           <div className='mt-4'>
             <div className='flex justify-between items-center h-8 pl-3 pr-2 rounded-lg bg-gray-100'>
               <div className='flex items-center space-x-1'>
@@ -249,7 +249,7 @@ const Panel: FC<NodePanelProps<LLMNodeType>> = ({
                     triggerClassName='w-4 h-4'
                   />
                 </div>}
-                value={inputs.memory.query_prompt_template || '{{#sys.query#}}'}
+                value={inputs.memory.query_prompt_template || '{{#start_query#}}'}
                 onChange={handleSyeQueryChange}
                 readOnly={readOnly}
                 isShowContext={false}
@@ -261,7 +261,7 @@ const Panel: FC<NodePanelProps<LLMNodeType>> = ({
                 isSupportFileVar
               />
 
-              {inputs.memory.query_prompt_template && !inputs.memory.query_prompt_template.includes('{{#sys.query#}}') && (
+              {inputs.memory.query_prompt_template && !inputs.memory.query_prompt_template.includes('{{#start_query#}}') && (
                 <div className='leading-[18px] text-xs font-normal text-[#DC6803]'>{t(`${i18nPrefix}.sysQueryInUser`)}</div>
               )}
             </div>
@@ -274,7 +274,7 @@ const Panel: FC<NodePanelProps<LLMNodeType>> = ({
             <Split />
             <MemoryConfig
               readonly={readOnly}
-              config={{ data: inputs.memory }}
+              config={{ data: inputs.memory || { window: { enabled: false, size: 50 }, query_prompt_template: '{{#start_query#}}' } }}
               onChange={handleMemoryChange}
               canSetRoleName={isCompletionModel}
             />

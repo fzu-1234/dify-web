@@ -177,7 +177,7 @@ const ChatInputArea = ({
                 )}
                 placeholder={t('common.chat.inputPlaceholder') || ''}
                 autoFocus
-                autoSize={{ minRows: 1 }}
+                autoSize={{ minRows: 2 }}
                 onResize={handleTextareaResize}
                 value={query}
                 onChange={(e) => {
@@ -211,7 +211,7 @@ const ChatInputArea = ({
           )
         }
       </div>
-      {showFeatureBar && <FeatureBar showFileUpload={showFileUpload} disabled={featureBarDisabled} onFeatureBarClick={onFeatureBarClick} />}
+      {showFeatureBar && false && <FeatureBar showFileUpload={showFileUpload} disabled={featureBarDisabled} onFeatureBarClick={onFeatureBarClick} />}
     </>
   )
 }

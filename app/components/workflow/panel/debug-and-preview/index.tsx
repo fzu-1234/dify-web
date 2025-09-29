@@ -54,7 +54,7 @@ const DebugAndPreview = () => {
   return (
     <div
       className={cn(
-        'flex flex-col w-[420px] bg-chatbot-bg rounded-l-2xl h-full border border-components-panel-border border-r-0 shadow-xl',
+        'flex flex-col w-[420px] bg-chatbot-bg rounded-l-2xl h-full border border-components-panel-border border-r-0 shadow-xl bg-[#F0F5FE]',
       )}
     >
       <div className='shrink-0 flex items-center justify-between px-4 pt-3 pb-2 text-text-primary system-xl-semibold'>

@@ -24,7 +24,7 @@ const translation = {
     ImageUploadLegacyTip: '现在可以在 start 表单中创建文件类型变量。未来我们将不继续支持图片上传功能。',
     fileUploadTip: '',
     featuresDocLink: '',
-    debugAndPreview: '预览',
+    debugAndPreview: '调试',
     restart: '重新开始',
     currentDraft: '当前草稿',
     currentDraftUnpublished: '当前草稿未发布',
@@ -47,7 +47,7 @@ const translation = {
     needAnswerNode: '必须添加直接回复节点',
     workflowProcess: '工作流',
     notRunning: '尚未运行',
-    previewPlaceholder: '在下面的框中输入内容开始调试聊天机器人',
+    previewPlaceholder: '输入内容开始调试吧',
     effectVarConfirm: {
       title: '移除变量',
       content: '该变量在其他节点中使用。您是否仍要删除它？',
@@ -78,7 +78,7 @@ const translation = {
     workflowAsToolTip: '工作流更新后需要重新配置工具参数',
     viewDetailInTracingPanel: '查看详细信息',
     syncingData: '同步数据中，只需几秒钟。',
-    importDSL: '导入 DSL',
+    importDSL: '导入文件',
     importDSLTip: '当前草稿将被覆盖。在导入之前请导出工作流作为备份。',
     backupCurrentDraft: '备份当前草稿',
     chooseDSL: '选择 DSL(yml) 文件',
@@ -417,7 +417,7 @@ const translation = {
       singleRun: {
         variable: '变量',
       },
-      sysQueryInUser: 'user message 中必须包含 sys.query',
+      sysQueryInUser: 'user message 中必须包含 start_query',
     },
     knowledgeRetrieval: {
       queryVariable: '输入变量',
