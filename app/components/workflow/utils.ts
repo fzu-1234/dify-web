@@ -812,3 +812,26 @@ export const isExceptionVariable = (variable: string, nodeType?: BlockEnum) => {
 export const hasRetryNode = (nodeType?: BlockEnum) => {
   return nodeType === BlockEnum.LLM || nodeType === BlockEnum.Tool || nodeType === BlockEnum.HttpRequest || nodeType === BlockEnum.Code
 }
+
+// 定义递归替换函数
+export const replaceStartQuery = (obj: any, oldValue: string, newValue: string): any => {
+  if (typeof obj === 'string') {
+    // 替换字符串中的 start_query
+    return obj.replace(new RegExp(oldValue, 'g'), newValue)
+  }
+  else if (Array.isArray(obj)) {
+    // 如果是数组，递归处理每个元素
+    return obj.map(item => replaceStartQuery(item, oldValue, newValue))
+  }
+  else if (obj !== null && typeof obj === 'object') {
+    // 如果是对象，递归处理每个属性值
+    const newObj: any = {}
+    for (const key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, key))
+        newObj[key] = replaceStartQuery(obj[key], oldValue, newValue)
+    }
+    return newObj
+  }
+  // 其他类型（如数字、布尔值等）保持不变
+  return obj
+}

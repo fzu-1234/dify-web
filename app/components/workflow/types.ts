@@ -384,6 +384,10 @@ export type ToolWithProvider = Collection & {
   tools: Tool[]
 }
 
+export type ToolInfo = {
+  records: ToolWithProvider[]
+}
+
 export enum SupportUploadFileTypes {
   image = 'image',
   document = 'document',

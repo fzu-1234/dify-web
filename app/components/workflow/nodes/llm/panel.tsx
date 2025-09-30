@@ -269,12 +269,12 @@ const Panel: FC<NodePanelProps<LLMNodeType>> = ({
         )}
 
         {/* Memory */}
-        {isChatMode && false && (
+        {isChatMode && (
           <>
             <Split />
             <MemoryConfig
               readonly={readOnly}
-              config={{ data: inputs.memory || { window: { enabled: false, size: 50 }, query_prompt_template: '{{#start_query#}}' } }}
+              config={{ data: inputs.memory }}
               onChange={handleMemoryChange}
               canSetRoleName={isCompletionModel}
             />

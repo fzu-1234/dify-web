@@ -32,6 +32,7 @@ import {
 } from '../store'
 import {
   getParallelInfo,
+  replaceStartQuery,
 } from '../utils'
 import {
   PARALLEL_DEPTH_LIMIT,
@@ -52,6 +53,7 @@ import {
 import type { FetchWorkflowDraftResponse } from '@/types/workflow'
 import {
   fetchAllBuiltInTools,
+  fetchAllCustomToolList,
   fetchAllCustomTools,
   fetchAllWorkflowTools,
 } from '@/service/tools'
@@ -441,7 +443,7 @@ export const useFetchToolsData = () => {
     }
     if (type === 'custom') {
       const customTools = await fetchAllCustomTools()
-
+      // const customTools = await fetchAllCustomToolList()
       workflowStore.setState({
         customTools: customTools || [],
       })
@@ -478,6 +480,8 @@ export const useWorkflowInit = () => {
   const handleGetInitialWorkflowData = useCallback(async () => {
     try {
       const res = await fetchWorkflowDraft(`/apps/${appDetail.id}/workflows/draft`)
+      if (res && res.graph)
+        res.graph = replaceStartQuery(res.graph, 'sys.query', 'start_query')
       setData(res)
       workflowStore.setState({
         envSecrets: (res.environment_variables || []).filter(env => env.value_type === 'secret').reduce((acc, env) => {

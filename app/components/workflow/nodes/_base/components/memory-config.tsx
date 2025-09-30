@@ -141,7 +141,7 @@ const MemoryConfig: FC<Props> = ({
           />
         }
       >
-        {payload && (
+        {payload && false && (
           <>
             {/* window size */}
             <div className='flex justify-between'>

@@ -8,7 +8,7 @@ import type {
   WorkflowToolProviderRequest,
   WorkflowToolProviderResponse,
 } from '@/app/components/tools/types'
-import type { ToolWithProvider } from '@/app/components/workflow/types'
+import type { ToolInfo, ToolWithProvider } from '@/app/components/workflow/types'
 import type { Label } from '@/app/components/tools/labels/constant'
 
 export const fetchCollectionList = () => {
@@ -110,6 +110,10 @@ export const fetchAllBuiltInTools = () => {
 
 export const fetchAllCustomTools = () => {
   return get<ToolWithProvider[]>('/workspaces/current/tools/api')
+}
+
+export const fetchAllCustomToolList = () => {
+  return get<ToolInfo>('/workspaces/current/tool-providers-page?type=api&pageNumber=1&pageSize=10000').then(res => res.records || [])
 }
 
 export const fetchAllWorkflowTools = () => {

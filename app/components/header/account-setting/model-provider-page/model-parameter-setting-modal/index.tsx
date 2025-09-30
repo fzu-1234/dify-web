@@ -222,7 +222,7 @@ const ModelParameterSettingModal: FC<ModelParameterModalProps> = ({
           }
         </PortalToFollowElemSettingTrigger>
         <PortalToFollowElemContent className={cn(portalToFollowElemContentClassName, 'z-[60]')}>
-          <div className={cn(popupClassName, 'w-[496px] rounded-xl border border-gray-100 bg-white shadow-xl')}>
+          <div className={cn(popupClassName, 'w-[496px] rounded-xl border-2 border-gray-100 bg-white shadow-xl border-workflow-llm-block-border')}>
             <div className={cn(
               'max-h-[480px]  overflow-y-auto',
               !isInWorkflow && 'px-10 pt-6 pb-8',
@@ -250,7 +250,7 @@ const ModelParameterSettingModal: FC<ModelParameterModalProps> = ({
               }
               {
                 !isLoading && !!parameterRules.length && (
-                  <div className='flex items-center justify-between mb-4'>
+                  <div className={cn('flex items-center justify-between mb-4 p-4 rounded-lg bg-workflow-llm-block-bg', isInWorkflow && '-mx-4 -mt-4', !isInWorkflow && '')}>
                     <div className={cn('font-semibold text-gray-900', isInWorkflow && 'text-[13px]')}>{t('common.modelProvider.parameters')}</div>
                     {
                       PROVIDER_WITH_PRESET_TONE.includes(provider) && (
