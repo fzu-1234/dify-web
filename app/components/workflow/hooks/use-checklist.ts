@@ -56,8 +56,7 @@ export const useChecklist = (nodes: Node[], edges: Edge[]) => {
         if (provider_type === CollectionType.workflow)
           toolIcon = workflowTools.find(tool => tool.id === node.data.provider_id)?.icon
       }
-
-      if (node.type === CUSTOM_NODE) {
+      if (node.type === CUSTOM_NODE && node.data.type) {
         const { errorMessage } = nodesExtraData[node.data.type].checkValid(node.data, t, moreDataForCheckValid)
 
         if (errorMessage || !validNodes.find(n => n.id === node.id)) {

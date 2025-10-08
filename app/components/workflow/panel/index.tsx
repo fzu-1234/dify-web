@@ -21,6 +21,7 @@ import MessageLogModal from '@/app/components/base/message-log-modal'
 
 const Panel: FC = () => {
   const nodes = useNodes<CommonNodeType>()
+  // console.log('Panel nodes', nodes)
   const isChatMode = useIsChatMode()
   const selectedNode = nodes.find(node => node.data.selected)
   const historyWorkflowData = useStore(s => s.historyWorkflowData)

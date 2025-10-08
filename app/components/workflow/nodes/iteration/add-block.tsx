@@ -1,6 +1,7 @@
 import {
   memo,
   useCallback,
+  useState,
 } from 'react'
 import {
   RiAddLine,
@@ -20,6 +21,7 @@ import type {
 import {
   BlockEnum,
 } from '@/app/components/workflow/types'
+import ToolModal from '@/app/components/app-sidebar/tool-modal'
 
 type AddBlockProps = {
   iterationNodeId: string
@@ -32,8 +34,15 @@ const AddBlock = ({
   const { nodesReadOnly } = useNodesReadOnly()
   const { handleNodeAdd } = useNodesInteractions()
   const { availableNextBlocks } = useAvailableBlocks(BlockEnum.Start, true)
-
+  const [toolModalOpen, setToolModalOpen] = useState(false) // 添加状态控制弹框
+  const [toolModalType, setToolModalType] = useState<'workflow' | 'toolbox' | ''>('')
   const handleSelect = useCallback<OnSelectBlock>((type, toolDefaultValue) => {
+    // 当节点类型为 workflow,toolbox 时，显示弹框而不是创建节点
+    if (type === 'workflow' || type === 'toolbox') {
+      setToolModalType(type)
+      setToolModalOpen(true)
+      return
+    }
     handleNodeAdd(
       {
         nodeType: type,
@@ -72,6 +81,11 @@ const AddBlock = ({
         popupClassName='!min-w-[256px]'
         availableBlocksTypes={availableNextBlocks}
       />
+      <ToolModal open={toolModalOpen} onSelect={handleSelect}
+        onCancel={() => {
+          setToolModalOpen(false)
+          setToolModalType('')
+        }} toolType={toolModalType} />
     </div>
   )
 }
