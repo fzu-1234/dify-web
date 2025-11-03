@@ -679,6 +679,8 @@ button:focus-within {
 @import '../components/base/action-button/index.css';
 @import '../components/base/modal/index.css';
 
+@import './iconfonts/icon.css';
+
 @tailwind utilities;
 .bg-components-panel-bg .sticky.top-0.bg-workflow-kr-block-bg,
 .bg-components-panel-bg .sticky.top-0.bg-workflow-llm-block-bg,
@@ -694,4 +696,13 @@ button:focus-within {
 .bg-components-panel-bg .sticky.top-0.bg-workflow-workflow-block-bg input,
 .bg-components-panel-bg .sticky.top-0.bg-workflow-normal-block-bg input {
   background-color: transparent;
+}
+
+/* 自定义表格样式 */
+.custom-ant-table {
+  border-radius: 8px;
+  
+  .ant-table-tbody>tr>td {
+    padding: 10px 10px;
+  }
 }
