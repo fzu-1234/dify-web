@@ -310,7 +310,7 @@ const RulesSelectModal: FC<RulesSelectModalProps> = ({
       key: 'operation',
       title: t('appDebug.feature.moderation.modal.table.operation'),
       render: (_: any, record: Rule) => (
-        record.rulePlatform === '1'
+        Number(record.rulePlatform) === 1
           ? (
             <div className='flex items-center gap-3'>
               <span className='text-primary-600 cursor-pointer hover:text-primary-700'
