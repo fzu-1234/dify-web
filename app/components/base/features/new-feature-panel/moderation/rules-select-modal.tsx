@@ -473,8 +473,25 @@ const RulesSelectModal: FC<RulesSelectModalProps> = ({
             setCreateRuleVisible(false)
             setEditingRule(null)
           }}
-          onConfirm={() => {
+          onConfirm={(formData) => {
             setCreateRuleVisible(false)
+            // 修改allSelectedRows缓存数据
+            setAllSelectedRows((prevRows) => {
+              const index = prevRows.findIndex(row => row.id === formData.id)
+              if (index !== -1) {
+                // 如果找到了匹配的记录，更新相关字段
+                const updatedRows = [...prevRows]
+                updatedRows[index] = {
+                  ...updatedRows[index],
+                  ruleName: formData.ruleName,
+                  ruleContent: formData.ruleContent,
+                  ruleType: formData.ruleType,
+                  ruleTypeInfo: formData.ruleTypeInfo,
+                }
+                return updatedRows
+              }
+              return prevRows
+            })
             setEditingRule(null)
             getTableData()
           }}
@@ -544,6 +561,10 @@ const RulesSelectModal: FC<RulesSelectModalProps> = ({
                     await deleteSafeRuleApi(deletingRule.id)
                     notify({ type: 'success', message: '删除成功' })
                     setDeleteVisible(false)
+                    // 删除后更新缓存数据 setAllSelectedRows
+                    setAllSelectedRows((prevRows) =>
+                      prevRows.filter(row => row.id !== deletingRule.id),
+                    )
                     setDeletingRule(null)
                     getTableData() // 刷新列表
                   }
