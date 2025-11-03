@@ -1,9 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-# 忽略 .funo 目录及其所有文件
-.funo/
 
-# 忽略 .idea 目录及其所有文件（IDEA 项目配置）
-.idea/
 # dependencies
 /.vscode
 /node_modules
