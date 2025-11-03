@@ -38,6 +38,12 @@ type ModerationSettingModalProps = {
 type Rule = {
   id: string
   ruleName: string
+  ruleContent: string
+  ruleType: string
+  ruleTypeInfo: string
+  rulePlatform: string
+  createdName: string
+  createdAt: string
 }
 
 const ContentReviewSettingModal: FC<ModerationSettingModalProps> = ({
@@ -232,7 +238,7 @@ const ContentReviewSettingModal: FC<ModerationSettingModalProps> = ({
       ...localeData,
       config: {
         ...localeData.config,
-        keywords: ruleMatchWay === 'all' ? tableData.map(rule => rule.id).join('\n') : selectedRules.map(rule => rule.id).join('\n'),
+        keywords: ruleMatchWay === 'all' ? tableData.map(rule => rule.ruleContent).join('\n') : selectedRules.map(rule => rule.ruleContent).join('\n'),
         inputs_config: {
           enabled: true,
           preset_response: '你的问题不符合要求，请重新提问',

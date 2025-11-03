@@ -74,6 +74,7 @@
     "negotiator": "^0.6.3",
     "next": "^14.2.10",
     "pinyin-pro": "^3.23.0",
+    "pm2": "^6.0.11",
     "qrcode.react": "^3.1.0",
     "qs": "^6.11.1",
     "rc-textarea": "^1.5.2",

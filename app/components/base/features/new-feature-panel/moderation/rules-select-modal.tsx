@@ -30,9 +30,9 @@ type Rule = {
 }
 
 type RulesSelectModalProps = {
-  selectedRuleList?: SelectedRule[]
+  selectedRuleList?: Rule[]
   onCancel: () => void
-  onConfirm: (selectedRules: SelectedRule[]) => void
+  onConfirm: (selectedRules: Rule[]) => void
 }
 const RulesSelectModal: FC<RulesSelectModalProps> = ({
   selectedRuleList = [],
@@ -58,7 +58,7 @@ const RulesSelectModal: FC<RulesSelectModalProps> = ({
   }, [queryParams])
 
   const [tableData, setTableData] = useState<Rule[]>([])
-  const [allSelectedRows, setAllSelectedRows] = useState<SelectedRule[]>(selectedRuleList)
+  const [allSelectedRows, setAllSelectedRows] = useState<Rule[]>(selectedRuleList)
   const [loading, setLoading] = useState(false)
   const [deleteVisible, setDeleteVisible] = useState(false)
   const [deletingRule, setDeletingRule] = useState<Rule | null>(null)
