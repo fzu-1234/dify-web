@@ -155,7 +155,6 @@ const AppCard = ({ app, onRefresh }: AppCardProps) => {
       return
     }
     try {
-      console.log('22222222222222workflows/draft')
       const workflowDraft = await fetchWorkflowDraft(`/apps/${app.id}/workflows/draft`)
       const list = (workflowDraft.environment_variables || []).filter(env => env.value_type === 'secret')
       if (list.length === 0) {

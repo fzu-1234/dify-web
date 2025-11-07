@@ -16,18 +16,6 @@ const withMDX = require('@next/mdx')({
 const nextConfig = {
   webpack: (config, { dev, isServer }) => {
     config.plugins.push(codeInspectorPlugin({ bundler: 'webpack' }))
-
-    // 保留console.log
-    // if (!dev) {
-    //   config.optimization.minimizer = config.optimization.minimizer.map((plugin) => {
-    //     if (plugin.constructor.name === 'TerserPlugin') {
-    //       plugin.options.terserOptions.compress.drop_console = false
-    //       // 移除pure_funcs配置，因为我们不想过滤任何console方法
-    //       delete plugin.options.terserOptions.compress.pure_funcs;
-    //     }
-    //     return plugin
-    //   })
-    // }
     return config
   },
   productionBrowserSourceMaps: false, // enable browser source map generation during the production build

@@ -144,7 +144,6 @@ const AppInfo = ({ expand }: IAppInfoProps) => {
       return
     }
     try {
-      console.log('11111111111workflows/draft')
       const workflowDraft = await fetchWorkflowDraft(`/apps/${appDetail.id}/workflows/draft`)
       const list = (workflowDraft.environment_variables || []).filter(env => env.value_type === 'secret')
       if (list.length === 0) {
