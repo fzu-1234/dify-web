@@ -425,11 +425,12 @@ const RulesSelectModal: FC<RulesSelectModalProps> = ({
             rowKey="id"
             columns={columns}
             dataSource={tableData}
+            scroll={{ y: 430 }} // 设置垂直滚动高度
             pagination={{
               current: queryParams.pageNum,
               pageSize: queryParams.pageSize,
               total: queryParams.total,
-              showSizeChanger: false,
+              showSizeChanger: true,
               showQuickJumper: false,
               onChange: (page, pageSize) => {
                 handleTablePageChange(page, pageSize)
