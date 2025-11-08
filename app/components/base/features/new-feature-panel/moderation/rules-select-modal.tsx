@@ -419,7 +419,7 @@ const RulesSelectModal: FC<RulesSelectModalProps> = ({
         </div>
 
         {/* 表格 */}
-        <div className="mb-1">
+        <div className="mb-1 h-[533px]">
           <Table
             loading={loading}
             rowKey="id"
