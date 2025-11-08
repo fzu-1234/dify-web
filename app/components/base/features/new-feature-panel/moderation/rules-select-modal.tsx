@@ -520,7 +520,7 @@ const RulesSelectModal: FC<RulesSelectModalProps> = ({
           className='!w-[600px]'
         >
           <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-            <div className="text-xl font-semibold text-gray-900">{t('appDebug.feature.moderation.modal.selectModal.deleteTitle')}</div>
+            <div className="text-xl font-semibold text-gray-900">{t('appDebug.feature.moderation.modal.selectModal.ruleDelete')}</div>
             <div className="p-1 cursor-pointer" onClick={() => {
               setDeleteVisible(false)
               setDeletingRule(null)
