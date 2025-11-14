@@ -533,9 +533,25 @@ const baseFetch = <T>(
           if (
             options.headers.get("Content-type") === ContentType.download ||
             options.headers.get("Content-type") === ContentType.audio
-          )
+          ) {
             resolve(needAllResponseContent ? resClone : res.blob());
-          else resolve(needAllResponseContent ? resClone : res.json());
+          }
+          else {
+            const contentType = res.headers.get('content-type');
+            if (contentType && contentType.includes('application/json')) {
+              resolve(needAllResponseContent ? resClone : res.json());
+            }
+            else {
+              res.text().then(text => {
+                try {
+                  resolve(text ? JSON.parse(text) : {})
+                }
+                catch (e) {
+                  resolve({})
+                }
+              }).catch(() => resolve({}))
+            }
+          }
         })
         .catch((err) => {
           if (!silent) Toast.notify({ type: "error", message: err });
