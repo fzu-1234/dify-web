@@ -118,10 +118,10 @@ type WorkflowProps = {
   viewport?: Viewport
 }
 const Workflow: FC<WorkflowProps> = memo(({
-  nodes: originalNodes,
-  edges: originalEdges,
-  viewport,
-}) => {
+                                            nodes: originalNodes,
+                                            edges: originalEdges,
+                                            viewport,
+                                          }) => {
   const workflowContainerRef = useRef<HTMLDivElement>(null)
   const workflowStore = useWorkflowStore()
   const reactflow = useReactFlow()
@@ -167,6 +167,17 @@ const Workflow: FC<WorkflowProps> = memo(({
 
       if (v.payload.hash)
         setSyncWorkflowDraftHash(v.payload.hash)
+
+      // 设置环境变量
+      workflowStore.setState({
+        envSecrets: (v.payload.environment_variables || []).filter(env => env.value_type === 'secret').reduce((acc, env) => {
+          acc[env.id] = env.value
+          return acc
+        }, {} as Record<string, string>),
+        environmentVariables: v.payload.environment_variables?.map(env => env.value_type === 'secret' ? { ...env, value: '[__HIDDEN__]' } : env) || [],
+        // #TODO chatVar sync#
+        conversationVariables: v.payload.conversation_variables || [],
+      })
 
       setTimeout(() => setControlPromptEditorRerenderKey(Date.now()))
     }

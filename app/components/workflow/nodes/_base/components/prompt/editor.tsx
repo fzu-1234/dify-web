@@ -30,7 +30,7 @@ import {
 } from '@/app/components/base/icons/src/vender/line/files'
 import s from '@/app/components/app/configuration/config-prompt/style.module.css'
 import { useEventEmitterContextContext } from '@/context/event-emitter'
-import { PROMPT_EDITOR_INSERT_QUICKLY } from '@/app/components/base/prompt-editor/plugins/update-block'
+import { PROMPT_EDITOR_INSERT_QUICKLY, PROMPT_EDITOR_UPDATE_VALUE_BY_EVENT_EMITTER } from '@/app/components/base/prompt-editor/plugins/update-block'
 import { Variable02 } from '@/app/components/base/icons/src/vender/solid/development'
 import ActionButton from '@/app/components/base/action-button'
 import Tooltip from '@/app/components/base/tooltip'
@@ -75,33 +75,33 @@ type Props = {
 }
 
 const Editor: FC<Props> = ({
-  className,
-  headerClassName,
-  instanceId,
-  title,
-  value,
-  onChange,
-  readOnly,
-  showRemove,
-  onRemove,
-  justVar,
-  isChatModel,
-  isChatApp,
-  isShowContext,
-  hasSetBlockStatus,
-  nodesOutputVars,
-  availableNodes = [],
-  isSupportFileVar,
-  isSupportPromptGenerator,
-  isSupportJinja,
-  editionType,
-  onEditionTypeChange,
-  varList = [],
-  handleAddVariable,
-  onGenerated,
-  modelConfig,
-  nodeType,
-}) => {
+                             className,
+                             headerClassName,
+                             instanceId,
+                             title,
+                             value,
+                             onChange,
+                             readOnly,
+                             showRemove,
+                             onRemove,
+                             justVar,
+                             isChatModel,
+                             isChatApp,
+                             isShowContext,
+                             hasSetBlockStatus,
+                             nodesOutputVars,
+                             availableNodes = [],
+                             isSupportFileVar,
+                             isSupportPromptGenerator,
+                             isSupportJinja,
+                             editionType,
+                             onEditionTypeChange,
+                             varList = [],
+                             handleAddVariable,
+                             onGenerated,
+                             modelConfig,
+                             nodeType,
+                           }) => {
   // console.log('Editor', title, nodeType)
   const { t } = useTranslation()
   const { eventEmitter } = useEventEmitterContextContext()
@@ -143,8 +143,14 @@ const Editor: FC<Props> = ({
   const onUseTemplate = (data: any) => {
     setPromptTemplateVisible(false)
     // console.log('onUseTemplate', title, nodeType, data)
-    if (data && data.promptContent)
-      onChange(data.promptContent)
+    if (data && data.promptContent) {
+      // 通过事件发射器更新PromptEditor内容
+      eventEmitter?.emit({
+        type: PROMPT_EDITOR_UPDATE_VALUE_BY_EVENT_EMITTER,
+        payload: data.promptContent,
+        instanceId,
+      } as any)
+    }
   }
 
   return (
@@ -227,7 +233,7 @@ const Editor: FC<Props> = ({
               ? (
                 <div className={cn(isExpand ? 'grow' : 'max-h-[536px]', 'relative px-3 min-h-[56px]  overflow-y-auto',nodeType === 'llm' && 'pt-2')}>
                   <PromptEditor
-                    key={`${controlPromptEditorRerenderKey}_${value ?? ''}`}
+                    key={controlPromptEditorRerenderKey}
                     instanceId={instanceId}
                     compact
                     className='min-h-[56px]'

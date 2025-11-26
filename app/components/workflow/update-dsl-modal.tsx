@@ -46,10 +46,10 @@ type UpdateDSLModalProps = {
 }
 
 const UpdateDSLModal = ({
-  onCancel,
-  onBackup,
-  onImport,
-}: UpdateDSLModalProps) => {
+                          onCancel,
+                          onBackup,
+                          onImport,
+                        }: UpdateDSLModalProps) => {
   const { t } = useTranslation()
   const { notify } = useContext(ToastContext)
   const appDetail = useAppStore(s => s.appDetail)
@@ -84,6 +84,8 @@ const UpdateDSLModal = ({
       graph,
       features,
       hash,
+      conversation_variables,
+      environment_variables,
     } = await fetchWorkflowDraft(`/apps/${app_id}/workflows/draft`)
 
     const { nodes, edges, viewport } = graph
@@ -120,6 +122,8 @@ const UpdateDSLModal = ({
         viewport,
         features: newFeatures,
         hash,
+        environment_variables,
+        conversation_variables,
       },
     } as any)
   }
