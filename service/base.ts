@@ -1,32 +1,32 @@
 import { refreshAccessTokenOrRelogin } from "./refresh-token";
 import {
-  API_PREFIX,
-  AUTH_WAY,
-  IS_CE_EDITION,
-  PUBLIC_API_PREFIX,
-  UC_API_PREFIX,
-  SAFE_PLATFORM_API_PREFIX,
+    API_PREFIX,
+    AUTH_WAY,
+    IS_CE_EDITION,
+    PUBLIC_API_PREFIX,
+    UC_API_PREFIX,
+    SAFE_PLATFORM_API_PREFIX,
 } from "@/config";
 import Toast from "@/app/components/base/toast";
 import type {
-  AnnotationReply,
-  MessageEnd,
-  MessageReplace,
-  ThoughtItem,
+    AnnotationReply,
+    MessageEnd,
+    MessageReplace,
+    ThoughtItem,
 } from "@/app/components/base/chat/chat/type";
 import type { VisionFile } from "@/types/app";
 import type {
-  IterationFinishedResponse,
-  IterationNextResponse,
-  IterationStartedResponse,
-  NodeFinishedResponse,
-  NodeStartedResponse,
-  ParallelBranchFinishedResponse,
-  ParallelBranchStartedResponse,
-  TextChunkResponse,
-  TextReplaceResponse,
-  WorkflowFinishedResponse,
-  WorkflowStartedResponse,
+    IterationFinishedResponse,
+    IterationNextResponse,
+    IterationStartedResponse,
+    NodeFinishedResponse,
+    NodeStartedResponse,
+    ParallelBranchFinishedResponse,
+    ParallelBranchStartedResponse,
+    TextChunkResponse,
+    TextReplaceResponse,
+    WorkflowFinishedResponse,
+    WorkflowStartedResponse,
 } from "@/types/workflow";
 import { removeAccessToken } from "@/app/components/share/utils";
 import { asyncRunSafe } from "@/utils";
@@ -37,36 +37,36 @@ import { getAuthHeader, getRequestUrl } from "@/utils/macAuth";
 const TIME_OUT = 100000;
 
 const ContentType = {
-  json: "application/json",
-  stream: "text/event-stream",
-  audio: "audio/mpeg",
-  form: "application/x-www-form-urlencoded; charset=UTF-8",
-  download: "application/octet-stream", // for download
-  upload: "multipart/form-data", // for upload
+    json: "application/json",
+    stream: "text/event-stream",
+    audio: "audio/mpeg",
+    form: "application/x-www-form-urlencoded; charset=UTF-8",
+    download: "application/octet-stream", // for download
+    upload: "multipart/form-data", // for upload
 };
 
 const baseOptions = {
-  method: "GET",
-  mode: "cors",
-  credentials: "include", // always send cookies、HTTP Basic authentication.
-  headers: new Headers({
-    "Content-Type": ContentType.json,
-  }),
-  redirect: "follow",
+    method: "GET",
+    mode: "cors",
+    credentials: "include", // always send cookies、HTTP Basic authentication.
+    headers: new Headers({
+        "Content-Type": ContentType.json,
+    }),
+    redirect: "follow",
 };
 
 export type IOnDataMoreInfo = {
-  conversationId?: string;
-  taskId?: string;
-  messageId: string;
-  errorMessage?: string;
-  errorCode?: string;
+    conversationId?: string;
+    taskId?: string;
+    messageId: string;
+    errorMessage?: string;
+    errorCode?: string;
 };
 
 export type IOnData = (
-  message: string,
-  isFirstMessage: boolean,
-  moreInfo: IOnDataMoreInfo
+    message: string,
+    isFirstMessage: boolean,
+    moreInfo: IOnDataMoreInfo
 ) => void;
 export type IOnThought = (though: ThoughtItem) => void;
 export type IOnFile = (file: VisionFile) => void;
@@ -77,707 +77,575 @@ export type IOnCompleted = (hasError?: boolean, errorMessage?: string) => void;
 export type IOnError = (msg: string, code?: string) => void;
 
 export type IOnWorkflowStarted = (
-  workflowStarted: WorkflowStartedResponse
+    workflowStarted: WorkflowStartedResponse
 ) => void;
 export type IOnWorkflowFinished = (
-  workflowFinished: WorkflowFinishedResponse
+    workflowFinished: WorkflowFinishedResponse
 ) => void;
 export type IOnNodeStarted = (nodeStarted: NodeStartedResponse) => void;
 export type IOnNodeFinished = (nodeFinished: NodeFinishedResponse) => void;
 export type IOnIterationStarted = (
-  workflowStarted: IterationStartedResponse
+    workflowStarted: IterationStartedResponse
 ) => void;
 export type IOnIterationNext = (workflowStarted: IterationNextResponse) => void;
 export type IOnNodeRetry = (nodeFinished: NodeFinishedResponse) => void;
 export type IOnIterationFinished = (
-  workflowFinished: IterationFinishedResponse
+    workflowFinished: IterationFinishedResponse
 ) => void;
 export type IOnParallelBranchStarted = (
-  parallelBranchStarted: ParallelBranchStartedResponse
+    parallelBranchStarted: ParallelBranchStartedResponse
 ) => void;
 export type IOnParallelBranchFinished = (
-  parallelBranchFinished: ParallelBranchFinishedResponse
+    parallelBranchFinished: ParallelBranchFinishedResponse
 ) => void;
 export type IOnTextChunk = (textChunk: TextChunkResponse) => void;
 export type IOnTTSChunk = (
-  messageId: string,
-  audioStr: string,
-  audioType?: string
+    messageId: string,
+    audioStr: string,
+    audioType?: string
 ) => void;
 export type IOnTTSEnd = (
-  messageId: string,
-  audioStr: string,
-  audioType?: string
+    messageId: string,
+    audioStr: string,
+    audioType?: string
 ) => void;
 export type IOnTextReplace = (textReplace: TextReplaceResponse) => void;
 
 export type IOtherOptions = {
-  isPublicAPI?: boolean;
-  bodyStringify?: boolean;
-  needAllResponseContent?: boolean;
-  deleteContentType?: boolean;
-  silent?: boolean;
-  onData?: IOnData; // for stream
-  onThought?: IOnThought;
-  onFile?: IOnFile;
-  onMessageEnd?: IOnMessageEnd;
-  onMessageReplace?: IOnMessageReplace;
-  onError?: IOnError;
-  onCompleted?: IOnCompleted; // for stream
-  getAbortController?: (abortController: AbortController) => void;
+    isPublicAPI?: boolean;
+    bodyStringify?: boolean;
+    needAllResponseContent?: boolean;
+    deleteContentType?: boolean;
+    silent?: boolean;
+    onData?: IOnData; // for stream
+    onThought?: IOnThought;
+    onFile?: IOnFile;
+    onMessageEnd?: IOnMessageEnd;
+    onMessageReplace?: IOnMessageReplace;
+    onError?: IOnError;
+    onCompleted?: IOnCompleted; // for stream
+    getAbortController?: (abortController: AbortController) => void;
 
-  onWorkflowStarted?: IOnWorkflowStarted;
-  onWorkflowFinished?: IOnWorkflowFinished;
-  onNodeStarted?: IOnNodeStarted;
-  onNodeFinished?: IOnNodeFinished;
-  onIterationStart?: IOnIterationStarted;
-  onIterationNext?: IOnIterationNext;
-  onIterationFinish?: IOnIterationFinished;
-  onNodeRetry?: IOnNodeRetry;
-  onParallelBranchStarted?: IOnParallelBranchStarted;
-  onParallelBranchFinished?: IOnParallelBranchFinished;
-  onTextChunk?: IOnTextChunk;
-  onTTSChunk?: IOnTTSChunk;
-  onTTSEnd?: IOnTTSEnd;
-  onTextReplace?: IOnTextReplace;
-  isView?: boolean;
+    onWorkflowStarted?: IOnWorkflowStarted;
+    onWorkflowFinished?: IOnWorkflowFinished;
+    onNodeStarted?: IOnNodeStarted;
+    onNodeFinished?: IOnNodeFinished;
+    onIterationStart?: IOnIterationStarted;
+    onIterationNext?: IOnIterationNext;
+    onIterationFinish?: IOnIterationFinished;
+    onNodeRetry?: IOnNodeRetry;
+    onParallelBranchStarted?: IOnParallelBranchStarted;
+    onParallelBranchFinished?: IOnParallelBranchFinished;
+    onTextChunk?: IOnTextChunk;
+    onTTSChunk?: IOnTTSChunk;
+    onTTSEnd?: IOnTTSEnd;
+    onTextReplace?: IOnTextReplace;
+    isView?: boolean;
 };
 
 type ResponseError = {
-  code: string;
-  message: string;
-  status: number;
+    code: string;
+    message: string;
+    status: number;
 };
 
 type FetchOptionType = Omit<RequestInit, "body"> & {
-  params?: Record<string, any>;
-  body?: BodyInit | Record<string, any> | null;
+    params?: Record<string, any>;
+    body?: BodyInit | Record<string, any> | null;
 };
 
 function unicodeToChar(text: string) {
-  if (!text) return "";
+    if (!text) return "";
 
-  return text.replace(/\\u[0-9a-f]{4}/g, (_match, p1) => {
-    return String.fromCharCode(parseInt(p1, 16));
-  });
+    return text.replace(/\\u[0-9a-f]{4}/g, (_match, p1) => {
+        return String.fromCharCode(parseInt(p1, 16));
+    });
 }
 
 function requiredWebSSOLogin() {
-  globalThis.location.href = `/webapp-signin?redirect_url=${globalThis.location.pathname}`;
+    globalThis.location.href = `/webapp-signin?redirect_url=${globalThis.location.pathname}`;
 }
 
 function getAccessToken(isPublicAPI?: boolean) {
-  if (isPublicAPI) {
-    const sharedToken = globalThis.location.pathname.split("/").slice(-1)[0];
-    const accessToken =
-      localStorage.getItem("token") || JSON.stringify({ [sharedToken]: "" });
-    let accessTokenJson = { [sharedToken]: "" };
-    try {
-      accessTokenJson = JSON.parse(accessToken);
-    } catch (e) {}
-    return accessTokenJson[sharedToken];
-  } else {
-    return localStorage.getItem("console_token") || "";
-  }
+    if (isPublicAPI) {
+        const sharedToken = globalThis.location.pathname.split("/").slice(-1)[0];
+        const accessToken =
+            localStorage.getItem("token") || JSON.stringify({ [sharedToken]: "" });
+        let accessTokenJson = { [sharedToken]: "" };
+        try {
+            accessTokenJson = JSON.parse(accessToken);
+        } catch (e) {}
+        return accessTokenJson[sharedToken];
+    } else {
+        return localStorage.getItem("console_token") || "";
+    }
 }
 
 export function format(text: string) {
-  let res = text.trim();
-  if (res.startsWith("\n")) res = res.replace("\n", "");
+    let res = text.trim();
+    if (res.startsWith("\n")) res = res.replace("\n", "");
 
-  return res.replaceAll("\n", "<br/>").replaceAll("```", "");
+    return res.replaceAll("\n", "<br/>").replaceAll("```", "");
 }
 
 // 存储节点开始时间的对象
 let nodeData: Record<string, number> = {}
 const handleStream = (
-  response: Response,
-  onData: IOnData,
-  onCompleted?: IOnCompleted,
-  onThought?: IOnThought,
-  onMessageEnd?: IOnMessageEnd,
-  onMessageReplace?: IOnMessageReplace,
-  onFile?: IOnFile,
-  onWorkflowStarted?: IOnWorkflowStarted,
-  onWorkflowFinished?: IOnWorkflowFinished,
-  onNodeStarted?: IOnNodeStarted,
-  onNodeFinished?: IOnNodeFinished,
-  onIterationStart?: IOnIterationStarted,
-  onIterationNext?: IOnIterationNext,
-  onIterationFinish?: IOnIterationFinished,
-  onNodeRetry?: IOnNodeRetry,
-  onParallelBranchStarted?: IOnParallelBranchStarted,
-  onParallelBranchFinished?: IOnParallelBranchFinished,
-  onTextChunk?: IOnTextChunk,
-  onTTSChunk?: IOnTTSChunk,
-  onTTSEnd?: IOnTTSEnd,
-  onTextReplace?: IOnTextReplace,
-  isView?: boolean, // 添加 isView 参数，默认为 false
+    response: Response,
+    onData: IOnData,
+    onCompleted?: IOnCompleted,
+    onThought?: IOnThought,
+    onMessageEnd?: IOnMessageEnd,
+    onMessageReplace?: IOnMessageReplace,
+    onFile?: IOnFile,
+    onWorkflowStarted?: IOnWorkflowStarted,
+    onWorkflowFinished?: IOnWorkflowFinished,
+    onNodeStarted?: IOnNodeStarted,
+    onNodeFinished?: IOnNodeFinished,
+    onIterationStart?: IOnIterationStarted,
+    onIterationNext?: IOnIterationNext,
+    onIterationFinish?: IOnIterationFinished,
+    onNodeRetry?: IOnNodeRetry,
+    onParallelBranchStarted?: IOnParallelBranchStarted,
+    onParallelBranchFinished?: IOnParallelBranchFinished,
+    onTextChunk?: IOnTextChunk,
+    onTTSChunk?: IOnTTSChunk,
+    onTTSEnd?: IOnTTSEnd,
+    onTextReplace?: IOnTextReplace,
+    isView?: boolean, // 添加 isView 参数，默认为 false
 ) => {
-  if (!response.ok) throw new Error("Network response was not ok");
+    if (!response.ok) throw new Error("Network response was not ok");
 
-  const reader = response.body?.getReader();
-  const decoder = new TextDecoder("utf-8");
-  let buffer = "";
-  let bufferObj: Record<string, any>;
-  let isFirstMessage = true;
-  function read() {
-    let hasError = false;
-    reader?.read().then((result: any) => {
-      console.log('read',result);
-      if (result.done) {
-        onCompleted && onCompleted();
-        return;
-      }
-      buffer += decoder.decode(result.value, { stream: true });
-      const lines = buffer.split("\n");
-      // console.log('res解析后', lines)
-      // try {
-      const processLine = async (message: string) => {
-        if (message.startsWith("data:")) {
-          // check if it starts with data:
-          try {
-            bufferObj = JSON.parse(message.substring(5)) as Record<
-            string,
-            any
-            >; // remove data: and parse as json
-          } catch (e) {
-            // mute handle message cut off
-            onData("", isFirstMessage, {
-              conversationId: bufferObj?.conversation_id,
-              messageId: bufferObj?.message_id,
-            });
-            return;
-          }
-          if (bufferObj.status === 400 || !bufferObj.event) {
-            onData("", false, {
-              conversationId: undefined,
-              messageId: "",
-              errorMessage: bufferObj?.message,
-              errorCode: bufferObj?.code,
-            });
-            hasError = true;
-            onCompleted?.(true, bufferObj?.message);
-            return;
-          }
-
-          if (
-            bufferObj.event === "message" ||
-            bufferObj.event === "agent_message"
-          ) {
-            // can not use format here. Because message is splitted.
-            onData(unicodeToChar(bufferObj.answer), isFirstMessage, {
-              conversationId: bufferObj.conversation_id,
-              taskId: bufferObj.task_id,
-              messageId: bufferObj.id,
-            });
-            isFirstMessage = false;
-          } else if (bufferObj.event === "agent_thought") {
-            onThought?.(bufferObj as ThoughtItem);
-          } else if (bufferObj.event === "message_file") {
-            onFile?.(bufferObj as VisionFile);
-          } else if (bufferObj.event === "message_end") {
-            onMessageEnd?.(bufferObj as MessageEnd);
-          } else if (bufferObj.event === "message_replace") {
-            onMessageReplace?.(bufferObj as MessageReplace);
-          } else if (bufferObj.event === "workflow_started") {
-            onWorkflowStarted?.(bufferObj as WorkflowStartedResponse);
-          } else if (bufferObj.event === "workflow_finished") {
-            onWorkflowFinished?.(bufferObj as WorkflowFinishedResponse);
-          } else if (bufferObj.event === "node_started") {
-            // 存储每个节点的node_started事件，当收到对应node_finished事件时，计算事件时间差，少于指定时间则延迟
-            // 只有当 isView 为 true 时才记录节点开始时间
-            if (isView && bufferObj.data?.node_id)
-              nodeData[bufferObj.data.node_id] = Date.now()
-
-            onNodeStarted?.(bufferObj as NodeStartedResponse);
-          } else if (bufferObj.event === "node_finished") {
-            // 只有当 isView 为 true 时才进行时间计算和延迟处理
-            if (isView) {
-              const nodeId = bufferObj.data?.node_id
-              const endTime = Date.now()
-
-              // 计算实际执行时间
-              let executionTime = 0
-              if (nodeId && nodeData[nodeId]) {
-                executionTime = (endTime - nodeData[nodeId]) / 1000 // 转换为秒
-                // 清除已记录的开始时间
-                delete nodeData[nodeId]
-              }
-
-              // 检查elapsed_time是否小于1.5秒，如果是则延迟执行
-              if (executionTime > 0 && executionTime < 1.5) {
-                // 计算需要延迟的时间（确保至少延迟到1.5秒）
-                const delay = (1.5 - executionTime) * 1000 // 转换为毫秒
-                // 使用Promise和setTimeout实现延迟
-                await new Promise(resolve => setTimeout(resolve, delay))
-                onNodeFinished?.(bufferObj as NodeFinishedResponse)
-              }
-              else {
-                // 正常执行
-                onNodeFinished?.(bufferObj as NodeFinishedResponse)
-              }
+    const reader = response.body?.getReader();
+    const decoder = new TextDecoder("utf-8");
+    let buffer = "";
+    let bufferObj: Record<string, any>;
+    let isFirstMessage = true;
+    function read() {
+        let hasError = false;
+        reader?.read().then((result: any) => {
+            console.log('read',result);
+            if (result.done) {
+                onCompleted && onCompleted();
+                return;
             }
-            else {
-              onNodeFinished?.(bufferObj as NodeFinishedResponse) // 如果 isView 为 false，则直接执行回调
-            }
-          } else if (bufferObj.event === "iteration_started") {
-            onIterationStart?.(bufferObj as IterationStartedResponse);
-          } else if (bufferObj.event === "iteration_next") {
-            onIterationNext?.(bufferObj as IterationNextResponse);
-          } else if (bufferObj.event === "iteration_completed") {
-            onIterationFinish?.(bufferObj as IterationFinishedResponse);
-          } else if (bufferObj.event === "node_retry") {
-            onNodeRetry?.(bufferObj as NodeFinishedResponse);
-          } else if (bufferObj.event === "parallel_branch_started") {
-            onParallelBranchStarted?.(
-              bufferObj as ParallelBranchStartedResponse
-            );
-          } else if (bufferObj.event === "parallel_branch_finished") {
-            onParallelBranchFinished?.(
-              bufferObj as ParallelBranchFinishedResponse
-            );
-          } else if (bufferObj.event === "text_chunk") {
-            onTextChunk?.(bufferObj as TextChunkResponse);
-          } else if (bufferObj.event === "text_replace") {
-            onTextReplace?.(bufferObj as TextReplaceResponse);
-          } else if (bufferObj.event === "tts_message") {
-            onTTSChunk?.(
-              bufferObj.message_id,
-              bufferObj.audio,
-              bufferObj.audio_type
-            );
-          } else if (bufferObj.event === "tts_message_end") {
-            onTTSEnd?.(bufferObj.message_id, bufferObj.audio);
-          }
-        }
-      };
-        // 顺序处理所有行
-      const processLines = async () => {
-        try {
-          for (const message of lines)
-            await processLine(message)
+            buffer += decoder.decode(result.value, { stream: true });
+            const lines = buffer.split("\n");
+            // console.log('res解析后', lines)
+            // try {
+            const processLine = async (message: string) => {
+                if (message.startsWith("data:")) {
+                    // check if it starts with data:
+                    try {
+                        bufferObj = JSON.parse(message.substring(5)) as Record<
+                            string,
+                            any
+                        >; // remove data: and parse as json
+                    } catch (e) {
+                        // mute handle message cut off
+                        onData("", isFirstMessage, {
+                            conversationId: bufferObj?.conversation_id,
+                            messageId: bufferObj?.message_id,
+                        });
+                        return;
+                    }
+                    if (bufferObj.status === 400 || !bufferObj.event) {
+                        onData("", false, {
+                            conversationId: undefined,
+                            messageId: "",
+                            errorMessage: bufferObj?.message,
+                            errorCode: bufferObj?.code,
+                        });
+                        hasError = true;
+                        onCompleted?.(true, bufferObj?.message);
+                        return;
+                    }
 
-          buffer = lines[lines.length - 1]
-        }
-        catch (e) {
-          onData('', false, {
-            conversationId: undefined,
-            messageId: '',
-            errorMessage: `${e}`,
-          })
-          hasError = true
-          onCompleted?.(true, e as string);
-          return
-        }
-        if (!hasError)
-          read()
-      }
-      processLines()
-    })
-  }
-  read()
+                    if (
+                        bufferObj.event === "message" ||
+                        bufferObj.event === "agent_message"
+                    ) {
+                        // can not use format here. Because message is splitted.
+                        onData(unicodeToChar(bufferObj.answer), isFirstMessage, {
+                            conversationId: bufferObj.conversation_id,
+                            taskId: bufferObj.task_id,
+                            messageId: bufferObj.id,
+                        });
+                        isFirstMessage = false;
+                    } else if (bufferObj.event === "agent_thought") {
+                        onThought?.(bufferObj as ThoughtItem);
+                    } else if (bufferObj.event === "message_file") {
+                        onFile?.(bufferObj as VisionFile);
+                    } else if (bufferObj.event === "message_end") {
+                        onMessageEnd?.(bufferObj as MessageEnd);
+                    } else if (bufferObj.event === "message_replace") {
+                        onMessageReplace?.(bufferObj as MessageReplace);
+                    } else if (bufferObj.event === "workflow_started") {
+                        onWorkflowStarted?.(bufferObj as WorkflowStartedResponse);
+                    } else if (bufferObj.event === "workflow_finished") {
+                        onWorkflowFinished?.(bufferObj as WorkflowFinishedResponse);
+                    } else if (bufferObj.event === "node_started") {
+                        // 存储每个节点的node_started事件，当收到对应node_finished事件时，计算事件时间差，少于指定时间则延迟
+                        // 只有当 isView 为 true 时才记录节点开始时间
+                        if (isView && bufferObj.data?.node_id)
+                            nodeData[bufferObj.data.node_id] = Date.now()
+
+                        onNodeStarted?.(bufferObj as NodeStartedResponse);
+                    } else if (bufferObj.event === "node_finished") {
+                        // 只有当 isView 为 true 时才进行时间计算和延迟处理
+                        if (isView) {
+                            const nodeId = bufferObj.data?.node_id
+                            const endTime = Date.now()
+
+                            // 计算实际执行时间
+                            let executionTime = 0
+                            if (nodeId && nodeData[nodeId]) {
+                                executionTime = (endTime - nodeData[nodeId]) / 1000 // 转换为秒
+                                // 清除已记录的开始时间
+                                delete nodeData[nodeId]
+                            }
+
+                            // 检查elapsed_time是否小于1.5秒，如果是则延迟执行
+                            if (executionTime > 0 && executionTime < 1.5) {
+                                // 计算需要延迟的时间（确保至少延迟到1.5秒）
+                                const delay = (1.5 - executionTime) * 1000 // 转换为毫秒
+                                // 使用Promise和setTimeout实现延迟
+                                await new Promise(resolve => setTimeout(resolve, delay))
+                                onNodeFinished?.(bufferObj as NodeFinishedResponse)
+                            }
+                            else {
+                                // 正常执行
+                                onNodeFinished?.(bufferObj as NodeFinishedResponse)
+                            }
+                        }
+                        else {
+                            onNodeFinished?.(bufferObj as NodeFinishedResponse) // 如果 isView 为 false，则直接执行回调
+                        }
+                    } else if (bufferObj.event === "iteration_started") {
+                        onIterationStart?.(bufferObj as IterationStartedResponse);
+                    } else if (bufferObj.event === "iteration_next") {
+                        onIterationNext?.(bufferObj as IterationNextResponse);
+                    } else if (bufferObj.event === "iteration_completed") {
+                        onIterationFinish?.(bufferObj as IterationFinishedResponse);
+                    } else if (bufferObj.event === "node_retry") {
+                        onNodeRetry?.(bufferObj as NodeFinishedResponse);
+                    } else if (bufferObj.event === "parallel_branch_started") {
+                        onParallelBranchStarted?.(
+                            bufferObj as ParallelBranchStartedResponse
+                        );
+                    } else if (bufferObj.event === "parallel_branch_finished") {
+                        onParallelBranchFinished?.(
+                            bufferObj as ParallelBranchFinishedResponse
+                        );
+                    } else if (bufferObj.event === "text_chunk") {
+                        onTextChunk?.(bufferObj as TextChunkResponse);
+                    } else if (bufferObj.event === "text_replace") {
+                        onTextReplace?.(bufferObj as TextReplaceResponse);
+                    } else if (bufferObj.event === "tts_message") {
+                        onTTSChunk?.(
+                            bufferObj.message_id,
+                            bufferObj.audio,
+                            bufferObj.audio_type
+                        );
+                    } else if (bufferObj.event === "tts_message_end") {
+                        onTTSEnd?.(bufferObj.message_id, bufferObj.audio);
+                    }
+                }
+            };
+            // 顺序处理所有行
+            const processLines = async () => {
+                try {
+                    for (const message of lines)
+                        await processLine(message)
+
+                    buffer = lines[lines.length - 1]
+                }
+                catch (e) {
+                    onData('', false, {
+                        conversationId: undefined,
+                        messageId: '',
+                        errorMessage: `${e}`,
+                    })
+                    hasError = true
+                    onCompleted?.(true, e as string);
+                    return
+                }
+                if (!hasError)
+                    read()
+            }
+            processLines()
+        })
+    }
+    read()
 }
 
 const baseFetch = <T>(
-  url: string,
-  fetchOptions: FetchOptionType,
-  {
-    isPublicAPI = false,
-    bodyStringify = true,
-    needAllResponseContent,
-    deleteContentType,
-    getAbortController,
-    silent,
-    isView = false, // 添加 isView 参数
-  }: IOtherOptions
+    url: string,
+    fetchOptions: FetchOptionType,
+    {
+        isPublicAPI = false,
+        bodyStringify = true,
+        needAllResponseContent,
+        deleteContentType,
+        getAbortController,
+        silent,
+        isView = false, // 添加 isView 参数
+    }: IOtherOptions
 ): Promise<T> => {
-  const options: typeof baseOptions & FetchOptionType = Object.assign(
-    {},
-    baseOptions,
-    fetchOptions
-  );
-
-  if (AUTH_WAY === "SIGN") {
-    if (getAbortController) {
-      const abortController = new AbortController();
-      getAbortController(abortController);
-      options.signal = abortController.signal;
-    }
-    const accessToken = getAccessToken(isPublicAPI);
-    options.headers.set("Authorization", `Bearer ${accessToken}`);
-  }
-
-  if (isPublicAPI) {
-    const sharedToken = globalThis.location.pathname.split("/").slice(-1)[0];
-    const accessToken =
-      localStorage.getItem("token") || JSON.stringify({ [sharedToken]: "" });
-    let accessTokenJson = { [sharedToken]: "" };
-    try {
-      accessTokenJson = JSON.parse(accessToken);
-    } catch (e) {}
-    options.headers.set(
-      "Authorization",
-      `Bearer ${accessTokenJson[sharedToken]}`
+    const options: typeof baseOptions & FetchOptionType = Object.assign(
+        {},
+        baseOptions,
+        fetchOptions
     );
-  } else {
-    const accessToken = localStorage.getItem("console_token") || "";
-    options.headers.set("Authorization", `Bearer ${accessToken}`);
-  }
-  let base = isPublicAPI ? PUBLIC_API_PREFIX : API_PREFIX
-  // 福诺请求头
-  if (AUTH_WAY === "FUNUO") {
-    if (url.includes('UC_API_PREFIX')) {
-      url = url.replace('UC_API_PREFIX', '')
-      base = UC_API_PREFIX
+
+    if (AUTH_WAY === "SIGN") {
+        if (getAbortController) {
+            const abortController = new AbortController();
+            getAbortController(abortController);
+            options.signal = abortController.signal;
+        }
+        const accessToken = getAccessToken(isPublicAPI);
+        options.headers.set("Authorization", `Bearer ${accessToken}`);
     }
-    if (url.includes('SAFE_PLATFORM_PREFIX')) {
-      url = url.replace('SAFE_PLATFORM_PREFIX', '')
-      base = SAFE_PLATFORM_API_PREFIX
+
+    if (isPublicAPI) {
+        const sharedToken = globalThis.location.pathname.split("/").slice(-1)[0];
+        const accessToken =
+            localStorage.getItem("token") || JSON.stringify({ [sharedToken]: "" });
+        let accessTokenJson = { [sharedToken]: "" };
+        try {
+            accessTokenJson = JSON.parse(accessToken);
+        } catch (e) {}
+        options.headers.set(
+            "Authorization",
+            `Bearer ${accessTokenJson[sharedToken]}`
+        );
+    } else {
+        const accessToken = localStorage.getItem("console_token") || "";
+        options.headers.set("Authorization", `Bearer ${accessToken}`);
     }
-    // 如果是调用自己后端接口，则去掉proxy/console/api
-    if (url.includes('EXTERNAL_API/')) {
-      url = url.replace('EXTERNAL_API/', '')
-      base = base.replace('/proxy/console/api', '')
+    let base = isPublicAPI ? PUBLIC_API_PREFIX : API_PREFIX
+    // 福诺请求头
+    if (AUTH_WAY === "FUNUO") {
+        if (url.includes('UC_API_PREFIX')) {
+            url = url.replace('UC_API_PREFIX', '')
+            base = UC_API_PREFIX
+        }
+        if (url.includes('SAFE_PLATFORM_PREFIX')) {
+            url = url.replace('SAFE_PLATFORM_PREFIX', '')
+            base = SAFE_PLATFORM_API_PREFIX
+        }
+        // 如果是调用自己后端接口，则去掉proxy/console/api
+        if (url.includes('EXTERNAL_API/')) {
+            url = url.replace('EXTERNAL_API/', '')
+            base = base.replace('/proxy/console/api', '')
+        }
+        url += `${url.includes("?") ? "&" : "?"}_t=${new Date().getTime()}`;
+        const axiosOptions = {
+            baseURL: base,
+            url,
+            method: options.method,
+        }
+        const requestUrl = getRequestUrl(axiosOptions);
+        if (requestUrl) options.headers.set("Request-Url", requestUrl);
+        if (getLsToken()) {
+            const authorization = getAuthHeader(axiosOptions);
+            if (authorization) options.headers.set("Authorization", authorization);
+            const curTenantId = window.localStorage.getItem("curTenantId");
+            if (curTenantId) options.headers.set("TenantId", curTenantId);
+        }
+        const portalUrl = ["/messages/send", "messages/send"];
+        if (portalUrl.includes(url.split("?")[0]))
+            options.headers.set("Accept", "text/event-stream");
+        else options.headers.set("Accept", "*/*");
     }
-    url += `${url.includes("?") ? "&" : "?"}_t=${new Date().getTime()}`;
-    const axiosOptions = {
-      baseURL: base,
-      url,
-      method: options.method,
+
+    if (deleteContentType) {
+        options.headers.delete("Content-Type");
+    } else {
+        const contentType = options.headers.get("Content-Type");
+        if (!contentType) options.headers.set("Content-Type", ContentType.json);
     }
-    const requestUrl = getRequestUrl(axiosOptions);
-    if (requestUrl) options.headers.set("Request-Url", requestUrl);
-    if (getLsToken()) {
-      const authorization = getAuthHeader(axiosOptions);
-      if (authorization) options.headers.set("Authorization", authorization);
-      const curTenantId = window.localStorage.getItem("curTenantId");
-      if (curTenantId) options.headers.set("TenantId", curTenantId);
+
+    let urlPrefix = base
+    let urlWithPrefix =
+        url.startsWith("http://") || url.startsWith("https://")
+            ? url
+            : `${urlPrefix}${url.startsWith("/") ? url : `/${url}`}`;
+
+    const { method, params, body } = options;
+    // handle query
+    if (method === "GET" && params) {
+        const paramsArray: string[] = [];
+        Object.keys(params).forEach((key) =>
+            paramsArray.push(`${key}=${encodeURIComponent(params[key])}`)
+        );
+        if (urlWithPrefix.search(/\?/) === -1)
+            urlWithPrefix += `?${paramsArray.join("&")}`;
+        else urlWithPrefix += `&${paramsArray.join("&")}`;
+
+        delete options.params;
     }
-    const portalUrl = ["/messages/send", "messages/send"];
-    if (portalUrl.includes(url.split("?")[0]))
-      options.headers.set("Accept", "text/event-stream");
-    else options.headers.set("Accept", "*/*");
-  }
 
-  if (deleteContentType) {
-    options.headers.delete("Content-Type");
-  } else {
-    const contentType = options.headers.get("Content-Type");
-    if (!contentType) options.headers.set("Content-Type", ContentType.json);
-  }
+    if (body && bodyStringify) options.body = JSON.stringify(body);
 
-  let urlPrefix = base
-  let urlWithPrefix =
-    url.startsWith("http://") || url.startsWith("https://")
-      ? url
-      : `${urlPrefix}${url.startsWith("/") ? url : `/${url}`}`;
+    // Handle timeout
+    return Promise.race([
+        new Promise((resolve, reject) => {
+            setTimeout(() => {
+                reject(new Error("request timeout"));
+            }, TIME_OUT);
+        }),
+        new Promise((resolve, reject) => {
+            globalThis
+                .fetch(urlWithPrefix, options as RequestInit)
+                .then((res) => {
+                    const resClone = res.clone();
+                    // Error handler
+                    if (!/^(2|3)\d{2}$/.test(String(res.status))) {
+                        const bodyJson = res.json();
+                        switch (res.status) {
+                            case 401:
+                                return Promise.reject(resClone);
+                            case 403:
+                                bodyJson.then((data: ResponseError) => {
+                                    if (!silent)
+                                        Toast.notify({ type: "error", message: data.message });
+                                    if (data.code === "already_setup")
+                                        globalThis.location.href = `${globalThis.location.origin}/signin`;
+                                });
+                                break;
+                            // fall through
+                            default:
+                                bodyJson.then((data: ResponseError) => {
+                                    if (!silent)
+                                        Toast.notify({ type: "error", message: data.message });
+                                });
+                        }
+                        return Promise.reject(resClone);
+                    }
 
-  const { method, params, body } = options;
-  // handle query
-  if (method === "GET" && params) {
-    const paramsArray: string[] = [];
-    Object.keys(params).forEach((key) =>
-      paramsArray.push(`${key}=${encodeURIComponent(params[key])}`)
-    );
-    if (urlWithPrefix.search(/\?/) === -1)
-      urlWithPrefix += `?${paramsArray.join("&")}`;
-    else urlWithPrefix += `&${paramsArray.join("&")}`;
+                    // handle delete api. Delete api not return content.
+                    if (res.status === 204) {
+                        resolve({ result: "success" });
+                        return;
+                    }
 
-    delete options.params;
-  }
-
-  if (body && bodyStringify) options.body = JSON.stringify(body);
-
-  // Handle timeout
-  return Promise.race([
-    new Promise((resolve, reject) => {
-      setTimeout(() => {
-        reject(new Error("request timeout"));
-      }, TIME_OUT);
-    }),
-    new Promise((resolve, reject) => {
-      globalThis
-        .fetch(urlWithPrefix, options as RequestInit)
-        .then((res) => {
-          const resClone = res.clone();
-          // Error handler
-          if (!/^(2|3)\d{2}$/.test(String(res.status))) {
-            const bodyJson = res.json();
-            switch (res.status) {
-              case 401:
-                return Promise.reject(resClone);
-              case 403:
-                bodyJson.then((data: ResponseError) => {
-                  if (!silent)
-                    Toast.notify({ type: "error", message: data.message });
-                  if (data.code === "already_setup")
-                    globalThis.location.href = `${globalThis.location.origin}/signin`;
+                    // return data
+                    if (
+                        options.headers.get("Content-type") === ContentType.download ||
+                        options.headers.get("Content-type") === ContentType.audio
+                    ) {
+                        resolve(needAllResponseContent ? resClone : res.blob());
+                    }
+                    else {
+                        const contentType = res.headers.get('content-type');
+                        if (contentType && contentType.includes('application/json')) {
+                            resolve(needAllResponseContent ? resClone : res.json());
+                        }
+                        else {
+                            res.text().then(text => {
+                                try {
+                                    resolve(text ? JSON.parse(text) : {})
+                                }
+                                catch (e) {
+                                    resolve({})
+                                }
+                            }).catch(() => resolve({}))
+                        }
+                    }
+                })
+                .catch((err) => {
+                    if (!silent) Toast.notify({ type: "error", message: err });
+                    reject(err);
                 });
-                break;
-              // fall through
-              default:
-                bodyJson.then((data: ResponseError) => {
-                  if (!silent)
-                    Toast.notify({ type: "error", message: data.message });
-                });
-            }
-            return Promise.reject(resClone);
-          }
-
-          // handle delete api. Delete api not return content.
-          if (res.status === 204) {
-            resolve({ result: "success" });
-            return;
-          }
-
-          // return data
-          if (
-            options.headers.get("Content-type") === ContentType.download ||
-            options.headers.get("Content-type") === ContentType.audio
-          ) {
-            resolve(needAllResponseContent ? resClone : res.blob());
-          }
-          else {
-            const contentType = res.headers.get('content-type');
-            if (contentType && contentType.includes('application/json')) {
-              resolve(needAllResponseContent ? resClone : res.json());
-            }
-            else {
-              res.text().then(text => {
-                try {
-                  resolve(text ? JSON.parse(text) : {})
-                }
-                catch (e) {
-                  resolve({})
-                }
-              }).catch(() => resolve({}))
-            }
-          }
-        })
-        .catch((err) => {
-          if (!silent) Toast.notify({ type: "error", message: err });
-          reject(err);
-        });
-    }),
-  ]) as Promise<T>;
+        }),
+    ]) as Promise<T>;
 };
 
 export const upload = (
-  options: any,
-  isPublicAPI?: boolean,
-  url?: string,
-  searchParams?: string
+    options: any,
+    isPublicAPI?: boolean,
+    url?: string,
+    searchParams?: string
 ): Promise<any> => {
-  const urlPrefix = isPublicAPI ? PUBLIC_API_PREFIX : API_PREFIX;
-  const token = getAccessToken(isPublicAPI);
-  const defaultOptions = {
-    method: "POST",
-    url:
-      (url ? `${urlPrefix}${url}` : `${urlPrefix}/files/upload`) +
-      (searchParams || ""),
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    data: {},
-  };
-  options = {
-    ...defaultOptions,
-    ...options,
-    headers: { ...defaultOptions.headers, ...options.headers },
-  }
-  if (AUTH_WAY === 'FUNUO') { // FUNUO鉴权
-    // 请求加上随机数
-    options.params = {
-      ...options.params,
-      _t: new Date().getTime(),
-    }
-
-    const axiosOptions = {
-      baseURL: urlPrefix,
-      url: (url ? `${url}` : '/files/upload') + (searchParams || ''),
-      method: options.method || 'POST',
-    }
-    // 设置请求头Request-Url
-    const requestUrl = getRequestUrl(axiosOptions)
-    if (options.headers)
-      options.headers['Request-Url'] = requestUrl
-    else
-      options.headers = { 'Request-Url': requestUrl }
-    options.method = options.method || 'POST'
-    // url
-    options.url = (url ? `${urlPrefix}${url}` : `${urlPrefix}/files/upload`) + (searchParams || '')
-    // 设置Authorization头
-    if (getLsToken()) {
-      const authorization = getAuthHeader(axiosOptions)
-      if (authorization)
-        options.headers.Authorization = authorization
-    }
-  }
-  return new Promise((resolve, reject) => {
-    const xhr = options.xhr;
-    xhr.open(options.method, options.url);
-    for (const key in options.headers)
-      xhr.setRequestHeader(key, options.headers[key]);
-
-    xhr.withCredentials = true;
-    xhr.responseType = "json";
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4) {
-        if (xhr.status === 201 || xhr.status === 200) resolve(xhr.response);
-        else reject(xhr);
-      }
+    const urlPrefix = isPublicAPI ? PUBLIC_API_PREFIX : API_PREFIX;
+    const token = getAccessToken(isPublicAPI);
+    const defaultOptions = {
+        method: "POST",
+        url:
+            (url ? `${urlPrefix}${url}` : `${urlPrefix}/files/upload`) +
+            (searchParams || ""),
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+        data: {},
     };
-    xhr.upload.onprogress = options.onprogress;
-    xhr.send(options.data);
-  });
+    options = {
+        ...defaultOptions,
+        ...options,
+        headers: { ...defaultOptions.headers, ...options.headers },
+    }
+    if (AUTH_WAY === 'FUNUO') { // FUNUO鉴权
+        // 请求加上随机数
+        options.params = {
+            ...options.params,
+            _t: new Date().getTime(),
+        }
+
+        const axiosOptions = {
+            baseURL: urlPrefix,
+            url: (url ? `${url}` : '/files/upload') + (searchParams || ''),
+            method: options.method || 'POST',
+        }
+        // 设置请求头Request-Url
+        const requestUrl = getRequestUrl(axiosOptions)
+        if (options.headers)
+            options.headers['Request-Url'] = requestUrl
+        else
+            options.headers = { 'Request-Url': requestUrl }
+        options.method = options.method || 'POST'
+        // url
+        options.url = (url ? `${urlPrefix}${url}` : `${urlPrefix}/files/upload`) + (searchParams || '')
+        // 设置Authorization头
+        if (getLsToken()) {
+            const authorization = getAuthHeader(axiosOptions)
+            if (authorization)
+                options.headers.Authorization = authorization
+        }
+    }
+    return new Promise((resolve, reject) => {
+        const xhr = options.xhr;
+        xhr.open(options.method, options.url);
+        for (const key in options.headers)
+            xhr.setRequestHeader(key, options.headers[key]);
+
+        xhr.withCredentials = true;
+        xhr.responseType = "json";
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 201 || xhr.status === 200) resolve(xhr.response);
+                else reject(xhr);
+            }
+        };
+        xhr.upload.onprogress = options.onprogress;
+        xhr.send(options.data);
+    });
 };
 
 export const ssePost = (
-  url: string,
-  fetchOptions: FetchOptionType,
-  otherOptions: IOtherOptions,
+    url: string,
+    fetchOptions: FetchOptionType,
+    otherOptions: IOtherOptions,
 ) => {
-  const {
-    isPublicAPI = false,
-    onData,
-    onCompleted,
-    onThought,
-    onFile,
-    onMessageEnd,
-    onMessageReplace,
-    onWorkflowStarted,
-    onWorkflowFinished,
-    onNodeStarted,
-    onNodeFinished,
-    onIterationStart,
-    onIterationNext,
-    onIterationFinish,
-    onNodeRetry,
-    onParallelBranchStarted,
-    onParallelBranchFinished,
-    onTextChunk,
-    onTTSChunk,
-    onTTSEnd,
-    onTextReplace,
-    onError,
-    getAbortController,
-    isView,
-  } = otherOptions;
-  const abortController = new AbortController();
-  const options = Object.assign(
-    {},
-    baseOptions,
-    {
-      method: "POST",
-      signal: abortController.signal,
-    },
-    fetchOptions
-  );
-
-  const contentType = options.headers.get("Content-Type");
-  if (!contentType) options.headers.set("Content-Type", ContentType.json);
-
-  getAbortController?.(abortController);
-
-  let urlPrefix = isPublicAPI ? PUBLIC_API_PREFIX : API_PREFIX;
-
-  const portalUrl = ["/messages/send", "messages/send"];
-  if (AUTH_WAY === "FUNUO" && portalUrl.includes(url.split("?")[0])) {
-    urlPrefix = urlPrefix.replace("/proxy/console/api", "");
-    options.headers.set("Accept", "text/event-stream");
-  } else {
-    options.headers.set("Accept", "*/*");
-  }
-
-  const urlWithPrefix =
-    url.startsWith("http://") || url.startsWith("https://")
-      ? url
-      : `${urlPrefix}${url.startsWith("/") ? url : `/${url}`}`;
-
-  const { body } = options;
-  if (body) options.body = JSON.stringify(body);
-  if (AUTH_WAY === "SIGN") {
-    const accessToken = getAccessToken(isPublicAPI);
-    options.headers.set("Authorization", `Bearer ${accessToken}`);
-  }
-  // 福诺请求头
-  if (AUTH_WAY === "FUNUO") {
-    const base = isPublicAPI ? PUBLIC_API_PREFIX : API_PREFIX;
-    url += `${url.includes("?") ? "&" : "?"}_t=${new Date().getTime()}`;
-    const axiosOptions = {
-      baseURL: base,
-      url,
-      method: options.method,
-    };
-    const requestUrl = getRequestUrl(axiosOptions);
-    if (requestUrl) options.headers.set("Request-Url", requestUrl);
-    if (getLsToken()) {
-      const authorization = getAuthHeader(axiosOptions);
-      if (authorization) options.headers.set("Authorization", authorization);
-      const curTenantId = window.localStorage.getItem("curTenantId");
-      if (curTenantId) options.headers.set("TenantId", curTenantId);
-    }
-  }
-  // console.log('请求接口了')
-  globalThis
-    .fetch(urlWithPrefix, options as RequestInit)
-    .then((res) => {
-      if (!/^(2|3)\d{2}$/.test(String(res.status))) {
-        if (res.status === 401) {
-          refreshAccessTokenOrRelogin(TIME_OUT)
-            .then(() => {
-              ssePost(url, fetchOptions, otherOptions);
-            })
-            .catch(() => {
-              res.json().then((data: any) => {
-                if (isPublicAPI) {
-                  if (data.code === "web_sso_auth_required")
-                    requiredWebSSOLogin();
-
-                  if (data.code === "unauthorized") {
-                    removeAccessToken();
-                    globalThis.location.reload();
-                  }
-                }
-              });
-            });
-        } else {
-          res.json().then((data) => {
-            Toast.notify({
-              type: "error",
-              message: data.message || "Server Error",
-            });
-          });
-          onError?.("Server Error");
-        }
-        return;
-      }
-      // console.log('接口放回了', res)
-      return handleStream(
-        res,
-        (str: string, isFirstMessage: boolean, moreInfo: IOnDataMoreInfo) => {
-          if (moreInfo.errorMessage) {
-            const isListen = url.split('?')[0] === '/app-conversation-list/listen'
-            onError?.(moreInfo.errorMessage, moreInfo.errorCode);
-            // TypeError: Cannot assign to read only property ... will happen in page leave, so it should be ignored.
-            if (
-              moreInfo.errorMessage !==
-                "AbortError: The user aborted a request." &&
-              !moreInfo.errorMessage.includes(
-                "TypeError: Cannot assign to read only property"
-              )
-            )
-              !isListen && Toast.notify({ type: "error", message: moreInfo.errorMessage });
-            return;
-          }
-          onData?.(str, isFirstMessage, moreInfo);
-        },
+    const {
+        isPublicAPI = false,
+        onData,
         onCompleted,
         onThought,
+        onFile,
         onMessageEnd,
         onMessageReplace,
-        onFile,
         onWorkflowStarted,
         onWorkflowFinished,
         onNodeStarted,
@@ -792,209 +660,341 @@ export const ssePost = (
         onTTSChunk,
         onTTSEnd,
         onTextReplace,
+        onError,
+        getAbortController,
         isView,
-      );
-    })
-    .catch((e) => {  
-      if (
-        e.toString() !== "AbortError: The user aborted a request." &&
-        !e
-          .toString()
-          .errorMessage.includes(
-            "TypeError: Cannot assign to read only property"
-          )
-      )
-        Toast.notify({ type: "error", message: e });
-      onError?.(e);
-    });
+    } = otherOptions;
+    const abortController = new AbortController();
+    const options = Object.assign(
+        {},
+        baseOptions,
+        {
+            method: "POST",
+            signal: abortController.signal,
+        },
+        fetchOptions
+    );
+
+    const contentType = options.headers.get("Content-Type");
+    if (!contentType) options.headers.set("Content-Type", ContentType.json);
+
+    getAbortController?.(abortController);
+
+    let urlPrefix = isPublicAPI ? PUBLIC_API_PREFIX : API_PREFIX;
+
+    const portalUrl = ["/messages/send", "messages/send"];
+    if (AUTH_WAY === "FUNUO" && portalUrl.includes(url.split("?")[0])) {
+        urlPrefix = urlPrefix.replace("/proxy/console/api", "");
+        options.headers.set("Accept", "text/event-stream");
+    } else {
+        options.headers.set("Accept", "*/*");
+    }
+
+    const urlWithPrefix =
+        url.startsWith("http://") || url.startsWith("https://")
+            ? url
+            : `${urlPrefix}${url.startsWith("/") ? url : `/${url}`}`;
+
+    const { body } = options;
+    if (body) options.body = JSON.stringify(body);
+    if (AUTH_WAY === "SIGN") {
+        const accessToken = getAccessToken(isPublicAPI);
+        options.headers.set("Authorization", `Bearer ${accessToken}`);
+    }
+    // 福诺请求头
+    if (AUTH_WAY === "FUNUO") {
+        const base = isPublicAPI ? PUBLIC_API_PREFIX : API_PREFIX;
+        url += `${url.includes("?") ? "&" : "?"}_t=${new Date().getTime()}`;
+        const axiosOptions = {
+            baseURL: base,
+            url,
+            method: options.method,
+        };
+        const requestUrl = getRequestUrl(axiosOptions);
+        if (requestUrl) options.headers.set("Request-Url", requestUrl);
+        if (getLsToken()) {
+            const authorization = getAuthHeader(axiosOptions);
+            if (authorization) options.headers.set("Authorization", authorization);
+            const curTenantId = window.localStorage.getItem("curTenantId");
+            if (curTenantId) options.headers.set("TenantId", curTenantId);
+        }
+    }
+    // console.log('请求接口了')
+    globalThis
+        .fetch(urlWithPrefix, options as RequestInit)
+        .then((res) => {
+            if (!/^(2|3)\d{2}$/.test(String(res.status))) {
+                if (res.status === 401) {
+                    refreshAccessTokenOrRelogin(TIME_OUT)
+                        .then(() => {
+                            ssePost(url, fetchOptions, otherOptions);
+                        })
+                        .catch(() => {
+                            res.json().then((data: any) => {
+                                if (isPublicAPI) {
+                                    if (data.code === "web_sso_auth_required")
+                                        requiredWebSSOLogin();
+
+                                    if (data.code === "unauthorized") {
+                                        removeAccessToken();
+                                        globalThis.location.reload();
+                                    }
+                                }
+                            });
+                        });
+                } else {
+                    res.json().then((data) => {
+                        Toast.notify({
+                            type: "error",
+                            message: data.message || "Server Error",
+                        });
+                    });
+                    onError?.("Server Error");
+                }
+                return;
+            }
+            // console.log('接口放回了', res)
+            return handleStream(
+                res,
+                (str: string, isFirstMessage: boolean, moreInfo: IOnDataMoreInfo) => {
+                    if (moreInfo.errorMessage) {
+                        const isListen = url.split('?')[0] === '/app-conversation-list/listen'
+                        onError?.(moreInfo.errorMessage, moreInfo.errorCode);
+                        // TypeError: Cannot assign to read only property ... will happen in page leave, so it should be ignored.
+                        if (
+                            moreInfo.errorMessage !==
+                            "AbortError: The user aborted a request." &&
+                            !moreInfo.errorMessage.includes(
+                                "TypeError: Cannot assign to read only property"
+                            )
+                        )
+                            !isListen && Toast.notify({ type: "error", message: moreInfo.errorMessage });
+                        return;
+                    }
+                    onData?.(str, isFirstMessage, moreInfo);
+                },
+                onCompleted,
+                onThought,
+                onMessageEnd,
+                onMessageReplace,
+                onFile,
+                onWorkflowStarted,
+                onWorkflowFinished,
+                onNodeStarted,
+                onNodeFinished,
+                onIterationStart,
+                onIterationNext,
+                onIterationFinish,
+                onNodeRetry,
+                onParallelBranchStarted,
+                onParallelBranchFinished,
+                onTextChunk,
+                onTTSChunk,
+                onTTSEnd,
+                onTextReplace,
+                isView,
+            );
+        })
+        .catch((e) => {
+            if (
+                e.toString() !== "AbortError: The user aborted a request." &&
+                !e
+                    .toString()
+                    .errorMessage.includes(
+                        "TypeError: Cannot assign to read only property"
+                    )
+            )
+                Toast.notify({ type: "error", message: e });
+            onError?.(e);
+        });
 };
 
 const callback403 = (loginUrl) => {
-  if (AUTH_WAY === "SIGN") {
-    globalThis.location.href = loginUrl;
-  } else {
-    // 刷新上级页面
-    globalThis?.top?.location?.reload()
-  }
+    if (AUTH_WAY === "SIGN") {
+        globalThis.location.href = loginUrl;
+    } else {
+        // 刷新上级页面
+        globalThis?.top?.location?.reload()
+    }
 };
 
 // base request
 export const request = async <T>(
-  url: string,
-  options = {},
-  otherOptions?: IOtherOptions
+    url: string,
+    options = {},
+    otherOptions?: IOtherOptions
 ) => {
-  try {
-    const otherOptionsForBaseFetch = otherOptions || {};
-    const [err, resp] = await asyncRunSafe<T>(
-      baseFetch(url, options, otherOptionsForBaseFetch)
-    );
-    if (err === null) return resp;
-    const errResp: Response = err as any;
-    if (errResp.status === 401) {
-      const [parseErr, errRespData] = await asyncRunSafe<ResponseError>(
-        errResp.json()
-      );
-      const loginUrl = `${globalThis.location.origin}/signin`;
-      if (parseErr) {
-        callback403(loginUrl);
-        return Promise.reject(err);
-      }
-      // special code
-      const { code, message } = errRespData;
-      // webapp sso
-      if (code === "web_sso_auth_required") {
-        requiredWebSSOLogin();
-        return Promise.reject(err);
-      }
-      if (code === "unauthorized_and_force_logout") {
-        localStorage.removeItem("console_token");
-        localStorage.removeItem("refresh_token");
-        globalThis.location.reload();
-        return Promise.reject(err);
-      }
-      const { isPublicAPI = false, silent } = otherOptionsForBaseFetch;
-      if (isPublicAPI && code === "unauthorized") {
-        removeAccessToken();
-        globalThis.location.reload();
-        return Promise.reject(err);
-      }
-      if (code === "init_validate_failed" && IS_CE_EDITION && !silent) {
-        Toast.notify({ type: "error", message, duration: 4000 });
-        return Promise.reject(err);
-      }
-      if (code === "not_init_validated" && IS_CE_EDITION) {
-        globalThis.location.href = `${globalThis.location.origin}/init`;
-        return Promise.reject(err);
-      }
-      if (code === "not_setup" && IS_CE_EDITION) {
-        globalThis.location.href = `${globalThis.location.origin}/install`;
-        return Promise.reject(err);
-      }
+    try {
+        const otherOptionsForBaseFetch = otherOptions || {};
+        const [err, resp] = await asyncRunSafe<T>(
+            baseFetch(url, options, otherOptionsForBaseFetch)
+        );
+        if (err === null) return resp;
+        const errResp: Response = err as any;
+        if (errResp.status === 401) {
+            const [parseErr, errRespData] = await asyncRunSafe<ResponseError>(
+                errResp.json()
+            );
+            const loginUrl = `${globalThis.location.origin}/signin`;
+            if (parseErr) {
+                callback403(loginUrl);
+                return Promise.reject(err);
+            }
+            // special code
+            const { code, message } = errRespData;
+            // webapp sso
+            if (code === "web_sso_auth_required") {
+                requiredWebSSOLogin();
+                return Promise.reject(err);
+            }
+            if (code === "unauthorized_and_force_logout") {
+                localStorage.removeItem("console_token");
+                localStorage.removeItem("refresh_token");
+                globalThis.location.reload();
+                return Promise.reject(err);
+            }
+            const { isPublicAPI = false, silent } = otherOptionsForBaseFetch;
+            if (isPublicAPI && code === "unauthorized") {
+                removeAccessToken();
+                globalThis.location.reload();
+                return Promise.reject(err);
+            }
+            if (code === "init_validate_failed" && IS_CE_EDITION && !silent) {
+                Toast.notify({ type: "error", message, duration: 4000 });
+                return Promise.reject(err);
+            }
+            if (code === "not_init_validated" && IS_CE_EDITION) {
+                globalThis.location.href = `${globalThis.location.origin}/init`;
+                return Promise.reject(err);
+            }
+            if (code === "not_setup" && IS_CE_EDITION) {
+                globalThis.location.href = `${globalThis.location.origin}/install`;
+                return Promise.reject(err);
+            }
 
-      // refresh token
-      const [refreshErr] = await asyncRunSafe(
-        refreshAccessTokenOrRelogin(TIME_OUT)
-      );
-      if (refreshErr === null)
-        return baseFetch<T>(url, options, otherOptionsForBaseFetch);
-      if (location.pathname !== "/signin" || !IS_CE_EDITION) {
-       callback403(loginUrl);
-        return Promise.reject(err);
-      }
-      if (!silent) {
-        Toast.notify({ type: "error", message });
-        return Promise.reject(err);
-      }
-      callback403(loginUrl);
-      return Promise.reject(err);
-    } else {
-      return Promise.reject(err);
+            // refresh token
+            const [refreshErr] = await asyncRunSafe(
+                refreshAccessTokenOrRelogin(TIME_OUT)
+            );
+            if (refreshErr === null)
+                return baseFetch<T>(url, options, otherOptionsForBaseFetch);
+            if (location.pathname !== "/signin" || !IS_CE_EDITION) {
+                callback403(loginUrl);
+                return Promise.reject(err);
+            }
+            if (!silent) {
+                Toast.notify({ type: "error", message });
+                return Promise.reject(err);
+            }
+            callback403(loginUrl);
+            return Promise.reject(err);
+        } else {
+            return Promise.reject(err);
+        }
+    } catch (error) {
+        console.error(error);
+        return Promise.reject(error);
     }
-  } catch (error) {
-    console.error(error);
-    return Promise.reject(error);
-  }
 };
 
 // request methods
 export const get = <T>(
-  url: string,
-  options = {},
-  otherOptions?: IOtherOptions
+    url: string,
+    options = {},
+    otherOptions?: IOtherOptions
 ) => {
-  return request<T>(
-    url,
-    Object.assign({}, options, { method: "GET" }),
-    otherOptions
-  );
+    return request<T>(
+        url,
+        Object.assign({}, options, { method: "GET" }),
+        otherOptions
+    );
 };
 
 // For public API
 export const getPublic = <T>(
-  url: string,
-  options = {},
-  otherOptions?: IOtherOptions
+    url: string,
+    options = {},
+    otherOptions?: IOtherOptions
 ) => {
-  return get<T>(url, options, { ...otherOptions, isPublicAPI: true });
+    return get<T>(url, options, { ...otherOptions, isPublicAPI: true });
 };
 
 export const post = <T>(
-  url: string,
-  options = {},
-  otherOptions?: IOtherOptions
+    url: string,
+    options = {},
+    otherOptions?: IOtherOptions
 ) => {
-  return request<T>(
-    url,
-    Object.assign({}, options, { method: "POST" }),
-    otherOptions
-  );
+    return request<T>(
+        url,
+        Object.assign({}, options, { method: "POST" }),
+        otherOptions
+    );
 };
 
 export const postPublic = <T>(
-  url: string,
-  options = {},
-  otherOptions?: IOtherOptions
+    url: string,
+    options = {},
+    otherOptions?: IOtherOptions
 ) => {
-  return post<T>(url, options, { ...otherOptions, isPublicAPI: true });
+    return post<T>(url, options, { ...otherOptions, isPublicAPI: true });
 };
 
 export const put = <T>(
-  url: string,
-  options = {},
-  otherOptions?: IOtherOptions
+    url: string,
+    options = {},
+    otherOptions?: IOtherOptions
 ) => {
-  return request<T>(
-    url,
-    Object.assign({}, options, { method: "PUT" }),
-    otherOptions
-  );
+    return request<T>(
+        url,
+        Object.assign({}, options, { method: "PUT" }),
+        otherOptions
+    );
 };
 
 export const putPublic = <T>(
-  url: string,
-  options = {},
-  otherOptions?: IOtherOptions
+    url: string,
+    options = {},
+    otherOptions?: IOtherOptions
 ) => {
-  return put<T>(url, options, { ...otherOptions, isPublicAPI: true });
+    return put<T>(url, options, { ...otherOptions, isPublicAPI: true });
 };
 
 export const del = <T>(
-  url: string,
-  options = {},
-  otherOptions?: IOtherOptions
+    url: string,
+    options = {},
+    otherOptions?: IOtherOptions
 ) => {
-  return request<T>(
-    url,
-    Object.assign({}, options, { method: "DELETE" }),
-    otherOptions
-  );
+    return request<T>(
+        url,
+        Object.assign({}, options, { method: "DELETE" }),
+        otherOptions
+    );
 };
 
 export const delPublic = <T>(
-  url: string,
-  options = {},
-  otherOptions?: IOtherOptions
+    url: string,
+    options = {},
+    otherOptions?: IOtherOptions
 ) => {
-  return del<T>(url, options, { ...otherOptions, isPublicAPI: true });
+    return del<T>(url, options, { ...otherOptions, isPublicAPI: true });
 };
 
 export const patch = <T>(
-  url: string,
-  options = {},
-  otherOptions?: IOtherOptions
+    url: string,
+    options = {},
+    otherOptions?: IOtherOptions
 ) => {
-  return request<T>(
-    url,
-    Object.assign({}, options, { method: "PATCH" }),
-    otherOptions
-  );
+    return request<T>(
+        url,
+        Object.assign({}, options, { method: "PATCH" }),
+        otherOptions
+    );
 };
 
 export const patchPublic = <T>(
-  url: string,
-  options = {},
-  otherOptions?: IOtherOptions
+    url: string,
+    options = {},
+    otherOptions?: IOtherOptions
 ) => {
-  return patch<T>(url, options, { ...otherOptions, isPublicAPI: true });
+    return patch<T>(url, options, { ...otherOptions, isPublicAPI: true });
 };

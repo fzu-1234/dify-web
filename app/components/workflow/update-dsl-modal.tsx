@@ -46,10 +46,10 @@ type UpdateDSLModalProps = {
 }
 
 const UpdateDSLModal = ({
-  onCancel,
-  onBackup,
-  onImport,
-}: UpdateDSLModalProps) => {
+                          onCancel,
+                          onBackup,
+                          onImport,
+                        }: UpdateDSLModalProps) => {
   const { t } = useTranslation()
   const { notify } = useContext(ToastContext)
   const appDetail = useAppStore(s => s.appDetail)

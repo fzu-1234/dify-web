@@ -118,10 +118,10 @@ type WorkflowProps = {
   viewport?: Viewport
 }
 const Workflow: FC<WorkflowProps> = memo(({
-  nodes: originalNodes,
-  edges: originalEdges,
-  viewport,
-}) => {
+                                            nodes: originalNodes,
+                                            edges: originalEdges,
+                                            viewport,
+                                          }) => {
   const workflowContainerRef = useRef<HTMLDivElement>(null)
   const workflowStore = useWorkflowStore()
   const reactflow = useReactFlow()
