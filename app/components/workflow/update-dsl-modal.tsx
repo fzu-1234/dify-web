@@ -84,6 +84,8 @@ const UpdateDSLModal = ({
       graph,
       features,
       hash,
+      conversation_variables,
+      environment_variables,
     } = await fetchWorkflowDraft(`/apps/${app_id}/workflows/draft`)
 
     const { nodes, edges, viewport } = graph
@@ -120,6 +122,8 @@ const UpdateDSLModal = ({
         viewport,
         features: newFeatures,
         hash,
+        environment_variables,
+        conversation_variables,
       },
     } as any)
   }
@@ -281,6 +285,12 @@ const UpdateDSLModal = ({
             <br />
             <div className='hidden'>{t('app.newApp.appCreateDSLErrorPart3')}<span className='system-md-medium'>{versions?.importedVersion}</span></div>
             <div className='hidden'>{t('app.newApp.appCreateDSLErrorPart4')}<span className='system-md-medium'>{versions?.systemVersion}</span></div>
+            <div>
+              <span>提示</span>
+              <div className='text-[#d92d20] text-xs'>若导入的大模型不可用，请重新选择模型</div>
+              <div className='text-[#d92d20] text-xs'>若导入的知识检索节点异常，请移除后重新添加</div>
+              <div className='text-[#d92d20] text-xs'>若导入时缺少对话变量，请在变量设置中添加</div>
+            </div>
           </div>
         </div>
         <div className='flex pt-6 justify-end items-start gap-2 self-stretch'>

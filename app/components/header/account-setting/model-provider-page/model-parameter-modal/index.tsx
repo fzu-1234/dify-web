@@ -2,7 +2,7 @@ import type {
   FC,
   ReactNode,
 } from 'react'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import useSWR from 'swr'
 import { useTranslation } from 'react-i18next'
 import type {
@@ -33,6 +33,7 @@ import Loading from '@/app/components/base/loading'
 import { useProviderContext } from '@/context/provider-context'
 import { TONE_LIST } from '@/config'
 import { ArrowNarrowLeft } from '@/app/components/base/icons/src/vender/line/arrows'
+import Toast from '@/app/components/base/toast'
 
 export type ModelParameterModalProps = {
   classNames?: string
@@ -104,7 +105,8 @@ const ModelParameterModal: FC<ModelParameterModalProps> = ({
   const hasDeprecated = !currentProvider || !currentModel
   const modelDisabled = currentModel?.status !== ModelStatusEnum.active
   const disabled = !isAPIKeySet || hasDeprecated || modelDisabled
-
+  // 添加 ref 来跟踪 Toast 是否已经显示
+  const toastShownRef = useRef(false)
   const parameterRules: ModelParameterRule[] = useMemo(() => {
     return parameterRulesData?.data || []
   }, [parameterRulesData])
@@ -115,6 +117,18 @@ const ModelParameterModal: FC<ModelParameterModalProps> = ({
       [key]: value,
     })
   }
+
+  // 添加 useEffect 来监听 disabled 状态变化
+  useEffect(() => {
+    if (disabled && !toastShownRef.current) {
+      // console.log('大模型panel提示')
+      Toast.notify({ type: 'warning', message: '当前模型不可用，请重新选择模型' })
+      toastShownRef.current = true
+    }
+    else if (!disabled) {
+      toastShownRef.current = false
+    }
+  }, [disabled])
 
   const handleChangeModel = ({ provider, model }: DefaultModel) => {
     const targetProvider = activeTextGenerationModelList.find(modelItem => modelItem.provider === provider)

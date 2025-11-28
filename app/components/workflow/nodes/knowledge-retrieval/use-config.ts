@@ -25,6 +25,7 @@ import useNodeCrud from '@/app/components/workflow/nodes/_base/hooks/use-node-cr
 import useOneStepRun from '@/app/components/workflow/nodes/_base/hooks/use-one-step-run'
 import { useCurrentProviderAndModel, useModelListAndDefaultModelAndCurrentProviderAndModel } from '@/app/components/header/account-setting/model-provider-page/hooks'
 import { ModelTypeEnum } from '@/app/components/header/account-setting/model-provider-page/declarations'
+import Toast from '@/app/components/base/toast'
 
 const useConfig = (id: string, payload: KnowledgeRetrievalNodeType) => {
   const { nodesReadOnly: readOnly } = useNodesReadOnly()
@@ -35,7 +36,7 @@ const useConfig = (id: string, payload: KnowledgeRetrievalNodeType) => {
   const { inputs, setInputs: doSetInputs } = useNodeCrud<KnowledgeRetrievalNodeType>(id, payload)
 
   const inputRef = useRef(inputs)
-
+  const toastShownRef = useRef(false) // 添加引用来跟踪Toast是否已显示
   const setInputs = useCallback((s: KnowledgeRetrievalNodeType) => {
     const newInputs = produce(s, (draft) => {
       if (s.retrieval_mode === RETRIEVE_TYPE.multiWay)
@@ -201,15 +202,31 @@ const useConfig = (id: string, payload: KnowledgeRetrievalNodeType) => {
     (async () => {
       const inputs = inputRef.current
       const datasetIds = inputs.dataset_ids
-      if (datasetIds?.length > 0) {
-        const { data: dataSetsWithDetail } = await fetchDatasets({ url: '/datasets', params: { page: 1, ids: datasetIds } })
-        setSelectedDatasets(dataSetsWithDetail)
+
+      try {
+        if (datasetIds?.length > 0) {
+          const { data: dataSetsWithDetail } = await fetchDatasets({ url: '/datasets', params: { page: 1, ids: datasetIds } })
+          setSelectedDatasets(dataSetsWithDetail)
+          toastShownRef.current = false // 重置Toast状态，因为数据已成功加载
+        }
+        const newInputs = produce(inputs, (draft) => {
+          draft.dataset_ids = datasetIds
+          draft._datasets = selectedDatasets
+        })
+        setInputs(newInputs)
       }
-      const newInputs = produce(inputs, (draft) => {
-        draft.dataset_ids = datasetIds
-        draft._datasets = selectedDatasets
-      })
-      setInputs(newInputs)
+      catch (error) {
+        // 只有当Toast未显示过时才显示Toast
+        if (!toastShownRef.current) {
+          console.log('知识库节点提示1:')
+          Toast.notify({
+            type: 'warning',
+            message: '当前知识检索节点异常，请移除后重新添加',
+          })
+          toastShownRef.current = true // 标记Toast已显示
+        }
+        console.error('Knowledge retrieval node error:', error)
+      }
     })()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

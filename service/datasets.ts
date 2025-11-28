@@ -70,7 +70,9 @@ export const fetchDatasetRelatedApps: Fetcher<RelatedAppResponse, string> = (dat
 
 export const fetchDatasets: Fetcher<DataSetListResponse, FetchDatasetsParams> = ({ url, params }) => {
   const urlParams = qs.stringify(params, { indices: false })
-  return get<DataSetListResponse>(`${url}?${urlParams}`)
+  return get<DataSetListResponse>(`${url}?${urlParams}`, {}, {
+    silent: true,
+  })
 }
 
 export const createEmptyDataset: Fetcher<DataSet, { name: string }> = ({ name }) => {

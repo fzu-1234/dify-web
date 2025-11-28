@@ -168,6 +168,17 @@ const Workflow: FC<WorkflowProps> = memo(({
       if (v.payload.hash)
         setSyncWorkflowDraftHash(v.payload.hash)
 
+      // 设置环境变量
+      workflowStore.setState({
+        envSecrets: (v.payload.environment_variables || []).filter(env => env.value_type === 'secret').reduce((acc, env) => {
+          acc[env.id] = env.value
+          return acc
+        }, {} as Record<string, string>),
+        environmentVariables: v.payload.environment_variables?.map(env => env.value_type === 'secret' ? { ...env, value: '[__HIDDEN__]' } : env) || [],
+        // #TODO chatVar sync#
+        conversationVariables: v.payload.conversation_variables || [],
+      })
+
       setTimeout(() => setControlPromptEditorRerenderKey(Date.now()))
     }
     if (v.type === DSL_EXPORT_CHECK)

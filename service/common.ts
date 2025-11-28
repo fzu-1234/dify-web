@@ -250,7 +250,9 @@ export const updateDefaultModel: Fetcher<CommonResponse, { url: string; body: an
 }
 
 export const fetchModelParameterRules: Fetcher<{ data: ModelParameterRule[] }, string> = (url) => {
-  return get<{ data: ModelParameterRule[] }>(url)
+  return get<{ data: ModelParameterRule[] }>(url, {}, {
+    silent: true, // 禁用默认的错误提示
+  })
 }
 
 export const fetchFileUploadConfig: Fetcher<FileUploadConfigResponse, { url: string }> = ({ url }) => {

@@ -435,6 +435,11 @@ const baseFetch = <T>(
       url = url.replace('SAFE_PLATFORM_PREFIX', '')
       base = SAFE_PLATFORM_API_PREFIX
     }
+    // 如果是调用自己后端接口，则去掉proxy/console/api
+    if (url.includes('EXTERNAL_API/')) {
+      url = url.replace('EXTERNAL_API/', '')
+      base = base.replace('/proxy/console/api', '')
+    }
     url += `${url.includes("?") ? "&" : "?"}_t=${new Date().getTime()}`;
     const axiosOptions = {
       baseURL: base,
@@ -463,9 +468,6 @@ const baseFetch = <T>(
   }
 
   let urlPrefix = base
-  // 如果是调用自己后端接口，则去掉proxy/console/api
-  if (url.includes('export?include_secret'))
-    urlPrefix = urlPrefix.replace('/proxy/console/api', '')
   let urlWithPrefix =
     url.startsWith("http://") || url.startsWith("https://")
       ? url
