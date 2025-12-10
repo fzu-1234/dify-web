@@ -74,11 +74,11 @@ export const BLOCKS: Block[] = [
     type: BlockEnum.Code,
     title: 'Code',
   },
-  // {
-  //   classification: BlockClassificationEnum.Execute,
-  //   type: BlockEnum.ParameterExtractor,
-  //   title: 'Parameter Extractor',
-  // },
+  {
+    classification: BlockClassificationEnum.Execute,
+    type: BlockEnum.ParameterExtractor,
+    title: 'Parameter Extractor',
+  },
   {
     classification: BlockClassificationEnum.Execute,
     type: BlockEnum.Assigner,

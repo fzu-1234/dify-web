@@ -120,7 +120,7 @@ const ModelParameterModal: FC<ModelParameterModalProps> = ({
 
   // 添加 useEffect 来监听 disabled 状态变化
   useEffect(() => {
-    if (disabled && !toastShownRef.current) {
+    if (currentProvider !== undefined && currentModel !== undefined && disabled && !toastShownRef.current) {
       // console.log('大模型panel提示')
       Toast.notify({ type: 'warning', message: '当前模型不可用，请重新选择模型' })
       toastShownRef.current = true
