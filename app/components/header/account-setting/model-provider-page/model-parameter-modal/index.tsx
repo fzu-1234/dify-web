@@ -105,6 +105,8 @@ const ModelParameterModal: FC<ModelParameterModalProps> = ({
   const hasDeprecated = !currentProvider || !currentModel
   const modelDisabled = currentModel?.status !== ModelStatusEnum.active
   const disabled = !isAPIKeySet || hasDeprecated || modelDisabled
+  // 添加初始化状态跟踪，用于处理渲染首次无数据问题
+  const debounceTimerRef = useRef<NodeJS.Timeout | null>(null)
   // 添加 ref 来跟踪 Toast 是否已经显示
   const toastShownRef = useRef(false)
   const parameterRules: ModelParameterRule[] = useMemo(() => {
@@ -120,13 +122,24 @@ const ModelParameterModal: FC<ModelParameterModalProps> = ({
 
   // 添加 useEffect 来监听 disabled 状态变化
   useEffect(() => {
-    if (currentProvider !== undefined && currentModel !== undefined && disabled && !toastShownRef.current) {
-      // console.log('大模型panel提示')
-      Toast.notify({ type: 'warning', message: '当前模型不可用，请重新选择模型' })
-      toastShownRef.current = true
-    }
-    else if (!disabled) {
-      toastShownRef.current = false
+    // 清除之前的定时器
+    if (debounceTimerRef.current)
+      clearTimeout(debounceTimerRef.current)
+
+    // 延迟判断，确保最终状态
+    debounceTimerRef.current = setTimeout(() => {
+      // console.log('33', disabled)
+      if (disabled && !toastShownRef.current) {
+        Toast.notify({ type: 'warning', message: '当前模型不可用，请重新选择模型' })
+        toastShownRef.current = true
+      }
+      else if (!disabled) {
+        toastShownRef.current = false
+      }
+    }, 300)
+    return () => {
+      if (debounceTimerRef.current)
+        clearTimeout(debounceTimerRef.current)
     }
   }, [disabled])
 
