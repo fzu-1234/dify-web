@@ -16,7 +16,9 @@ import {
 } from './use-workflow'
 import { syncWorkflowDraft } from '@/service/workflow'
 import { useFeaturesStore } from '@/app/components/base/features/hooks'
-import { API_PREFIX } from '@/config'
+import { API_PREFIX, AUTH_WAY } from '@/config'
+const { getLsToken } = require("js-unif-core/lib/storage");
+import { getAuthHeader, getRequestUrl } from "@/utils/macAuth";
 
 export const useNodesSyncDraft = () => {
   const store = useStoreApi()
@@ -112,10 +114,59 @@ export const useNodesSyncDraft = () => {
     const postParams = getPostParams()
 
     if (postParams) {
-      navigator.sendBeacon(
-        `${API_PREFIX}/apps/${params.appId}/workflows/draft?_token=${localStorage.getItem('console_token')}`,
-        JSON.stringify(postParams.params),
-      )
+      if (AUTH_WAY === "FUNUO") {
+        const base = API_PREFIX
+        const url = `apps/${params.appId}/workflows/draft?_token=${localStorage.getItem('console_token')}&_t=${new Date().getTime()}`
+        const headers: Record<string, string> = {
+          'Content-Type': 'application/json',
+        }
+        const axiosOptions = {
+          baseURL: base,
+          url,
+          method: 'POST',
+        }
+        const requestUrl = getRequestUrl(axiosOptions)
+        if (requestUrl)
+          headers['Request-Url'] = requestUrl
+
+        if (getLsToken()) {
+          const authorization = getAuthHeader(axiosOptions)
+          if (authorization)
+            headers['Authorization'] = authorization
+
+          const curTenantId = window.localStorage.getItem("curTenantId")
+          if (curTenantId)
+            headers['TenantId'] = curTenantId
+        }
+        const urlWithPrefix = (url.startsWith('http://') || url.startsWith('https://')) ? url : `${base}${url.startsWith('/') ? url : `/${url}`}`
+        fetch(
+          urlWithPrefix,
+          {
+            method: 'POST',
+            keepalive: true,
+            headers,
+            body: JSON.stringify(postParams.params),
+          },
+        ).then(async (res) => {
+          if (res.ok) {
+            const data = await res.json()
+
+            const { setSyncWorkflowDraftHash, setDraftUpdatedAt } = workflowStore.getState()
+            if (data?.hash)
+              setSyncWorkflowDraftHash(data.hash)
+            if (data?.updated_at)
+              setDraftUpdatedAt(data.updated_at)
+          }
+        }).catch(err => {
+          console.warn('Failed to sync workflow draft on page close:', err)
+        })
+      }
+      else {
+        navigator.sendBeacon(
+          `${API_PREFIX}/apps/${params.appId}/workflows/draft?_token=${localStorage.getItem('console_token')}`,
+          JSON.stringify(postParams.params),
+        )
+      }
     }
   }, [getPostParams, params.appId, getNodesReadOnly])
 
