@@ -15,6 +15,7 @@ import { fetchDatasets } from '@/service/datasets'
 import Loading from '@/app/components/base/loading'
 import Badge from '@/app/components/base/badge'
 import { useKnowledge } from '@/hooks/use-knowledge'
+import Tooltip from '@/app/components/base/tooltip'
 
 export type ISelectDataSetProps = {
   isShow: boolean
@@ -136,7 +137,10 @@ const SelectDataSet: FC<ISelectDataSetProps> = ({
                   <div className={cn('mr-2', !item.embedding_available && 'opacity-50')}>
                     <TypeIcon type="upload_file" size='md' />
                   </div>
-                  <div className={cn('max-w-[200px] text-[13px] font-medium text-gray-800 overflow-hidden text-ellipsis whitespace-nowrap', !item.embedding_available && 'opacity-50 !max-w-[120px]')}>{item.name}</div>
+                  <Tooltip popupContent={item.name} position="top">
+                    <div className={cn('max-w-[200px] text-[13px] font-medium text-gray-800 overflow-hidden text-ellipsis whitespace-nowrap', !item.embedding_available && 'opacity-50 !max-w-[120px]')}>{item.name}</div>
+                  </Tooltip>
+
                   {!item.embedding_available && (
                     <span className='ml-1 shrink-0 px-1 border border-gray-200 rounded-md text-gray-500 text-xs font-normal leading-[18px]'>{t('dataset.unavailable')}</span>
                   )}
