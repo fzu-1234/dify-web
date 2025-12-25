@@ -168,6 +168,9 @@ const GetAutomaticRes: FC<IGetAutomaticResProps> = ({
         model_config: model,
         no_variable: !!isInLLMNode,
       })
+      if (res.prompt)
+        res.prompt = res.prompt.replace(/<think>[\s\S]*?<\/think>/gi, '').trimStart()
+
       setRes(res)
       if (error) {
         Toast.notify({
