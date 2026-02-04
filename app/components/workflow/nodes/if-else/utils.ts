@@ -3,14 +3,14 @@ import { VarType } from '@/app/components/workflow/types'
 import type { Branch } from '@/app/components/workflow/types'
 
 export const isEmptyRelatedOperator = (operator: ComparisonOperator) => {
-  // return [ComparisonOperator.empty, ComparisonOperator.notEmpty, ComparisonOperator.isNull, ComparisonOperator.isNotNull, ComparisonOperator.exists, ComparisonOperator.notExists].includes(operator)
-  return [ComparisonOperator.empty, ComparisonOperator.notEmpty].includes(operator)
+  return [ComparisonOperator.empty, ComparisonOperator.notEmpty, ComparisonOperator.isNull, ComparisonOperator.isNotNull, ComparisonOperator.exists, ComparisonOperator.notExists].includes(operator)
+  // return [ComparisonOperator.empty, ComparisonOperator.notEmpty].includes(operator)
 }
 
 const notTranslateKey: ComparisonOperator[] = [
-  // ComparisonOperator.equal, ComparisonOperator.notEqual,
-  // ComparisonOperator.largerThan, ComparisonOperator.largerThanOrEqual,
-  // ComparisonOperator.lessThan, ComparisonOperator.lessThanOrEqual,
+  ComparisonOperator.equal, ComparisonOperator.notEqual,
+  ComparisonOperator.largerThan, ComparisonOperator.largerThanOrEqual,
+  ComparisonOperator.lessThan, ComparisonOperator.lessThanOrEqual,
 ]
 
 export const isComparisonOperatorNeedTranslate = (operator?: ComparisonOperator) => {
@@ -30,28 +30,28 @@ export const getOperators = (type?: VarType, file?: { key: string }) => {
           ComparisonOperator.is,
           ComparisonOperator.contains,
           ComparisonOperator.notContains,
-          // ComparisonOperator.startWith,
-          // ComparisonOperator.endWith,
-          // ComparisonOperator.isNot,
+          ComparisonOperator.startWith,
+          ComparisonOperator.endWith,
+          ComparisonOperator.isNot,
           ComparisonOperator.empty,
           ComparisonOperator.notEmpty,
         ]
       case 'type':
         return [
-          // ComparisonOperator.in,
-          // ComparisonOperator.notIn,
+          ComparisonOperator.in,
+          ComparisonOperator.notIn,
         ]
       case 'size':
         return [
-          // ComparisonOperator.largerThan,
-          // ComparisonOperator.largerThanOrEqual,
-          // ComparisonOperator.lessThan,
-          // ComparisonOperator.lessThanOrEqual,
+          ComparisonOperator.largerThan,
+          ComparisonOperator.largerThanOrEqual,
+          ComparisonOperator.lessThan,
+          ComparisonOperator.lessThanOrEqual,
         ]
       case 'extension':
         return [
           ComparisonOperator.is,
-          // ComparisonOperator.isNot,
+          ComparisonOperator.isNot,
           ComparisonOperator.contains,
           ComparisonOperator.notContains,
         ]
@@ -60,25 +60,25 @@ export const getOperators = (type?: VarType, file?: { key: string }) => {
           ComparisonOperator.is,
           ComparisonOperator.contains,
           ComparisonOperator.notContains,
-          // ComparisonOperator.startWith,
-          // ComparisonOperator.endWith,
-          // ComparisonOperator.isNot,
+          ComparisonOperator.startWith,
+          ComparisonOperator.endWith,
+          ComparisonOperator.isNot,
           ComparisonOperator.empty,
           ComparisonOperator.notEmpty,
         ]
       case 'transfer_method':
         return [
-          // ComparisonOperator.in,
-          // ComparisonOperator.notIn,
+          ComparisonOperator.in,
+          ComparisonOperator.notIn,
         ]
       case 'url':
         return [
           ComparisonOperator.is,
           ComparisonOperator.contains,
           ComparisonOperator.notContains,
-          // ComparisonOperator.startWith,
-          // ComparisonOperator.endWith,
-          // ComparisonOperator.isNot,
+          ComparisonOperator.startWith,
+          ComparisonOperator.endWith,
+          ComparisonOperator.isNot,
           ComparisonOperator.empty,
           ComparisonOperator.notEmpty,
         ]
@@ -91,27 +91,27 @@ export const getOperators = (type?: VarType, file?: { key: string }) => {
         ComparisonOperator.is,
         ComparisonOperator.contains,
         ComparisonOperator.notContains,
-        // ComparisonOperator.startWith,
-        // ComparisonOperator.endWith,
-        // ComparisonOperator.isNot,
+        ComparisonOperator.startWith,
+        ComparisonOperator.endWith,
+        ComparisonOperator.isNot,
         ComparisonOperator.empty,
         ComparisonOperator.notEmpty,
       ]
     case VarType.number:
       return [
-        // ComparisonOperator.equal,
-        // ComparisonOperator.notEqual,
-        // ComparisonOperator.largerThan,
-        // ComparisonOperator.lessThan,
-        // ComparisonOperator.largerThanOrEqual,
-        // ComparisonOperator.lessThanOrEqual,
+        ComparisonOperator.equal,
+        ComparisonOperator.notEqual,
+        ComparisonOperator.largerThan,
+        ComparisonOperator.lessThan,
+        ComparisonOperator.largerThanOrEqual,
+        ComparisonOperator.lessThanOrEqual,
         ComparisonOperator.empty,
         ComparisonOperator.notEmpty,
       ]
     case VarType.file:
       return [
-        // ComparisonOperator.exists,
-        // ComparisonOperator.notExists,
+        ComparisonOperator.exists,
+        ComparisonOperator.notExists,
       ]
     case VarType.arrayString:
     case VarType.arrayNumber:
@@ -131,14 +131,14 @@ export const getOperators = (type?: VarType, file?: { key: string }) => {
       return [
         ComparisonOperator.contains,
         ComparisonOperator.notContains,
-        // ComparisonOperator.allOf,
+        ComparisonOperator.allOf,
         ComparisonOperator.empty,
         ComparisonOperator.notEmpty,
       ]
     default:
       return [
         ComparisonOperator.is,
-        // ComparisonOperator.isNot,
+        ComparisonOperator.isNot,
         ComparisonOperator.empty,
         ComparisonOperator.notEmpty,
       ]
@@ -149,8 +149,8 @@ export const comparisonOperatorNotRequireValue = (operator?: ComparisonOperator)
   if (!operator)
     return false
 
-  // return [ComparisonOperator.empty, ComparisonOperator.notEmpty, ComparisonOperator.isNull, ComparisonOperator.isNotNull, ComparisonOperator.exists, ComparisonOperator.notExists].includes(operator)
-  return [ComparisonOperator.empty, ComparisonOperator.notEmpty].includes(operator)
+  return [ComparisonOperator.empty, ComparisonOperator.notEmpty, ComparisonOperator.isNull, ComparisonOperator.isNotNull, ComparisonOperator.exists, ComparisonOperator.notExists].includes(operator)
+  // return [ComparisonOperator.empty, ComparisonOperator.notEmpty].includes(operator)
 }
 
 export const branchNameCorrect = (branches: Branch[]) => {

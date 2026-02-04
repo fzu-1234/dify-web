@@ -282,7 +282,7 @@ const Panel: FC<NodePanelProps<LLMNodeType>> = ({
         )}
 
         {/* Vision: GPT4-vision and so on */}
-        {false && <ConfigVision
+        {<ConfigVision
           nodeId={id}
           readOnly={readOnly}
           isVisionModel={isVisionModel}

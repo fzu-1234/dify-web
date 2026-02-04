@@ -132,7 +132,7 @@ const NodeSelector: FC<NodeSelectorProps> = ({
           <div className='shrink-0 text-[16px] border-b border-divider-burn font-semibold py-2 pl-4'>
             {t('workflow.common.block')}
           </div>
-          <div className='p-2 pb-1 hidden' onClick={e => e.stopPropagation()}>
+          <div className='p-2 pb-1' onClick={e => e.stopPropagation()}>
             <Input
               showLeftIcon
               showClearIcon

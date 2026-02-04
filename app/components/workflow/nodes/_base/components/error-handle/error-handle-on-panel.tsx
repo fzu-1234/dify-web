@@ -50,7 +50,7 @@ const ErrorHandle = ({
           collapsed={collapsed}
           onCollapse={setCollapsed}
           trigger={
-            <div className='grow flex items-center justify-between pr-4'>
+            <div className='grow flex items-center justify-between pr-4 px-4'>
               <div className='flex items-center'>
                 <div className='mr-0.5 system-sm-semibold-uppercase text-text-secondary'>
                   {t('workflow.nodes.common.errorHandle.title')}
