@@ -128,10 +128,14 @@ const AppDetailLayout: FC<IAppDetailLayoutProps> = (props) => {
     // redirection
     const canIEditApp = isCurrentWorkspaceEditor
     if (!canIEditApp && (pathname.endsWith('configuration') || pathname.endsWith('workflow') || pathname.endsWith('logs'))) {
-      router.replace(`/app/${appId}/overview`)
+      router.replace(`/app/${appId}/workflow`)
       return
     }
-    if ((res.mode === 'workflow' || res.mode === 'advanced-chat') && (pathname).endsWith('configuration')) {
+    // 如果是 workflow 或 advanced-chat 模式，将 overview 也重定向到 workflow
+    if ((res.mode === 'workflow' || res.mode === 'advanced-chat') && (pathname).endsWith('overview')) {
+      router.replace(`/app/${appId}/workflow`)
+    }
+    else if ((res.mode === 'workflow' || res.mode === 'advanced-chat') && (pathname).endsWith('configuration')) {
       router.replace(`/app/${appId}/workflow`)
     }
     else if ((res.mode !== 'workflow' && res.mode !== 'advanced-chat') && (pathname).endsWith('workflow')) {

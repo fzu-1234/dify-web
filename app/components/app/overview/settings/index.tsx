@@ -234,7 +234,7 @@ const SettingsModal: FC<ISettingsModalProps> = ({
           </div>
         </div>
         {/* form body */}
-        <div className='px-6 py-3 space-y-5'>
+        <div className='px-6 py-3 space-y-5 overflow-y-auto max-h-[550px]'>
           {/* name & icon */}
           <div className='flex gap-4'>
             <div className='grow'>
