@@ -58,7 +58,7 @@ const nextConfig = {
   },
   output: 'standalone',
   env: {
-    VUE_APP_CODE: 'Unif',
+    VUE_APP_CODE: '',
   },
   assetPrefix: process.env.NEXT_PUBLIC_PUBLIC_PATH,
   basePath: process.env.NEXT_PUBLIC_PUBLIC_PATH,
