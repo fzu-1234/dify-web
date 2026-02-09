@@ -253,16 +253,16 @@ export const ModalContextProvider = ({
         }
         {
           !!showModerationSettingModal && (
-            // <ModerationSettingModal
-            //   data={showModerationSettingModal.payload}
-            //   onCancel={handleCancelModerationSettingModal}
-            //   onSave={handleSaveModeration}
-            // />
-            <ContentReviewSettingModal
+            <ModerationSettingModal
               data={showModerationSettingModal.payload}
               onCancel={handleCancelModerationSettingModal}
               onSave={handleSaveModeration}
             />
+            // <ContentReviewSettingModal
+            //   data={showModerationSettingModal.payload}
+            //   onCancel={handleCancelModerationSettingModal}
+            //   onSave={handleSaveModeration}
+            // />
           )
         }
         {
