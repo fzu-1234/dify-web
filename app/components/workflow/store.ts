@@ -81,6 +81,7 @@ type Shape = {
     viewport: Viewport
     features: Record<string, any>
     environmentVariables: EnvironmentVariable[]
+    conversationVariables: ConversationVariable[]
   }
   setBackupDraft: (backupDraft?: Shape['backupDraft']) => void
   notInitialWorkflow: boolean

@@ -48,6 +48,7 @@ export const useWorkflowRun = () => {
       backupDraft,
       setBackupDraft,
       environmentVariables,
+      conversationVariables,
     } = workflowStore.getState()
     const { features } = featuresStore!.getState()
 
@@ -58,6 +59,7 @@ export const useWorkflowRun = () => {
         viewport: getViewport(),
         features,
         environmentVariables,
+        conversationVariables,
       })
       doSyncWorkflowDraft()
     }
@@ -68,6 +70,7 @@ export const useWorkflowRun = () => {
       backupDraft,
       setBackupDraft,
       setEnvironmentVariables,
+      setConversationVariables,
     } = workflowStore.getState()
 
     if (backupDraft) {
@@ -77,6 +80,7 @@ export const useWorkflowRun = () => {
         viewport,
         features,
         environmentVariables,
+        conversationVariables,
       } = backupDraft
       handleUpdateWorkflowCanvas({
         nodes,
@@ -84,6 +88,7 @@ export const useWorkflowRun = () => {
         viewport,
       })
       setEnvironmentVariables(environmentVariables)
+      setConversationVariables(conversationVariables)
       featuresStore!.setState({ features })
       setBackupDraft(undefined)
     }
