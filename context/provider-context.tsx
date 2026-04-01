@@ -2,12 +2,14 @@
 
 import { createContext, useContext, useContextSelector } from 'use-context-selector'
 import useSWR from 'swr'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   fetchModelList,
   fetchModelProviders,
   fetchSupportRetrievalMethods,
+  fetchAppModelRelations,
 } from '@/service/common'
+import { useStore as useAppStore } from '@/app/components/app/store'
 import {
   ModelStatusEnum,
   ModelTypeEnum,
@@ -80,10 +82,16 @@ type ProviderContextProviderProps = {
 export const ProviderContextProvider = ({
   children,
 }: ProviderContextProviderProps) => {
+  const appDetail = useAppStore(state => state.appDetail)
+
   const { data: providersData } = useSWR('/workspaces/current/model-providers', fetchModelProviders)
   const fetchModelListUrlPrefix = '/workspaces/current/models/model-types/'
   const { data: textGenerationModelList } = useSWR(`${fetchModelListUrlPrefix}${ModelTypeEnum.textGeneration}`, fetchModelList)
   const { data: supportRetrievalMethods } = useSWR('/datasets/retrieval-setting', fetchSupportRetrievalMethods)
+  const { data: appModelRelations } = useSWR(
+    appDetail?.id ? `EXTERNAL_API/app-model-rel/${appDetail.id}` : null,
+    fetchAppModelRelations,
+  )
 
   const [plan, setPlan] = useState(defaultPlan)
   const [isFetchedPlan, setIsFetchedPlan] = useState(false)
@@ -110,11 +118,40 @@ export const ProviderContextProvider = ({
     fetchPlan()
   }, [])
 
+  // 过滤 textGenerationModelList，只保留新接口中存在的模型
+  const filteredTextGenerationModelList = useMemo(() => {
+    // 如果没有应用模型关系数据，返回空数组
+    if (!appModelRelations?.models || appModelRelations.models.length === 0)
+      return []
+
+    // 将新接口的数据转换为 Map，便于快速查找
+    const allowedModelsMap = new Map(
+      appModelRelations.models.map(item => [`${item.provider}:${item.model}`, item]),
+    )
+
+    // 从原始 textGenerationModelList 中只保留新接口中存在的模型
+    return (textGenerationModelList?.data || []).map((provider) => {
+      // 过滤每个 provider 下的 models 数组
+      const filteredModels = provider.models.filter((modelItem) => {
+        const modelKey = `${provider.provider}:${modelItem.model}`
+        return allowedModelsMap.has(modelKey)
+      })
+
+      // 返回过滤后的 provider，只包含允许的模型
+      return {
+        ...provider,
+        models: filteredModels,
+      }
+    }).filter(provider => provider.models.length > 0) // 只保留有模型的 provider
+  }, [textGenerationModelList?.data, appModelRelations?.models])
+
   return (
     <ProviderContext.Provider value={{
       modelProviders: providersData?.data || [],
-      textGenerationModelList: textGenerationModelList?.data || [],
-      isAPIKeySet: !!textGenerationModelList?.data.some(model => model.status === ModelStatusEnum.active),
+      textGenerationModelList: filteredTextGenerationModelList,
+      isAPIKeySet: !!filteredTextGenerationModelList.some(model =>
+        model.models.some(modelItem => modelItem.status === ModelStatusEnum.active),
+      ),
       supportRetrievalMethods: supportRetrievalMethods?.retrieval_method || [],
       plan,
       isFetchedPlan,

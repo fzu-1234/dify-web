@@ -380,7 +380,7 @@ const translation = {
     buyQuota: '购买额度',
     getFreeTokens: '获得免费 Tokens',
     priorityUsing: '优先使用',
-    deprecated: '已弃用',
+    deprecated: '已失效',
     confirmDelete: '确认删除?',
     quotaTip: '剩余免费额度',
     loadPresets: '加载预设',
