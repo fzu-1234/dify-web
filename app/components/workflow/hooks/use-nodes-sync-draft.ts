@@ -109,6 +109,8 @@ export const useNodesSyncDraft = () => {
   }, [store, featuresStore, workflowStore])
 
   const syncWorkflowDraftWhenPageClose = useCallback(() => {
+    // 禁用页面关闭自动保存功能
+    return
     if (getNodesReadOnly())
       return
     const postParams = getPostParams()
@@ -200,11 +202,12 @@ export const useNodesSyncDraft = () => {
     if (getNodesReadOnly())
       return
 
+    // 禁用自动防抖保存，只保留立即手动保存
     if (sync)
       doSyncWorkflowDraft(notRefreshWhenSyncError)
-    else
-      debouncedSyncWorkflowDraft(doSyncWorkflowDraft)
-  }, [debouncedSyncWorkflowDraft, doSyncWorkflowDraft, getNodesReadOnly])
+    // else
+    //   debouncedSyncWorkflowDraft(doSyncWorkflowDraft)
+  }, [doSyncWorkflowDraft, getNodesReadOnly])
 
   return {
     doSyncWorkflowDraft,

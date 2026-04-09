@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import {
   RiLoader2Line,
   RiPlayCircleLine,
+  RiSaveLine,
 } from '@remixicon/react'
 import {
   Cog8ToothIcon,
@@ -16,6 +17,7 @@ import {
   useWorkflowRun,
   useWorkflowStartRun,
 } from '../hooks'
+import { useNodesSyncDraft } from '../hooks/use-nodes-sync-draft'
 import { WorkflowRunningStatus } from '../types'
 import ViewHistory from './view-history'
 import Checklist from './checklist'
@@ -112,6 +114,8 @@ const RunAndHistory: FC = () => {
   const isChatMode = useIsChatMode()
   const { t } = useTranslation()
   const { nodesReadOnly } = useNodesReadOnly()
+  const { doSyncWorkflowDraft } = useNodesSyncDraft()
+  const [saving, setSaving] = useState(false)
   const { notify } = useContext(ToastContext)
   const setAppDetail = useAppStore(state => state.setAppDetail)
   const [showSettingsModal, setShowSettingsModal] = useState(false)
@@ -170,6 +174,23 @@ const RunAndHistory: FC = () => {
 
     handleCallbackResult(err)
   }
+
+  const handleSave = async () => {
+    if (saving || nodesReadOnly)
+      return
+    setSaving(true)
+    try {
+      await doSyncWorkflowDraft(true)
+      notify({ type: 'success', message: '保存成功' })
+    }
+    catch (e) {
+      notify({ type: 'error', message: '保存失败' })
+    }
+    finally {
+      setSaving(false)
+    }
+  }
+
   return (
     <div className='flex items-center px-0.5 h-8 rounded-lg border-[0px] border-components-button-secondary-border'>
       {
@@ -182,6 +203,23 @@ const RunAndHistory: FC = () => {
       <ViewHistory />
       <Checklist disabled={nodesReadOnly} />
       {/* 添加设置按钮 */}
+      {/* 手动保存草稿按钮 */}
+      <div
+        className={cn(
+          'flex items-center justify-center ml-2 cursor-pointer rounded-md btn-secondary h-8 text-[13px] px-2.5',
+          !saving && 'hover:bg-state-accent-hover',
+          saving && 'bg-state-accent-hover cursor-not-allowed',
+        )}
+        onClick={handleSave}
+      >
+        {/* {saving ? (
+          <RiLoader2Line className='mr-1 w-4 h-4 animate-spin text-components-button-ghost-text' />
+        ) : ( */}
+        <RiSaveLine className='mr-1 w-4 h-4 text-components-button-ghost-text' />
+        {/* )} */}
+        保存
+      </div>
+
       {
         isChatMode && (
           <div
