@@ -118,10 +118,10 @@ type WorkflowProps = {
   viewport?: Viewport
 }
 const Workflow: FC<WorkflowProps> = memo(({
-                                            nodes: originalNodes,
-                                            edges: originalEdges,
-                                            viewport,
-                                          }) => {
+  nodes: originalNodes,
+  edges: originalEdges,
+  viewport,
+}) => {
   const workflowContainerRef = useRef<HTMLDivElement>(null)
   const workflowStore = useWorkflowStore()
   const reactflow = useReactFlow()
@@ -234,12 +234,12 @@ const Workflow: FC<WorkflowProps> = memo(({
   const { handleRefreshWorkflowDraft } = useWorkflowUpdate()
   const handleSyncWorkflowDraftWhenPageClose = useCallback(() => {
     if (document.visibilityState === 'hidden') {
-      syncWorkflowDraftWhenPageClose()
+      // syncWorkflowDraftWhenPageClose()
     }
     else if (document.visibilityState === 'visible') {
       if (isView)
         return
-      setTimeout(() => handleRefreshWorkflowDraft(), 500)
+      // setTimeout(() => handleRefreshWorkflowDraft(), 500)
     }
   }, [syncWorkflowDraftWhenPageClose, handleRefreshWorkflowDraft])
 
