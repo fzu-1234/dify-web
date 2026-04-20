@@ -148,10 +148,8 @@ export const ProviderContextProvider = ({
   return (
     <ProviderContext.Provider value={{
       modelProviders: providersData?.data || [],
-      textGenerationModelList: filteredTextGenerationModelList,
-      isAPIKeySet: !!filteredTextGenerationModelList.some(model =>
-        model.models.some(modelItem => modelItem.status === ModelStatusEnum.active),
-      ),
+      textGenerationModelList: textGenerationModelList?.data || [],
+      isAPIKeySet: !!textGenerationModelList?.data.some(model => model.status === ModelStatusEnum.active),
       supportRetrievalMethods: supportRetrievalMethods?.retrieval_method || [],
       plan,
       isFetchedPlan,
